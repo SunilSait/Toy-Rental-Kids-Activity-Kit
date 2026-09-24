@@ -116,7 +116,7 @@ const FOOTER_HTML = `
         <div class="footer-socials" style="margin-top:1.25rem;">
           <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon-btn" aria-label="X"><i class="fab fa-x-twitter"></i></a>
           <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
@@ -340,6 +340,183 @@ function initParallax() {
     }, { passive: true });
 }
 
+/* ─── HERO SLIDER (5 SEC AUTOMATIC SWITCH) ─── */
+function initHeroSlider() {
+    const slider = document.getElementById('hero-slider');
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    const prevBtn = document.getElementById('hero-prev');
+    const nextBtn = document.getElementById('hero-next');
+
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    const INTERVAL = 5000; // 5 seconds switch
+
+    function showSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        currentIndex = index;
+
+        slides.forEach((slide, i) => {
+            const isActive = i === currentIndex;
+            slide.classList.toggle('active', isActive);
+            if (isActive) {
+                const counters = slide.querySelectorAll('[data-count]');
+                counters.forEach(c => {
+                    if (typeof animateCounter === 'function') animateCounter(c);
+                });
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+            if (i === currentIndex) {
+                dot.style.animation = 'none';
+                void dot.offsetWidth;
+                dot.style.animation = null;
+            }
+        });
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function startTimer() {
+        stopTimer();
+        autoTimer = setInterval(nextSlide, INTERVAL);
+    }
+
+    function stopTimer() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            prevSlide();
+            startTimer();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            nextSlide();
+            startTimer();
+        });
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', function() {
+            showSlide(i);
+            startTimer();
+        });
+    });
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', stopTimer);
+        heroSection.addEventListener('mouseleave', startTimer);
+    }
+
+    startTimer();
+}
+
+/* ─── HOME 2 HERO SLIDER (5 SEC AUTOMATIC SWITCH) ─── */
+function initHome2Slider() {
+    const slider = document.getElementById('h2-hero-slider');
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.h2-hero-slide');
+    const dots = document.querySelectorAll('.h2-dot');
+    const prevBtn = document.getElementById('h2-prev');
+    const nextBtn = document.getElementById('h2-next');
+
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    const INTERVAL = 5000; // 5 seconds switch
+
+    function showSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        currentIndex = index;
+
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentIndex);
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+            if (i === currentIndex) {
+                dot.style.animation = 'none';
+                void dot.offsetWidth;
+                dot.style.animation = null;
+            }
+        });
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function startTimer() {
+        stopTimer();
+        autoTimer = setInterval(nextSlide, INTERVAL);
+    }
+
+    function stopTimer() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            prevSlide();
+            startTimer();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            nextSlide();
+            startTimer();
+        });
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', function() {
+            showSlide(i);
+            startTimer();
+        });
+    });
+
+    const heroSection = document.getElementById('h2-hero');
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', stopTimer);
+        heroSection.addEventListener('mouseleave', startTimer);
+    }
+
+    startTimer();
+}
+
 /* ─── INIT ALL ─── */
 document.addEventListener('DOMContentLoaded', function() {
     injectNav();
@@ -348,6 +525,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initFilterTabs();
     initParallax();
+    initHeroSlider();
+    initHome2Slider();
     syncThemeIcons();
     initCounters();
 });

@@ -10,37 +10,114 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .home2-hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: var(--nav-height);
-      overflow: hidden;
-    }
-    .home2-hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem 3rem 4rem var(--container-padding);
-      max-width: 720px;
-      margin: 0 auto 0 auto;
-    }
-    .home2-hero-right {
       position: relative;
-      background: linear-gradient(135deg, var(--primary-subtle), var(--bg-surface));
+      padding-top: var(--nav-height);
+      padding-bottom: 0;
       overflow: hidden;
+      width: 100%;
     }
-    .home2-hero-right img {
+    .h2-hero-slider {
+      display: grid;
+      grid-template-areas: "slide";
+      width: 100%;
+      position: relative;
+    }
+    .h2-hero-slide {
+      grid-area: slide;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+      border-radius: 0;
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .h2-hero-slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .h2-hero-slide-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.85;
+      z-index: 1;
+      filter: brightness(0.85);
     }
-    .home2-hero-overlay {
+    .h2-hero-slide-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to left, transparent, var(--bg-body) 70%);
-      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(13, 17, 23, 0.60) 0%, rgba(13, 17, 23, 0.88) 100%);
     }
+    .h2-hero-slide-content {
+      position: relative;
+      z-index: 3;
+      padding: 5rem 1.5rem 5.5rem;
+      max-width: 840px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .h2-hero-controls {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      z-index: 10;
+    }
+    .h2-slider-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+    .h2-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .h2-dot:hover {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+    .h2-dot.active {
+      width: 36px;
+      border-radius: 8px;
+      background: var(--primary);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+    .h2-dot.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: rgba(255, 255, 255, 0.45);
+      animation: heroDotProgress 5s linear infinite;
+    }
+    @keyframes heroDotProgress { 0% { width: 0%; } 100% { width: 100%; } }
+
     .benefit-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -70,9 +147,7 @@
       display: block;
     }
     @media (max-width: 768px) {
-      .home2-hero { grid-template-columns: 1fr; }
-      .home2-hero-left { padding: 3rem var(--container-padding) 2rem; }
-      .home2-hero-right { min-height: 320px; }
+      .h2-hero-slide-content { padding: 4rem 1rem 4.5rem; }
       .benefit-row { grid-template-columns: 1fr; }
       .benefit-row.reverse { direction: ltr; }
     }
@@ -82,48 +157,76 @@
 
 <div id="navbar-placeholder"></div>
 
-<!-- HERO — SPLIT LAYOUT -->
+<!-- HERO — 100% FULL WIDTH EDGE-TO-EDGE BACKGROUND SLIDER -->
 <section class="home2-hero" id="h2-hero">
-  <div class="home2-hero-left">
-    <div class="hero-badge" style="margin-bottom:1.75rem;">
-      <i class="fas fa-star"></i> Premium Experience — Home 2
-    </div>
-    <h1 style="font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;margin-bottom:1.5rem;">
-      The Smartest Way to <span class="gradient-text">Raise a Curious Kid</span>
-    </h1>
-    <p style="font-size:1.125rem;color:var(--text-muted);line-height:1.8;margin-bottom:2.5rem;font-weight:450;max-width:520px;">ToyNest delivers developmentally curated toy boxes tailored to your child's unique personality — every single month. No clutter. No waste. Pure joy.</p>
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;">
-      <a href="pricing.html" class="btn btn-primary btn-xl" id="h2-hero-cta1">Choose Your Plan</a>
-      <a href="catalog.html" class="btn btn-dark btn-xl" id="h2-hero-cta2">Explore Catalog</a>
-    </div>
-    <div style="display:flex;gap:2.5rem;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:var(--font-heading);font-weight:600;font-size:1.75rem;color:var(--primary);">₹799</div>
-        <div style="font-size:0.8125rem;color:var(--text-muted);">Starting per month</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-heading);font-weight:600;font-size:1.75rem;color:var(--text-heading);">7-Day</div>
-        <div style="font-size:0.8125rem;color:var(--text-muted);">Free trial included</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-heading);font-weight:600;font-size:1.75rem;color:var(--text-heading);">∞</div>
-        <div style="font-size:0.8125rem;color:var(--text-muted);">Cancel any time</div>
+  <!-- SIDE NAVIGATION ARROWS -->
+  <button class="hero-side-arrow prev" id="h2-prev" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-side-arrow next" id="h2-next" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+
+  <div class="h2-hero-slider" id="h2-hero-slider">
+
+    <!-- SLIDE 1 -->
+    <div class="h2-hero-slide active" data-slide="0">
+      <img src="assets/images/hero_home2_1790218446491.jpg" alt="Children playing with premium educational toys" class="h2-hero-slide-bg" loading="eager">
+      <div class="h2-hero-slide-overlay"></div>
+      <div class="container" style="position:relative;z-index:3;">
+        <div class="h2-hero-slide-content">
+          <h1 style="font-size:clamp(2.25rem,4.8vw,3.6rem);line-height:1.15;margin-bottom:1.25rem;color:#FFFFFF;">
+            The Smartest Way to <span class="gradient-text">Raise a Curious Kid</span>
+          </h1>
+          <p style="font-size:1.0625rem;color:rgba(255,255,255,0.88);line-height:1.75;margin:0 auto 2rem;font-weight:450;max-width:580px;">ToyNest delivers developmentally curated toy boxes tailored to your child's unique personality — every single month. No clutter. No waste. Pure joy.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+            <a href="pricing.html" class="btn btn-primary btn-lg" id="h2-hero-cta1">Choose Your Plan</a>
+            <a href="catalog.html" class="btn btn-outline-white btn-lg" id="h2-hero-cta2">Explore Catalog</a>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- SLIDE 2 -->
+    <div class="h2-hero-slide" data-slide="1">
+      <img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="STEM &amp; Montessori educational toys" class="h2-hero-slide-bg" loading="lazy">
+      <div class="h2-hero-slide-overlay"></div>
+      <div class="container" style="position:relative;z-index:3;">
+        <div class="h2-hero-slide-content">
+          <h1 style="font-size:clamp(2.25rem,4.8vw,3.6rem);line-height:1.15;margin-bottom:1.25rem;color:#FFFFFF;">
+            Spark Imagination with <span class="gradient-text">STEM &amp; Montessori</span>
+          </h1>
+          <p style="font-size:1.0625rem;color:rgba(255,255,255,0.88);line-height:1.75;margin:0 auto 2rem;font-weight:450;max-width:580px;">Hand-selected activity kits built to inspire critical thinking, spatial reasoning, and creative problem solving for kids of all ages. Rotated monthly.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+            <a href="catalog.html" class="btn btn-primary btn-lg" id="h2-hero-slide2-cta1">Explore STEM Kits</a>
+            <a href="how-it-works.html" class="btn btn-outline-white btn-lg" id="h2-hero-slide2-cta2">How It Works</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="h2-hero-slide" data-slide="2">
+      <img src="assets/images/hygiene_cleaning_toys_1790218387515.jpg" alt="Hospital-grade UV-C sanitized eco toys" class="h2-hero-slide-bg" loading="lazy">
+      <div class="h2-hero-slide-overlay"></div>
+      <div class="container" style="position:relative;z-index:3;">
+        <div class="h2-hero-slide-content">
+          <h1 style="font-size:clamp(2.25rem,4.8vw,3.6rem);line-height:1.15;margin-bottom:1.25rem;color:#FFFFFF;">
+            Clean, Eco-Friendly &amp; <span class="gradient-text">100% Germ-Free</span>
+          </h1>
+          <p style="font-size:1.0625rem;color:rgba(255,255,255,0.88);line-height:1.75;margin:0 auto 2rem;font-weight:450;max-width:580px;">Every single toy undergoes hospital-grade UV-C sanitization and eco-certified organic cleaning before arriving safely packaged at your doorstep.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+            <a href="pricing.html" class="btn btn-primary btn-lg" id="h2-hero-slide3-cta1">View Subscription Plans</a>
+            <a href="hygiene.html" class="btn btn-outline-white btn-lg" id="h2-hero-slide3-cta2">Hygiene Standard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="home2-hero-right">
-    <img src="assets/images/hero_home2_1790218446491.jpg" alt="Child playing with premium educational toys" loading="eager">
-    <div class="home2-hero-overlay"></div>
-    <!-- Floating stats -->
-    <div style="position:absolute;bottom:2rem;right:2rem;display:flex;flex-direction:column;gap:1rem;">
-      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-xl);padding:1rem 1.25rem;box-shadow:var(--shadow-lg);">
-        <div style="font-family:var(--font-heading);font-weight:600;font-size:1.25rem;color:var(--primary);"><i class="fas fa-star" style="font-size:1rem;margin-right:0.25rem;"></i>4.9</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);">Parent Rating</div>
-      </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-xl);padding:1rem 1.25rem;box-shadow:var(--shadow-lg);">
-        <div style="font-family:var(--font-heading);font-weight:600;font-size:1.25rem;color:var(--text-heading);">500+</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);">Premium Toys</div>
-      </div>
+
+  <!-- SLIDER CONTROLS (Dots Overlay) -->
+  <div class="h2-hero-controls">
+    <div class="h2-slider-dots">
+      <button class="h2-dot active" aria-label="Go to Slide 1" data-slide-target="0"></button>
+      <button class="h2-dot" aria-label="Go to Slide 2" data-slide-target="1"></button>
+      <button class="h2-dot" aria-label="Go to Slide 3" data-slide-target="2"></button>
     </div>
   </div>
 </section>
