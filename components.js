@@ -22,10 +22,15 @@ function toggleTheme() {
 function toggleDir() {
     const html = document.documentElement;
     const isRTL = html.getAttribute('dir') === 'rtl';
-    html.setAttribute('dir', isRTL ? 'ltr' : 'rtl');
-    localStorage.setItem('tn_dir', isRTL ? 'ltr' : 'rtl');
+    const nextDir = isRTL ? 'ltr' : 'rtl';
+    html.setAttribute('dir', nextDir);
+    localStorage.setItem('tn_dir', nextDir);
+    document.querySelectorAll('.dir-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', nextDir === 'rtl');
+        btn.title = nextDir === 'rtl' ? 'Switch to LTR' : 'Switch to RTL';
+    });
     document.querySelectorAll('.dir-label').forEach(el => {
-        el.textContent = isRTL ? 'RTL' : 'LTR';
+        el.textContent = nextDir.toUpperCase();
     });
 }
 
@@ -36,6 +41,10 @@ function syncThemeIcons() {
         icon.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
     });
     const dir = document.documentElement.getAttribute('dir') || 'ltr';
+    document.querySelectorAll('.dir-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', dir === 'rtl');
+        btn.title = dir === 'rtl' ? 'Switch to LTR' : 'Switch to RTL';
+    });
     document.querySelectorAll('.dir-label').forEach(el => {
         el.textContent = dir.toUpperCase();
     });
@@ -54,23 +63,22 @@ const NAV_HTML = `
     </a>
     <ul class="nav-links" role="list">
       <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
-      <li><a href="home2.html" class="nav-link" id="nav-home2">Explore</a></li>
+      <li><a href="home2.html" class="nav-link" id="nav-home2">Home 2</a></li>
       <li><a href="how-it-works.html" class="nav-link" id="nav-how">How It Works</a></li>
       <li><a href="catalog.html" class="nav-link" id="nav-catalog">Catalog</a></li>
       <li><a href="pricing.html" class="nav-link" id="nav-pricing">Plans</a></li>
       <li><a href="hygiene.html" class="nav-link" id="nav-hygiene">Hygiene</a></li>
       <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-      <li><a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a></li>
     </ul>
     <div class="nav-actions">
-      <button onclick="toggleDir()" class="nav-icon-btn" title="Toggle Direction" aria-label="Toggle text direction">
-        <span class="dir-label" style="font-size:0.625rem;font-weight:700;">LTR</span>
+      <button onclick="toggleDir()" class="nav-icon-btn dir-toggle-btn" title="Toggle Direction" aria-label="Toggle text direction">
+        <i class="fas fa-right-left"></i>
       </button>
       <button onclick="toggleTheme()" class="nav-icon-btn" title="Toggle Theme" aria-label="Toggle dark mode">
         <i class="fas fa-moon theme-icon"></i>
       </button>
-      <a href="login.html" class="btn btn-secondary btn-sm">Sign In</a>
-      <a href="signup.html" class="btn btn-primary btn-sm">Start Free</a>
+      <a href="login.html" class="btn btn-secondary btn-sm" id="nav-signin-btn">Sign In</a>
+      <a href="dashboard.html" class="btn btn-primary btn-sm" id="nav-dashboard-btn">Dashboard</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
       <span></span><span></span><span></span>
@@ -79,16 +87,15 @@ const NAV_HTML = `
 </nav>
 <div class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile navigation">
   <a href="index.html" class="nav-link" id="mnav-home">Home</a>
-  <a href="home2.html" class="nav-link" id="mnav-home2">Explore</a>
+  <a href="home2.html" class="nav-link" id="mnav-home2">Home 2</a>
   <a href="how-it-works.html" class="nav-link" id="mnav-how">How It Works</a>
   <a href="catalog.html" class="nav-link" id="mnav-catalog">Catalog</a>
   <a href="pricing.html" class="nav-link" id="mnav-pricing">Plans</a>
   <a href="hygiene.html" class="nav-link" id="mnav-hygiene">Hygiene</a>
   <a href="contact.html" class="nav-link" id="mnav-contact">Contact</a>
-  <a href="dashboard.html" class="nav-link" id="mnav-dashboard">Dashboard</a>
   <div class="nav-mobile-actions">
     <a href="login.html" class="btn btn-secondary">Sign In</a>
-    <a href="signup.html" class="btn btn-primary">Start Free</a>
+    <a href="dashboard.html" class="btn btn-primary" id="mnav-dashboard-btn">Dashboard</a>
   </div>
 </div>`;
 
@@ -117,7 +124,7 @@ const FOOTER_HTML = `
         <h4>Quick Links</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="home2.html">Explore</a></li>
+          <li><a href="home2.html">Home 2</a></li>
           <li><a href="how-it-works.html">How It Works</a></li>
           <li><a href="catalog.html">Toy Catalog</a></li>
           <li><a href="pricing.html">Plans &amp; Pricing</a></li>
@@ -183,7 +190,7 @@ function setActiveNavLink() {
         'pricing.html': ['nav-pricing', 'mnav-pricing'],
         'hygiene.html': ['nav-hygiene', 'mnav-hygiene'],
         'contact.html': ['nav-contact', 'mnav-contact'],
-        'dashboard.html': ['nav-dashboard', 'mnav-dashboard'],
+        'dashboard.html': ['nav-dashboard-btn', 'mnav-dashboard-btn'],
     };
     const ids = map[path] || [];
     ids.forEach(id => {
@@ -274,21 +281,49 @@ function initAuthPage() {
     syncThemeIcons();
     const dir = localStorage.getItem('tn_dir') || 'ltr';
     document.documentElement.setAttribute('dir', dir);
+    document.querySelectorAll('.dir-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', dir === 'rtl');
+        btn.title = dir === 'rtl' ? 'Switch to LTR' : 'Switch to RTL';
+    });
     document.querySelectorAll('.dir-label').forEach(el => el.textContent = dir.toUpperCase());
 }
 
 /* ─── COUNTER ANIMATION ─── */
-function animateCounters() {
-    document.querySelectorAll('[data-count]').forEach(el => {
-        const target = parseInt(el.dataset.count, 10);
-        let current = 0;
-        const step = Math.ceil(target / 60);
-        const timer = setInterval(() => {
-            current = Math.min(current + step, target);
-            el.textContent = current.toLocaleString() + (el.dataset.suffix || '');
-            if (current >= target) clearInterval(timer);
-        }, 20);
-    });
+function animateCounter(el) {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
+    const target = parseInt(el.dataset.count, 10);
+    if (isNaN(target)) return;
+    let current = 0;
+    const duration = 1200;
+    const stepTime = 20;
+    const totalSteps = duration / stepTime;
+    const step = Math.max(1, Math.ceil(target / totalSteps));
+    const suffix = el.dataset.suffix || '';
+    const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current.toLocaleString() + suffix;
+        if (current >= target) clearInterval(timer);
+    }, stepTime);
+}
+
+function initCounters() {
+    const counterElements = document.querySelectorAll('[data-count]');
+    if (!counterElements.length) return;
+
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        counterElements.forEach(el => obs.observe(el));
+    } else {
+        counterElements.forEach(el => animateCounter(el));
+    }
 }
 
 /* ─── SMOOTH HERO PARALLAX ─── */
@@ -314,15 +349,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initFilterTabs();
     initParallax();
     syncThemeIcons();
-    // Counter animate on intersection
-    const counterObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounters();
-                counterObs.disconnect();
-            }
-        });
-    }, { threshold: 0.3 });
-    const statsEl = document.querySelector('.stats-grid');
-    if (statsEl) counterObs.observe(statsEl);
+    initCounters();
 });
