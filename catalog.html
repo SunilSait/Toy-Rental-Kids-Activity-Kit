@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse ToyNest's curated toy catalog — filter by age group (0-12 years) and category including Educational, Pretend Play, Outdoor, and Building Sets. 500+ premium toys.">
+  <title>Toy Catalog | ToyNest Rental & Kids Activity Kits</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .catalog-layout { display: grid; grid-template-columns: 260px 1fr; gap: 2.5rem; align-items: start; }
+    .catalog-sidebar { position: sticky; top: calc(var(--nav-height) + 1rem); background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-2xl); padding: 1.75rem; box-shadow: var(--shadow-card); }
+    .sidebar-section { margin-bottom: 2rem; }
+    .sidebar-section:last-child { margin-bottom: 0; }
+    .sidebar-title { font-family: var(--font-heading); font-size: 0.8125rem; font-weight: 700; color: var(--text-heading); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .sidebar-option { display: flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); cursor: pointer; font-size: 0.9rem; color: var(--text-body); transition: var(--transition-fast); }
+    .sidebar-option:hover { background: var(--primary-subtle); color: var(--primary); }
+    .sidebar-option.active { background: var(--primary-subtle); color: var(--primary); font-weight: 600; }
+    .sidebar-option input { accent-color: var(--primary); }
+    .toys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .search-bar { display: flex; gap: 0.75rem; margin-bottom: 1.75rem; }
+    .search-bar .form-input { flex: 1; }
+    @media (max-width: 1024px) { .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { position: static; } .toys-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .toys-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="section-label" style="margin-bottom:1.25rem;"><i class="fas fa-th"></i> Toy Catalog</span>
+    <h1>500+ Premium Toys</h1>
+    <p>Filter by age group, category, and availability. Every toy is safety-tested, sanitized, and ready for play.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Mobile Filter Tabs -->
+    <div class="filter-tabs" style="display:none;" id="mobile-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="educational">Educational</button>
+      <button class="filter-tab" data-filter="pretend">Pretend Play</button>
+      <button class="filter-tab" data-filter="outdoor">Outdoor</button>
+      <button class="filter-tab" data-filter="building">Building</button>
+    </div>
+
+    <div class="catalog-layout">
+      <!-- Sidebar -->
+      <aside class="catalog-sidebar" aria-label="Filter toys">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Age Group</div>
+          <div class="sidebar-option active" onclick="filterByAge('all', this)" id="age-all"><i class="fas fa-star" style="color:var(--primary);width:16px;"></i> All Ages</div>
+          <div class="sidebar-option" onclick="filterByAge('0-2', this)" id="age-0-2"><i class="fas fa-baby" style="color:var(--text-muted);width:16px;"></i> 0–2 Years</div>
+          <div class="sidebar-option" onclick="filterByAge('2-6', this)" id="age-2-6"><i class="fas fa-child" style="color:var(--text-muted);width:16px;"></i> 2–6 Years</div>
+          <div class="sidebar-option" onclick="filterByAge('6-12', this)" id="age-6-12"><i class="fas fa-user" style="color:var(--text-muted);width:16px;"></i> 6–12 Years</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Category</div>
+          <div class="sidebar-option active" onclick="filterByCat('all', this)" id="cat-all"><i class="fas fa-th-large" style="width:16px;"></i> All Categories</div>
+          <div class="sidebar-option" onclick="filterByCat('educational', this)" id="cat-edu"><i class="fas fa-graduation-cap" style="width:16px;"></i> Educational</div>
+          <div class="sidebar-option" onclick="filterByCat('pretend', this)" id="cat-pre"><i class="fas fa-theater-masks" style="width:16px;"></i> Pretend Play</div>
+          <div class="sidebar-option" onclick="filterByCat('outdoor', this)" id="cat-out"><i class="fas fa-sun" style="width:16px;"></i> Outdoor</div>
+          <div class="sidebar-option" onclick="filterByCat('building', this)" id="cat-bld"><i class="fas fa-cubes" style="width:16px;"></i> Building Sets</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Availability</div>
+          <div class="sidebar-option active"><i class="fas fa-circle" style="color:var(--green);font-size:0.5rem;width:16px;"></i> Available Now</div>
+          <div class="sidebar-option"><i class="fas fa-circle" style="color:var(--amber);font-size:0.5rem;width:16px;"></i> Coming Soon</div>
+        </div>
+        <a href="pricing.html" class="btn btn-primary w-full" style="margin-top:0.5rem;" id="catalog-sub-cta">Subscribe to Rent</a>
+      </aside>
+
+      <!-- Toy Grid -->
+      <div>
+        <div class="search-bar">
+          <input type="text" class="form-input" placeholder="Search toys..." id="toy-search" oninput="searchToys(this.value)">
+          <button class="btn btn-primary" id="catalog-search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem;">
+          <p style="font-size:0.9rem;color:var(--text-muted);" id="results-count">Showing <strong>12</strong> toys</p>
+          <select class="form-input" style="width:auto;padding:0.5rem 1rem;" id="sort-select">
+            <option>Sort: Featured</option>
+            <option>Age: Youngest First</option>
+            <option>Age: Oldest First</option>
+            <option>Name: A–Z</option>
+          </select>
+        </div>
+
+        <div class="toys-grid" id="toys-grid">
+          <!-- Educational Toys -->
+          <div class="toy-card" data-category="educational" data-age="2-6" data-name="Smart Shape Sorter">
+            <div class="toy-card-img">
+              <img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Smart Shape Sorter educational toy">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 2–4</span>
+              <div class="toy-card-title">Smart Shape Sorter Pro</div>
+              <div class="toy-card-cat"><i class="fas fa-graduation-cap"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-shape-sorter">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="pretend" data-age="2-6" data-name="Pretend Kitchen">
+            <div class="toy-card-img">
+              <img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Pretend play kitchen set">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–6</span>
+              <div class="toy-card-title">Chef's Play Kitchen</div>
+              <div class="toy-card-cat"><i class="fas fa-theater-masks"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-kitchen">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="outdoor" data-age="2-6" data-name="Outdoor Play Set">
+            <div class="toy-card-img">
+              <img src="assets/images/outdoor_play_kids_1790218314047.jpg" alt="Kids outdoor play set">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 2–7</span>
+              <div class="toy-card-title">Adventure Outdoor Kit</div>
+              <div class="toy-card-cat"><i class="fas fa-sun"></i> Outdoor</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-outdoor">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="building" data-age="2-6" data-name="Building Blocks">
+            <div class="toy-card-img">
+              <img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Premium building blocks set">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 1–5</span>
+              <div class="toy-card-title">Rainbow Building Blocks</div>
+              <div class="toy-card-cat"><i class="fas fa-cubes"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-blocks">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="educational" data-age="6-12" data-name="Science Kit">
+            <div class="toy-card-img">
+              <img src="assets/images/toy_catalog_display_1790218433334.jpg" alt="Science experiment kit for kids">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 6–10</span>
+              <div class="toy-card-title">Junior Science Lab</div>
+              <div class="toy-card-cat"><i class="fas fa-graduation-cap"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-science">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="building" data-age="6-12" data-name="Magnetic Tiles">
+            <div class="toy-card-img">
+              <img src="assets/images/eco_green_toys_1790218458406.jpg" alt="Magnetic building tiles for kids">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 5–12</span>
+              <div class="toy-card-title">Magnetic Architecture Tiles</div>
+              <div class="toy-card-cat"><i class="fas fa-cubes"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-tiles">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="educational" data-age="0-2" data-name="Sensory Toys">
+            <div class="toy-card-img">
+              <img src="assets/images/child_playing_blocks_1790218236581.jpg" alt="Sensory development toys for babies">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 0–2</span>
+              <div class="toy-card-title">Sensory Discovery Set</div>
+              <div class="toy-card-cat"><i class="fas fa-graduation-cap"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-sensory">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="pretend" data-age="2-6" data-name="Doctor Set">
+            <div class="toy-card-img">
+              <img src="assets/images/mother_child_reading_1790218405592.jpg" alt="Pretend doctor play set">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–7</span>
+              <div class="toy-card-title">Doctor's Role Play Kit</div>
+              <div class="toy-card-cat"><i class="fas fa-theater-masks"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-doctor">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="outdoor" data-age="6-12" data-name="Sports Set">
+            <div class="toy-card-img">
+              <img src="assets/images/hygiene_cleaning_toys_1790218387515.jpg" alt="Outdoor sports kit for older kids">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 6–12</span>
+              <div class="toy-card-title">Complete Sports Bundle</div>
+              <div class="toy-card-cat"><i class="fas fa-sun"></i> Outdoor</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-sports">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="building" data-age="2-6" data-name="Duplo Blocks">
+            <div class="toy-card-img">
+              <img src="assets/images/hero_toys_1790218188914.jpg" alt="Large soft building blocks">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 2–5</span>
+              <div class="toy-card-title">Jumbo Soft Stack Blocks</div>
+              <div class="toy-card-cat"><i class="fas fa-cubes"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-soft-blocks">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="educational" data-age="6-12" data-name="Coding Robot">
+            <div class="toy-card-img">
+              <img src="assets/images/toy_subscription_box_1790218273378.jpg" alt="Kids coding robot toy">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 7–12</span>
+              <div class="toy-card-title">Code & Play Robot</div>
+              <div class="toy-card-cat"><i class="fas fa-graduation-cap"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-robot">Rent Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="toy-card" data-category="pretend" data-age="2-6" data-name="Doll House">
+            <div class="toy-card-img">
+              <img src="assets/images/hero_home2_1790218446491.jpg" alt="Wooden dollhouse for pretend play">
+            </div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–8</span>
+              <div class="toy-card-title">Wooden Dream Dollhouse</div>
+              <div class="toy-card-cat"><i class="fas fa-theater-masks"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <a href="signup.html" class="btn btn-primary btn-sm" id="rent-dollhouse">Rent Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center" style="margin-top:3rem;">
+          <p style="color:var(--text-muted);margin-bottom:1rem;">Want to see more? Subscribe to access our full catalog of 500+ toys.</p>
+          <a href="signup.html" class="btn btn-primary btn-lg" id="catalog-full-cta">Subscribe & Explore All Toys</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="components.js"></script>
+<script>
+let activeAge = 'all';
+let activeCat = 'all';
+
+function filterByAge(age, el) {
+    activeAge = age;
+    document.querySelectorAll('[id^="age-"]').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    applyFilter();
+}
+
+function filterByCat(cat, el) {
+    activeCat = cat;
+    document.querySelectorAll('[id^="cat-"]').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    applyFilter();
+}
+
+function applyFilter() {
+    const cards = document.querySelectorAll('.toy-card');
+    let visible = 0;
+    cards.forEach(card => {
+        const cardAge = card.dataset.age;
+        const cardCat = card.dataset.category;
+        const ageMatch = activeAge === 'all' || cardAge === activeAge;
+        const catMatch = activeCat === 'all' || cardCat === activeCat;
+        const show = ageMatch && catMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    const count = document.getElementById('results-count');
+    if (count) count.innerHTML = `Showing <strong>${visible}</strong> toys`;
+}
+
+function searchToys(q) {
+    const cards = document.querySelectorAll('.toy-card');
+    let visible = 0;
+    q = q.toLowerCase();
+    cards.forEach(card => {
+        const name = (card.dataset.name || '').toLowerCase();
+        const cat = (card.dataset.category || '').toLowerCase();
+        const match = !q || name.includes(q) || cat.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+    });
+    const count = document.getElementById('results-count');
+    if (count) count.innerHTML = `Showing <strong>${visible}</strong> toys`;
+}
+</script>
+</body>
+</html>

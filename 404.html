@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Page not found — ToyNest. The page you're looking for doesn't exist or has been moved.">
+  <title>404 — Page Not Found | ToyNest</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .toy-float {
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    .gear-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      height: 420px;
+      opacity: 0.05;
+      animation: spin-slow 40s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body class="fullscreen-page">
+
+<div class="fullscreen-topbar">
+  <a href="index.html" class="nav-logo" aria-label="ToyNest Home">
+    <img src="logo.svg" alt="ToyNest Logo" width="38" height="38" style="width:38px;height:38px;object-fit:contain;">
+    <div class="nav-logo-text">
+      <span class="brand-top">ToyNest</span>
+      <span class="brand-bottom">Toy Rental &amp; Kids Kits</span>
+    </div>
+  </a>
+  <div style="display:flex;gap:0.5rem;">
+    <button onclick="toggleDir()" class="auth-toggle-btn" title="Toggle Direction">
+      <span class="dir-label" style="font-size:0.625rem;font-weight:700;">LTR</span>
+    </button>
+    <button onclick="toggleTheme()" class="auth-toggle-btn" title="Toggle Theme" aria-label="Toggle dark mode">
+      <i class="fas fa-moon theme-icon"></i>
+    </button>
+  </div>
+</div>
+
+<div class="fullscreen-content">
+  <div style="position:relative;max-width:560px;width:100%;margin:0 auto;z-index:1;">
+    <!-- Decorative Background -->
+    <svg class="gear-bg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="92" stroke="var(--primary)" stroke-width="3" stroke-dasharray="8 4"/>
+      <circle cx="100" cy="100" r="72" stroke="var(--primary)" stroke-width="2" stroke-dasharray="3 3"/>
+      <line x1="100" y1="20" x2="100" y2="180" stroke="var(--primary)" stroke-width="2"/>
+      <line x1="20" y1="100" x2="180" y2="100" stroke="var(--primary)" stroke-width="2"/>
+      <line x1="44" y1="44" x2="156" y2="156" stroke="var(--primary)" stroke-width="1.5"/>
+      <line x1="156" y1="44" x2="44" y2="156" stroke="var(--primary)" stroke-width="1.5"/>
+      <circle cx="100" cy="100" r="28" stroke="var(--primary)" stroke-width="2" fill="none"/>
+      <circle cx="100" cy="100" r="10" stroke="var(--primary)" stroke-width="2"/>
+      <circle cx="100" cy="100" r="5" fill="var(--primary)"/>
+    </svg>
+
+    <div style="position:relative;z-index:2;text-align:center;">
+      <div class="toy-float"><i class="fas fa-puzzle-piece"></i></div>
+      <div class="error-code">404</div>
+      <div class="error-subtitle">Page Not Found</div>
+      <p class="error-desc">Oops! It looks like this toy got lost in the playroom. The page you're looking for doesn't exist or has been moved.</p>
+
+      <div style="display:flex;gap:0.875rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;">
+        <a href="index.html" class="btn btn-primary btn-lg" id="error-home-btn"><i class="fas fa-home"></i> Back to Home</a>
+        <a href="catalog.html" class="btn btn-secondary btn-lg" id="error-catalog-btn">Browse Catalog</a>
+      </div>
+
+      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-2xl);padding:1.5rem;">
+        <p style="font-family:var(--font-heading);font-weight:600;font-size:0.875rem;color:var(--text-heading);margin-bottom:1rem;">You might be looking for:</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
+          <a href="how-it-works.html" class="badge badge-outline" style="padding:0.5rem 1rem;font-size:0.8125rem;border-radius:var(--radius-full);">How It Works</a>
+          <a href="catalog.html" class="badge badge-outline" style="padding:0.5rem 1rem;font-size:0.8125rem;border-radius:var(--radius-full);">Toy Catalog</a>
+          <a href="pricing.html" class="badge badge-outline" style="padding:0.5rem 1rem;font-size:0.8125rem;border-radius:var(--radius-full);">Pricing Plans</a>
+          <a href="hygiene.html" class="badge badge-outline" style="padding:0.5rem 1rem;font-size:0.8125rem;border-radius:var(--radius-full);">Hygiene Standards</a>
+          <a href="contact.html" class="badge badge-outline" style="padding:0.5rem 1rem;font-size:0.8125rem;border-radius:var(--radius-full);">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="components.js"></script>
+<script>document.addEventListener('DOMContentLoaded', function() { initAuthPage(); });</script>
+</body>
+</html>

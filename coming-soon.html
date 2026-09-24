@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Something exciting is coming to ToyNest. New features and experiences are on the way — subscribe to be notified first.">
+  <title>Coming Soon | ToyNest</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .coming-soon-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .cs-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+    }
+    .toy-orbit {
+      position: absolute;
+      animation: float 4s ease-in-out infinite;
+      font-size: 2rem;
+      color: var(--primary);
+      opacity: 0.25;
+    }
+  </style>
+</head>
+<body class="fullscreen-page">
+
+<div class="coming-soon-bg">
+  <div class="cs-blob" style="width:600px;height:600px;background:var(--primary);top:-150px;right:-100px;"></div>
+  <div class="cs-blob" style="width:400px;height:400px;background:var(--accent);bottom:-80px;left:-100px;"></div>
+  <div class="toy-orbit" style="top:15%;left:8%;animation-delay:0s;"><i class="fas fa-star"></i></div>
+  <div class="toy-orbit" style="top:70%;right:8%;animation-delay:1s;"><i class="fas fa-shapes"></i></div>
+  <div class="toy-orbit" style="bottom:20%;left:15%;animation-delay:2s;"><i class="fas fa-puzzle-piece"></i></div>
+  <div class="toy-orbit" style="top:25%;right:15%;animation-delay:1.5s;"><i class="fas fa-rocket"></i></div>
+</div>
+
+<div class="fullscreen-topbar">
+  <a href="index.html" class="nav-logo" aria-label="ToyNest Home">
+    <img src="logo.svg" alt="ToyNest Logo" width="38" height="38" style="width:38px;height:38px;object-fit:contain;">
+    <div class="nav-logo-text">
+      <span class="brand-top">ToyNest</span>
+      <span class="brand-bottom">Toy Rental &amp; Kids Kits</span>
+    </div>
+  </a>
+  <div style="display:flex;gap:0.5rem;">
+    <button onclick="toggleDir()" class="auth-toggle-btn" title="Toggle Direction">
+      <span class="dir-label" style="font-size:0.625rem;font-weight:700;">LTR</span>
+    </button>
+    <button onclick="toggleTheme()" class="auth-toggle-btn" title="Toggle Theme" aria-label="Toggle dark mode">
+      <i class="fas fa-moon theme-icon"></i>
+    </button>
+  </div>
+</div>
+
+<div class="fullscreen-content" style="text-align:center;">
+  <div style="max-width:680px;width:100%;margin:0 auto;">
+    <div style="display:inline-flex;align-items:center;gap:0.625rem;background:var(--primary-subtle);border:1px solid var(--primary-glow);color:var(--primary-text);font-family:var(--font-heading);font-size:0.8125rem;font-weight:600;padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-bottom:2rem;">
+      <i class="fas fa-tools"></i> We're Building Something Magical
+    </div>
+
+    <h1 style="font-size:clamp(2.5rem,7vw,4.5rem);margin-bottom:1.5rem;line-height:1.1;">
+      Incredible Things <br><span class="gradient-text">Are Coming</span>
+    </h1>
+    <p style="font-size:1.125rem;color:var(--text-muted);max-width:520px;margin:0 auto 3rem;line-height:1.75;font-weight:450;">We're working on something truly special for ToyNest families. Stay tuned — we're about to make playtime even better.</p>
+
+    <!-- Countdown -->
+    <div class="countdown-grid" id="countdown">
+      <div class="countdown-item"><div class="countdown-value" id="cd-days">30</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-item"><div class="countdown-value" id="cd-hours">12</div><div class="countdown-label">Hours</div></div>
+      <div class="countdown-item"><div class="countdown-value" id="cd-minutes">45</div><div class="countdown-label">Minutes</div></div>
+      <div class="countdown-item"><div class="countdown-value" id="cd-seconds">00</div><div class="countdown-label">Seconds</div></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-wrapper">
+      <div style="display:flex;justify-content:space-between;font-size:0.8125rem;color:var(--text-muted);margin-bottom:0.5rem;">
+        <span>Development Progress</span>
+        <span style="color:var(--primary);font-weight:600;">72% Complete</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Notify Me Form -->
+    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-2xl);padding:2rem;margin-bottom:2rem;">
+      <h3 style="margin-bottom:0.5rem;">Be the First to Know</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1.5rem;">We'll notify you the moment we launch. No spam, just the exciting news.</p>
+      <form onsubmit="event.preventDefault(); notifySuccess();" id="notify-form" style="display:flex;gap:0.75rem;flex-wrap:wrap;max-width:440px;margin:0 auto;">
+        <input type="email" class="form-input" placeholder="your@email.com" required style="flex:1;min-width:200px;">
+        <button type="submit" class="btn btn-primary" id="notify-submit-btn">Notify Me <i class="fas fa-bell"></i></button>
+      </form>
+      <div id="notify-success" style="display:none;margin-top:1rem;">
+        <span style="color:var(--green);font-weight:600;"><i class="fas fa-check-circle"></i> You're on the list! We'll email you at launch.</span>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:0.875rem;">Follow us for behind-the-scenes updates</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;">
+        <a href="#" style="width:44px;height:44px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:1rem;transition:var(--transition-fast);" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="width:44px;height:44px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:1rem;transition:var(--transition-fast);" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="width:44px;height:44px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:1rem;transition:var(--transition-fast);" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" style="width:44px;height:44px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:1rem;transition:var(--transition-fast);" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a href="index.html" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script src="components.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initAuthPage();
+    // Countdown: Launch date = 30 days from now
+    const launch = new Date();
+    launch.setDate(launch.getDate() + 30);
+    launch.setHours(12, 0, 0, 0);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = launch - now;
+        if (diff <= 0) return;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+        document.getElementById('cd-minutes').textContent = String(mins).padStart(2,'0');
+        document.getElementById('cd-seconds').textContent = String(secs).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+});
+
+function notifySuccess() {
+    document.getElementById('notify-form').style.display = 'none';
+    document.getElementById('notify-success').style.display = 'block';
+}
+</script>
+</body>
+</html>

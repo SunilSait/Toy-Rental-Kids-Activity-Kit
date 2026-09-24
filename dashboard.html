@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ToyNest Parent Dashboard — manage your toy subscriptions, browse the catalog by age and category, request swaps, track returns, and view billing history.">
+  <title>Parent Dashboard | ToyNest</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { overflow: hidden; background: var(--bg-surface); }
+    .dash-layout { display: flex; height: 100vh; overflow: hidden; }
+    .dash-sidebar { width: 260px; flex-shrink: 0; background: var(--secondary); display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
+    .dash-sidebar-brand { padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 0.625rem; }
+    .dash-sidebar-brand .brand-top { color: #F1F5F9; font-family: var(--font-heading); font-weight: 700; font-size: 1.0625rem; }
+    .dash-sidebar-brand .brand-bottom { color: #475569; font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .dash-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .dash-nav-section { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; padding: 0.75rem 0.625rem 0.375rem; }
+    .dash-nav-link { display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem 0.875rem; border-radius: var(--radius-md); font-size: 0.9rem; color: #94A3B8; font-family: var(--font-heading); font-weight: 500; cursor: pointer; transition: var(--transition-fast); text-decoration: none; }
+    .dash-nav-link:hover { background: rgba(255,255,255,0.06); color: #F1F5F9; }
+    .dash-nav-link.active { background: var(--primary); color: #fff; }
+    .dash-nav-link i { width: 18px; text-align: center; font-size: 0.9375rem; }
+    .dash-nav-badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.6875rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: var(--radius-full); }
+    .dash-sidebar-footer { padding: 1rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .dash-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 1.75rem; height: 68px; background: var(--bg-body); border-bottom: 1px solid var(--border-light); flex-shrink: 0; gap: 1rem; }
+    .dash-search { display: flex; align-items: center; gap: 0.625rem; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); padding: 0.5rem 1rem; flex: 1; max-width: 360px; }
+    .dash-search input { border: none; background: none; outline: none; font-size: 0.875rem; color: var(--text-heading); font-family: var(--font-body); flex: 1; }
+    .dash-topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .dash-icon-btn { width: 38px; height: 38px; border-radius: var(--radius-md); border: 1px solid var(--border-default); background: var(--bg-card); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.875rem; cursor: pointer; transition: var(--transition-fast); position: relative; }
+    .dash-icon-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .dash-notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; border: 2px solid var(--bg-body); }
+    .dash-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 0.9375rem; cursor: pointer; flex-shrink: 0; }
+    .dash-content { flex: 1; overflow-y: auto; padding: 2rem 1.75rem; }
+    .dash-welcome { margin-bottom: 2rem; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .metric-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-2xl); padding: 1.5rem; box-shadow: var(--shadow-card); }
+    .metric-card .metric-icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.125rem; margin-bottom: 1rem; }
+    .metric-card .metric-val { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; color: var(--text-heading); line-height: 1; margin-bottom: 0.25rem; }
+    .metric-card .metric-label { font-size: 0.8125rem; color: var(--text-muted); font-weight: 450; }
+    .dash-panel { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-2xl); padding: 1.5rem; box-shadow: var(--shadow-card); margin-bottom: 1.5rem; }
+    .dash-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
+    .dash-panel-header h3 { font-size: 1rem; margin: 0; }
+    .toy-list-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 0; border-bottom: 1px solid var(--border-light); }
+    .toy-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .toy-list-img { width: 56px; height: 56px; border-radius: var(--radius-md); overflow: hidden; flex-shrink: 0; }
+    .toy-list-img img { width: 100%; height: 100%; object-fit: cover; }
+    .toy-list-info { flex: 1; }
+    .toy-list-name { font-family: var(--font-heading); font-weight: 600; font-size: 0.9375rem; color: var(--text-heading); margin-bottom: 0.25rem; }
+    .toy-list-meta { font-size: 0.8125rem; color: var(--text-muted); font-weight: 450; }
+    .status-badge { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); }
+    .status-active { background: rgba(34,197,94,0.12); color: #16A34A; }
+    .status-due { background: rgba(245,158,11,0.12); color: #D97706; }
+    .status-returned { background: rgba(100,116,139,0.12); color: #475569; }
+    .invoice-row { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 0; border-bottom: 1px solid var(--border-light); }
+    .invoice-row:last-child { border-bottom: none; }
+    @media (max-width: 1024px) { .dash-sidebar { width: 220px; } .metric-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 768px) {
+      .dash-sidebar { position: fixed; left: -260px; z-index: 200; transition: var(--transition-smooth); }
+      .dash-sidebar.open { left: 0; }
+      body { overflow: auto; }
+      .dash-layout { height: auto; overflow: auto; }
+      .dash-main { height: auto; }
+      .dash-content { overflow: visible; }
+      .metric-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dash-layout" id="dash-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="dash-sidebar" id="dash-sidebar">
+    <div class="dash-sidebar-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <img src="logo.svg" alt="ToyNest" width="36" height="36">
+        <div class="nav-logo-text">
+          <span class="brand-top">ToyNest</span>
+          <span class="brand-bottom">Parent Portal</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="dash-nav" aria-label="Dashboard navigation">
+      <div class="dash-nav-section">Main</div>
+      <a href="#" class="dash-nav-link active" onclick="showSection('overview',this)" id="nav-overview">
+        <i class="fas fa-home"></i> Overview
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('catalog',this)" id="nav-catalog-d">
+        <i class="fas fa-th"></i> Browse Catalog
+      </a>
+
+      <div class="dash-nav-section">My Rentals</div>
+      <a href="#" class="dash-nav-link" onclick="showSection('current',this)" id="nav-current">
+        <i class="fas fa-box-open"></i> Current Toys
+        <span class="dash-nav-badge">6</span>
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('swap',this)" id="nav-swap">
+        <i class="fas fa-sync-alt"></i> Request Swap
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('history',this)" id="nav-history">
+        <i class="fas fa-history"></i> Rental History
+      </a>
+
+      <div class="dash-nav-section">Account</div>
+      <a href="#" class="dash-nav-link" onclick="showSection('subscription',this)" id="nav-subscription">
+        <i class="fas fa-credit-card"></i> Subscription
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('billing',this)" id="nav-billing">
+        <i class="fas fa-file-invoice"></i> Billing History
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('profile',this)" id="nav-profile">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <a href="#" class="dash-nav-link" onclick="showSection('notifications',this)" id="nav-notifs">
+        <i class="fas fa-bell"></i> Notifications
+        <span class="dash-nav-badge">3</span>
+      </a>
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="index.html" class="dash-nav-link" style="color:#94A3B8;">
+        <i class="fas fa-arrow-left"></i> Back to Site
+      </a>
+      <a href="login.html" class="dash-nav-link" style="color:#EF4444;" id="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div class="dash-main">
+    <!-- TOP BAR -->
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <button class="dash-icon-btn" onclick="toggleSidebar()" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="dash-search">
+          <i class="fas fa-search" style="color:var(--text-muted);font-size:0.8125rem;"></i>
+          <input type="text" placeholder="Search toys, orders...">
+        </div>
+      </div>
+      <div class="dash-topbar-actions">
+        <button onclick="toggleTheme()" class="dash-icon-btn" title="Toggle Theme" aria-label="Toggle dark mode">
+          <i class="fas fa-moon theme-icon"></i>
+        </button>
+        <div class="dash-icon-btn" title="Notifications">
+          <i class="fas fa-bell"></i>
+          <div class="dash-notif-dot"></div>
+        </div>
+        <div class="dash-avatar" title="Profile — Priya Sharma">PS</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="dash-content">
+
+      <!-- OVERVIEW SECTION -->
+      <div id="section-overview">
+        <div class="dash-welcome">
+          <h1 style="font-size:1.625rem;margin-bottom:0.375rem;">Good morning, Priya! 👋</h1>
+          <p style="color:var(--text-muted);font-size:0.9375rem;font-weight:450;">Here's your ToyNest overview for October 2025</p>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-icon" style="background:var(--primary-subtle);color:var(--primary);">
+              <i class="fas fa-box-open"></i>
+            </div>
+            <div class="metric-val">6</div>
+            <div class="metric-label">Active Rentals</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:rgba(34,197,94,0.1);color:#16A34A;">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="metric-val">12</div>
+            <div class="metric-label">Days Until Rotation</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:rgba(59,130,246,0.1);color:#2563EB;">
+              <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="metric-val">1</div>
+            <div class="metric-label">Swaps Available</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:rgba(245,158,11,0.1);color:#D97706;">
+              <i class="fas fa-piggy-bank"></i>
+            </div>
+            <div class="metric-val">₹4,200</div>
+            <div class="metric-label">Total Saved vs. Buying</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+
+          <!-- Current Box -->
+          <div class="dash-panel">
+            <div class="dash-panel-header">
+              <h3><i class="fas fa-box-open" style="color:var(--primary);margin-right:0.5rem;"></i>Current Toy Box</h3>
+              <span class="status-badge status-active">Active</span>
+            </div>
+            <div class="toy-list-item">
+              <div class="toy-list-img"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Rainbow Building Blocks"></div>
+              <div class="toy-list-info">
+                <div class="toy-list-name">Rainbow Building Blocks</div>
+                <div class="toy-list-meta">Ages 1–5 &bull; Building Sets</div>
+              </div>
+              <span class="status-badge status-active">In Use</span>
+            </div>
+            <div class="toy-list-item">
+              <div class="toy-list-img"><img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Chef's Kitchen"></div>
+              <div class="toy-list-info">
+                <div class="toy-list-name">Chef's Play Kitchen</div>
+                <div class="toy-list-meta">Ages 3–6 &bull; Pretend Play</div>
+              </div>
+              <span class="status-badge status-active">In Use</span>
+            </div>
+            <div class="toy-list-item">
+              <div class="toy-list-img"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Smart Shape Sorter"></div>
+              <div class="toy-list-info">
+                <div class="toy-list-name">Smart Shape Sorter</div>
+                <div class="toy-list-meta">Ages 2–4 &bull; Educational</div>
+              </div>
+              <span class="status-badge status-due">Return Due</span>
+            </div>
+            <div style="margin-top:1rem;">
+              <a href="#" class="btn btn-primary btn-sm" onclick="showSection('swap', document.getElementById('nav-swap'))" style="width:100%;justify-content:center;">Request Early Swap</a>
+            </div>
+          </div>
+
+          <!-- Upcoming & Notifications -->
+          <div>
+            <div class="dash-panel" style="margin-bottom:1.5rem;">
+              <div class="dash-panel-header">
+                <h3><i class="fas fa-calendar-check" style="color:var(--primary);margin-right:0.5rem;"></i>Upcoming</h3>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--primary-subtle);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-truck" style="color:var(--primary);"></i></div>
+                <div class="toy-list-info">
+                  <div class="toy-list-name">Next Box Delivery</div>
+                  <div class="toy-list-meta">November 1, 2025</div>
+                </div>
+                <span class="badge badge-green">12 Days</span>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(245,158,11,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-undo" style="color:#D97706;"></i></div>
+                <div class="toy-list-info">
+                  <div class="toy-list-name">Shape Sorter Return</div>
+                  <div class="toy-list-meta">October 28, 2025</div>
+                </div>
+                <span class="badge badge-amber">3 Days</span>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-credit-card" style="color:#2563EB;"></i></div>
+                <div class="toy-list-info">
+                  <div class="toy-list-name">Billing Renewal</div>
+                  <div class="toy-list-meta">November 5, 2025</div>
+                </div>
+                <span class="badge badge-blue">₹1,299</span>
+              </div>
+            </div>
+
+            <div class="dash-panel">
+              <div class="dash-panel-header">
+                <h3><i class="fas fa-bell" style="color:var(--primary);margin-right:0.5rem;"></i>Notifications</h3>
+                <span class="badge badge-primary">3 New</span>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:0.375rem;"></div>
+                <div>
+                  <div style="font-size:0.875rem;font-weight:500;color:var(--text-heading);margin-bottom:0.25rem;">Your next box is being curated</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">2 hours ago</div>
+                </div>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:0.375rem;"></div>
+                <div>
+                  <div style="font-size:0.875rem;font-weight:500;color:var(--text-heading);margin-bottom:0.25rem;">Return pickup confirmed for Oct 28</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">Yesterday</div>
+                </div>
+              </div>
+              <div class="toy-list-item">
+                <div style="width:8px;height:8px;background:var(--amber);border-radius:50%;flex-shrink:0;margin-top:0.375rem;"></div>
+                <div>
+                  <div style="font-size:0.875rem;font-weight:500;color:var(--text-heading);margin-bottom:0.25rem;">Invoice #TN-0028 is ready</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">2 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subscription Status -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3><i class="fas fa-crown" style="color:var(--primary);margin-right:0.5rem;"></i>Your Subscription</h3>
+            <a href="#" class="btn btn-secondary btn-sm" onclick="showSection('subscription',document.getElementById('nav-subscription'))">Manage Plan</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em;">Plan</div>
+              <div style="font-family:var(--font-heading);font-weight:700;color:var(--primary);">Explorer</div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em;">Status</div>
+              <div><span class="status-badge status-active">Active</span></div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em;">Next Billing</div>
+              <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">Nov 5, 2025</div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em;">Monthly Cost</div>
+              <div style="font-family:var(--font-heading);font-weight:700;color:var(--text-heading);">₹1,299</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATALOG SECTION -->
+      <div id="section-catalog" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Browse Toy Catalog</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.9375rem;">Filter by age group and category to find the perfect toys for your child.</p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;">
+          <button class="filter-tab active" data-filter="all">All Ages</button>
+          <button class="filter-tab" data-filter="0-2">0–2 Years</button>
+          <button class="filter-tab" data-filter="2-6">2–6 Years</button>
+          <button class="filter-tab" data-filter="6-12">6–12 Years</button>
+          <button class="filter-tab" style="margin-left:auto;" data-filter="educational">Educational</button>
+          <button class="filter-tab" data-filter="pretend">Pretend Play</button>
+          <button class="filter-tab" data-filter="outdoor">Outdoor</button>
+          <button class="filter-tab" data-filter="building">Building</button>
+        </div>
+        <div class="grid-3" style="gap:1.25rem;">
+          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Building Blocks"></div><div class="toy-card-body"><span class="toy-card-age">Ages 1–5</span><div class="toy-card-title">Rainbow Building Blocks</div><div class="toy-card-cat">Building Sets</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
+          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Educational"></div><div class="toy-card-body"><span class="toy-card-age">Ages 2–4</span><div class="toy-card-title">Smart Shape Sorter Pro</div><div class="toy-card-cat">Educational</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
+          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/outdoor_play_kids_1790218314047.jpg" alt="Outdoor"></div><div class="toy-card-body"><span class="toy-card-age">Ages 2–7</span><div class="toy-card-title">Adventure Outdoor Kit</div><div class="toy-card-cat">Outdoor</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
+        </div>
+      </div>
+
+      <!-- CURRENT TOYS SECTION -->
+      <div id="section-current" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Currently Rented Toys</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.9375rem;">Manage your active rentals and check return dates.</p>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
+            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Blocks" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="flex:1;">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Rainbow Building Blocks</div>
+              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 1–5 &bull; Building Sets &bull; Rented Oct 1</div>
+              <div style="margin-top:0.625rem;">Return by: <strong>Oct 31, 2025</strong></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
+              <span class="status-badge status-active">Active</span>
+              <button class="btn btn-secondary btn-sm">Request Swap</button>
+              <button class="btn btn-outline-primary btn-sm">Buy ₹450</button>
+            </div>
+          </div>
+          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
+            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Kitchen" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="flex:1;">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Chef's Play Kitchen</div>
+              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 3–6 &bull; Pretend Play &bull; Rented Oct 1</div>
+              <div style="margin-top:0.625rem;">Return by: <strong>Oct 31, 2025</strong></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
+              <span class="status-badge status-active">Active</span>
+              <button class="btn btn-secondary btn-sm">Request Swap</button>
+              <button class="btn btn-outline-primary btn-sm">Buy ₹899</button>
+            </div>
+          </div>
+          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
+            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Sorter" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="flex:1;">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Smart Shape Sorter Pro</div>
+              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 2–4 &bull; Educational &bull; Rented Oct 1</div>
+              <div style="margin-top:0.625rem;">Return by: <strong style="color:#D97706;">Oct 28, 2025 (Due Soon!)</strong></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
+              <span class="status-badge status-due">Due Soon</span>
+              <button class="btn btn-primary btn-sm">Schedule Pickup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SWAP REQUEST SECTION -->
+      <div id="section-swap" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Request Early Swap</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">You have <strong style="color:var(--primary);">1 early swap</strong> available this month on your Explorer plan.</p>
+        <div class="dash-panel" style="max-width:600px;">
+          <div class="form-group">
+            <label class="form-label">Select Toy to Return Early</label>
+            <select class="form-input" id="swap-toy">
+              <option>Rainbow Building Blocks</option>
+              <option>Chef's Play Kitchen</option>
+              <option>Smart Shape Sorter Pro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reason for Swap</label>
+            <select class="form-input" id="swap-reason">
+              <option>Child has finished exploring this toy</option>
+              <option>Toy doesn't match child's interest</option>
+              <option>Requesting different category</option>
+              <option>Other reason</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Category for Replacement</label>
+            <select class="form-input" id="swap-category">
+              <option>Any (Let ToyNest Decide)</option>
+              <option>Educational</option>
+              <option>Pretend Play</option>
+              <option>Outdoor</option>
+              <option>Building Sets</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea class="form-input" rows="3" placeholder="Any specific preferences..."></textarea>
+          </div>
+          <button class="btn btn-primary w-full btn-lg" onclick="alert('Swap request submitted! We will process your request within 24 hours.')">Submit Swap Request</button>
+        </div>
+      </div>
+
+      <!-- BILLING SECTION -->
+      <div id="section-billing" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Billing History</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">Download invoices or review past payments.</p>
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3>Transaction History</h3>
+            <button class="btn btn-secondary btn-sm">Export All</button>
+          </div>
+          <div class="invoice-row">
+            <div>
+              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0028</div>
+              <div style="font-size:0.8125rem;color:var(--text-muted);">October 2025 &bull; Explorer Plan</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <span style="font-family:var(--font-heading);font-weight:700;color:var(--text-heading);">₹1,299</span>
+              <span class="status-badge status-active">Paid</span>
+              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
+            </div>
+          </div>
+          <div class="invoice-row">
+            <div>
+              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0027</div>
+              <div style="font-size:0.8125rem;color:var(--text-muted);">September 2025 &bull; Explorer Plan</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <span style="font-family:var(--font-heading);font-weight:700;color:var(--text-heading);">₹1,299</span>
+              <span class="status-badge status-active">Paid</span>
+              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
+            </div>
+          </div>
+          <div class="invoice-row">
+            <div>
+              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0026</div>
+              <div style="font-size:0.8125rem;color:var(--text-muted);">August 2025 &bull; Sprout Plan</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <span style="font-family:var(--font-heading);font-weight:700;color:var(--text-heading);">₹799</span>
+              <span class="status-badge status-active">Paid</span>
+              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE SECTION -->
+      <div id="section-profile" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">My Profile</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">Manage your account and child's preferences.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <div class="dash-panel">
+            <h3 style="margin-bottom:1.5rem;">Parent Information</h3>
+            <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" value="Priya"></div>
+            <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" value="Sharma"></div>
+            <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" value="priya.sharma@email.com"></div>
+            <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" value="+91 98765 43210"></div>
+            <button class="btn btn-primary" onclick="alert('Profile updated!')">Save Changes</button>
+          </div>
+          <div class="dash-panel">
+            <h3 style="margin-bottom:1.5rem;">Child's Profile</h3>
+            <div class="form-group"><label class="form-label">Child's Name</label><input type="text" class="form-input" value="Aarav"></div>
+            <div class="form-group"><label class="form-label">Date of Birth</label><input type="date" class="form-input" value="2020-03-15"></div>
+            <div class="form-group">
+              <label class="form-label">Preferred Categories</label>
+              <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+                <button class="filter-tab active" style="font-size:0.8125rem;">Building</button>
+                <button class="filter-tab active" style="font-size:0.8125rem;">Educational</button>
+                <button class="filter-tab" style="font-size:0.8125rem;">Pretend Play</button>
+                <button class="filter-tab" style="font-size:0.8125rem;">Outdoor</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Preferences saved!')">Update Preferences</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS SECTION -->
+      <div id="section-notifications" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Notifications</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">Your recent account activity and updates.</p>
+        <div class="dash-panel">
+          <div class="toy-list-item" style="gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--primary-subtle);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-box" style="color:var(--primary);"></i></div>
+            <div style="flex:1;"><div style="font-weight:600;color:var(--text-heading);margin-bottom:0.25rem;">Your November box is being curated</div><div style="font-size:0.8125rem;color:var(--text-muted);">2 hours ago</div></div>
+            <div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;"></div>
+          </div>
+          <div class="toy-list-item" style="gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:var(--radius-md);background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-truck" style="color:#16A34A;"></i></div>
+            <div style="flex:1;"><div style="font-weight:600;color:var(--text-heading);margin-bottom:0.25rem;">Return pickup scheduled for Oct 28 at 2–4 PM</div><div style="font-size:0.8125rem;color:var(--text-muted);">Yesterday</div></div>
+            <div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;"></div>
+          </div>
+          <div class="toy-list-item" style="gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:var(--radius-md);background:rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-file-invoice" style="color:#2563EB;"></i></div>
+            <div style="flex:1;"><div style="font-weight:600;color:var(--text-heading);margin-bottom:0.25rem;">Invoice #TN-0028 for ₹1,299 is available</div><div style="font-size:0.8125rem;color:var(--text-muted);">2 days ago</div></div>
+            <div style="width:8px;height:8px;background:var(--amber);border-radius:50%;flex-shrink:0;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTION SECTION -->
+      <div id="section-subscription" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Manage Subscription</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">View your current plan, upgrade, pause, or cancel.</p>
+        <div class="dash-panel" style="max-width:600px;margin-bottom:1.5rem;">
+          <h3 style="margin-bottom:1.5rem;">Current Plan: Explorer</h3>
+          <div style="background:var(--primary-subtle);border-radius:var(--radius-xl);padding:1.5rem;margin-bottom:1.5rem;">
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Status</div><div style="margin-top:0.25rem;"><span class="status-badge status-active">Active</span></div></div>
+              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Next Box</div><div style="font-family:var(--font-heading);font-weight:700;color:var(--text-heading);margin-top:0.25rem;">Nov 1, 2025</div></div>
+              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Monthly Cost</div><div style="font-family:var(--font-heading);font-weight:700;color:var(--primary);margin-top:0.25rem;">₹1,299</div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button class="btn btn-primary" onclick="alert('Upgrading to Adventure Plan...')">Upgrade to Adventure (₹1,899)</button>
+            <button class="btn btn-secondary" onclick="alert('Subscription paused for 1 month.')">Pause for 1 Month</button>
+            <button class="btn" style="color:var(--red);border:1px solid var(--red);border-radius:var(--radius-full);" onclick="alert('Cancellation request submitted. We\'ll process this shortly.')">Cancel Subscription</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RENTAL HISTORY -->
+      <div id="section-history" style="display:none;">
+        <h2 style="margin-bottom:0.5rem;">Rental History</h2>
+        <p style="color:var(--text-muted);margin-bottom:2rem;">All your past toy rentals from ToyNest.</p>
+        <div class="dash-panel">
+          <div class="toy-list-item">
+            <div class="toy-list-img"><img src="assets/images/toy_subscription_box_1790218273378.jpg" alt="Box"></div>
+            <div class="toy-list-info"><div class="toy-list-name">October 2025 Box (6 Toys)</div><div class="toy-list-meta">Oct 1 – Oct 31, 2025</div></div>
+            <span class="status-badge status-active">Active</span>
+          </div>
+          <div class="toy-list-item">
+            <div class="toy-list-img"><img src="assets/images/eco_green_toys_1790218458406.jpg" alt="Box"></div>
+            <div class="toy-list-info"><div class="toy-list-name">September 2025 Box (6 Toys)</div><div class="toy-list-meta">Sep 1 – Sep 30, 2025</div></div>
+            <span class="status-badge status-returned">Returned</span>
+          </div>
+          <div class="toy-list-item">
+            <div class="toy-list-img"><img src="assets/images/outdoor_play_kids_1790218314047.jpg" alt="Box"></div>
+            <div class="toy-list-info"><div class="toy-list-name">August 2025 Box (4 Toys)</div><div class="toy-list-meta">Aug 1 – Aug 31, 2025</div></div>
+            <span class="status-badge status-returned">Returned</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="components.js"></script>
+<script>
+function showSection(id, navEl) {
+    // Hide all sections
+    document.querySelectorAll('[id^="section-"]').forEach(s => s.style.display = 'none');
+    // Show target
+    const target = document.getElementById('section-' + id);
+    if (target) target.style.display = 'block';
+    // Update nav active
+    document.querySelectorAll('.dash-nav-link').forEach(l => l.classList.remove('active'));
+    if (navEl) navEl.classList.add('active');
+    return false;
+}
+
+function toggleSidebar() {
+    document.getElementById('dash-sidebar').classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const isDark = localStorage.getItem('tn_theme') === 'dark';
+    if (isDark) document.documentElement.classList.add('dark');
+    document.querySelectorAll('.theme-icon').forEach(i => {
+        i.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+    });
+    initFilterTabs();
+});
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+    localStorage.setItem('tn_theme', isDark ? 'dark' : 'light');
+    document.querySelectorAll('.theme-icon').forEach(i => {
+        i.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+    });
+}
+</script>
+</body>
+</html>
