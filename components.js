@@ -7,7 +7,7 @@
     const saved = localStorage.getItem('tn_theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (saved === 'dark' || (!saved && prefersDark)) html.classList.add('dark');
-    if (localStorage.getItem('tn_dir') === 'rtl') html.setAttribute('dir', 'rtl');
+    if (localStorage.getItem('tn_dir') === 'rtl') { html.setAttribute('dir', 'rtl'); } else { html.setAttribute('dir', 'ltr'); }
 })();
 
 function toggleTheme() {
@@ -16,6 +16,9 @@ function toggleTheme() {
     localStorage.setItem('tn_theme', isDark ? 'dark' : 'light');
     document.querySelectorAll('.theme-icon').forEach(icon => {
         icon.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+    });
+    document.querySelectorAll('.theme-label').forEach(el => {
+        el.textContent = isDark ? 'Light Mode' : 'Dark Mode';
     });
 }
 
@@ -39,6 +42,9 @@ function syncThemeIcons() {
     const isDark = document.documentElement.classList.contains('dark');
     document.querySelectorAll('.theme-icon').forEach(icon => {
         icon.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+    });
+    document.querySelectorAll('.theme-label').forEach(el => {
+        el.textContent = isDark ? 'Light Mode' : 'Dark Mode';
     });
     const dir = document.documentElement.getAttribute('dir') || 'ltr';
     document.querySelectorAll('.dir-toggle-btn').forEach(btn => {
@@ -93,6 +99,16 @@ const NAV_HTML = `
   <a href="pricing.html" class="nav-link" id="mnav-pricing">Plans</a>
   <a href="hygiene.html" class="nav-link" id="mnav-hygiene">Hygiene</a>
   <a href="contact.html" class="nav-link" id="mnav-contact">Contact</a>
+  <div class="nav-mobile-toggles">
+    <button onclick="toggleDir()" class="nav-icon-btn dir-toggle-btn" title="Toggle Direction" aria-label="Toggle text direction">
+      <i class="fas fa-right-left"></i>
+      <span>Direction (<span class="dir-label">LTR</span>)</span>
+    </button>
+    <button onclick="toggleTheme()" class="nav-icon-btn" title="Toggle Theme" aria-label="Toggle dark mode">
+      <i class="fas fa-moon theme-icon"></i>
+      <span class="theme-label">Theme</span>
+    </button>
+  </div>
   <div class="nav-mobile-actions">
     <a href="login.html" class="btn btn-secondary">Sign In</a>
     <a href="dashboard.html" class="btn btn-primary" id="mnav-dashboard-btn">Dashboard</a>
@@ -112,51 +128,59 @@ const FOOTER_HTML = `
             <span class="brand-bottom">Toy Rental &amp; Kids Kits</span>
           </div>
         </a>
-        <p>Premium toy rentals that delight children, save money, and protect our planet. Monthly rotations, zero waste, endless fun.</p>
-        <div class="footer-socials" style="margin-top:1.25rem;">
+        <p>Your premier destination for premium toy rentals and curated activity kits. Delight your kids with eco-friendly, sanitised, affordable play.</p>
+        <div class="footer-socials">
           <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="#" class="social-icon-btn" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="home2.html">Home 2</a></li>
-          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="home2.html">Home 2 &mdash; Premium</a></li>
           <li><a href="catalog.html">Toy Catalog</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="hygiene.html">Hygiene Standards</a></li>
           <li><a href="pricing.html">Plans &amp; Pricing</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h4>Resources</h4>
         <ul>
-          <li><a href="hygiene.html">Hygiene Standards</a></li>
           <li><a href="contact.html">Contact Us</a></li>
           <li><a href="dashboard.html">Parent Dashboard</a></li>
-          <li><a href="login.html">Sign In</a></li>
-          <li><a href="signup.html">Create Account</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="404.html">404 Page</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Legal &amp; Support</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Return Policy</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="coming-soon.html">Coming Soon</a></li>
-          <li><a href="404.html">404 Page</a></li>
-        </ul>
+      <div class="footer-col footer-newsletter">
+        <h4>Play Updates</h4>
+        <p class="newsletter-sub">Get toy tips, new activity kit alerts &amp; exclusive discounts delivered to your inbox.</p>
+        <form class="footer-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to ToyNest Play Updates!'); this.reset();">
+          <input type="email" class="footer-email-input" placeholder="your@email.com" required aria-label="Email address">
+          <button type="submit" class="btn-subscribe">Subscribe</button>
+        </form>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 ToyNest. All rights reserved. Made with <i class="fas fa-heart" style="color:var(--primary);"></i> for curious kids.</p>
-      <p style="color:#64748B;font-size:0.75rem;">Eco-friendly &bull; Safe &bull; Inspected</p>
+      <p>&copy; 2026 ToyNest. All rights reserved.</p>
+      <div class="footer-legal-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookies</a>
+      </div>
     </div>
   </div>
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 </footer>`;
 
 /* ─── INJECT NAV & FOOTER ─── */
@@ -178,6 +202,18 @@ function injectNav() {
 function injectFooter() {
     const placeholder = document.getElementById('footer-placeholder');
     if (placeholder) placeholder.outerHTML = FOOTER_HTML;
+
+    // Back to top scroll handler
+    const backBtn = document.getElementById('back-to-top');
+    if (backBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                backBtn.classList.add('show');
+            } else {
+                backBtn.classList.remove('show');
+            }
+        }, { passive: true });
+    }
 }
 
 function setActiveNavLink() {

@@ -53,7 +53,7 @@
       display: grid;
       grid-template-columns: 1.15fr 1fr;
       gap: 3.5rem;
-      align-items: center;
+      align-items: stretch;
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-3xl);
@@ -113,7 +113,8 @@
       position: relative;
       border-radius: var(--radius-2xl);
       overflow: hidden;
-      aspect-ratio: 4/3;
+      height: 100%;
+      min-height: 320px;
       box-shadow: var(--shadow-xl);
       border: 1px solid var(--border-light);
     }
@@ -131,9 +132,10 @@
       position: absolute;
       background: rgba(22, 27, 39, 0.88);
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border-default);
       color: #fff;
-      padding: 0.5rem 1rem;
+      padding: 0.45rem 0.875rem;
       border-radius: var(--radius-full);
       font-size: 0.8125rem;
       font-weight: 600;
@@ -141,18 +143,62 @@
       align-items: center;
       gap: 0.45rem;
       box-shadow: var(--shadow-md);
+      max-width: calc(100% - 1.5rem);
+      white-space: nowrap;
+      z-index: 3;
+    }
+    .badge-top-left { top: 1rem; left: 1rem; }
+    .badge-top-right { top: 1rem; right: 1rem; }
+    .badge-bottom-left { bottom: 1rem; left: 1rem; }
+    .badge-bottom-right { bottom: 1rem; right: 1rem; }
+
+    .step-mini-plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.875rem;
+      margin-bottom: 1.75rem;
+      justify-content: center;
+    }
+    .step-mini-plans > div {
+      flex: 1 1 125px;
+      min-width: 120px;
     }
     @media (max-width: 900px) {
       .step-card {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-        padding: 2rem 1.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        padding: 1.75rem 1.25rem !important;
       }
-      .step-card.reverse > div:first-child {
-        order: 2;
+      .step-img-col {
+        order: -1 !important;
+        width: 100% !important;
       }
-      .step-card.reverse > div:last-child {
-        order: 1;
+      .step-img-box {
+        aspect-ratio: 16/10 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+      }
+      .step-text-col {
+        order: 1 !important;
+        width: 100% !important;
+      }
+      .step-float-badge {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.725rem !important;
+        max-width: calc(100% - 1rem) !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .badge-top-left { top: 0.5rem !important; left: 0.5rem !important; }
+      .badge-top-right { top: 0.5rem !important; right: 0.5rem !important; }
+      .badge-bottom-left { bottom: 0.5rem !important; left: 0.5rem !important; }
+      .badge-bottom-right { bottom: 0.5rem !important; right: 0.5rem !important; }
+      .step-float-badge {
+        padding: 0.28rem 0.55rem !important;
+        font-size: 0.6875rem !important;
+        gap: 0.3rem !important;
       }
     }
   </style>
@@ -218,7 +264,7 @@
       <!-- STEP 1 -->
       <div class="step-card reveal" id="step-1">
         <div class="step-card-num-watermark">01</div>
-        <div>
+        <div class="step-text-col">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
             <span class="badge badge-primary" style="font-size:0.8125rem;"><i class="fas fa-user-gear" style="margin-right:0.35rem;"></i> Step 01</span>
             <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Sign Up &amp; Profile</span>
@@ -247,13 +293,13 @@
           </div>
         </div>
 
-        <div>
+        <div class="step-img-col">
           <div class="step-img-box">
             <img src="assets/images/hiw_step1_customize.jpg" alt="Setting up your ToyNest family profile">
-            <div class="step-float-badge" style="top:1.25rem;left:1.25rem;">
+            <div class="step-float-badge badge-top-left">
               <i class="fas fa-wand-magic-sparkles" style="color:var(--amber);"></i> Smart Milestone Match
             </div>
-            <div class="step-float-badge" style="bottom:1.25rem;right:1.25rem;">
+            <div class="step-float-badge badge-bottom-right">
               <i class="fas fa-shield-heart" style="color:var(--green);"></i> 100% Parent Controlled
             </div>
           </div>
@@ -263,19 +309,19 @@
       <!-- STEP 2 (Alternating Layout) -->
       <div class="step-card reverse reveal" id="step-2">
         <div class="step-card-num-watermark">02</div>
-        <div>
+        <div class="step-img-col">
           <div class="step-img-box">
             <img src="assets/images/banner_pricing.jpg" alt="Choosing ToyNest subscription plan">
-            <div class="step-float-badge" style="top:1.25rem;right:1.25rem;">
+            <div class="step-float-badge badge-top-right">
               <i class="fas fa-gift" style="color:var(--primary);"></i> 7-Day Free Trial Included
             </div>
-            <div class="step-float-badge" style="bottom:1.25rem;left:1.25rem;">
+            <div class="step-float-badge badge-bottom-left">
               <i class="fas fa-rotate" style="color:var(--green);"></i> Free Delivery &amp; Swaps
             </div>
           </div>
         </div>
 
-        <div>
+        <div class="step-text-col">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
             <span class="badge badge-green" style="font-size:0.8125rem;"><i class="fas fa-tags" style="margin-right:0.35rem;"></i> Step 02</span>
             <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Flexible Subscriptions</span>
@@ -284,7 +330,7 @@
           <p style="font-size:1.0625rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem;">Select the tier that best matches your family. No security deposit, no long-term contracts — upgrade, downgrade, pause for vacations, or cancel anytime with one click.</p>
 
           <!-- Plan Mini Cards -->
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.875rem;margin-bottom:1.75rem;">
+          <div class="step-mini-plans">
             <div style="padding:1rem 0.875rem;background:var(--bg-surface);border-radius:var(--radius-xl);border:1px solid var(--border-light);text-align:center;">
               <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1rem;margin-bottom:0.25rem;">Sprout</div>
               <div style="font-size:0.8125rem;color:var(--primary);font-weight:600;margin-bottom:0.25rem;">₹799 / mo</div>
@@ -315,7 +361,7 @@
       <!-- STEP 3 -->
       <div class="step-card reveal" id="step-3">
         <div class="step-card-num-watermark">03</div>
-        <div>
+        <div class="step-text-col">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
             <span class="badge badge-amber" style="font-size:0.8125rem;"><i class="fas fa-box-open" style="margin-right:0.35rem;"></i> Step 03</span>
             <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Unbox &amp; Play</span>
@@ -343,13 +389,13 @@
           </div>
         </div>
 
-        <div>
+        <div class="step-img-col">
           <div class="step-img-box">
-            <img src="assets/images/hiw_step3_play.jpg" alt="Child happily playing with their ToyNest toy box">
-            <div class="step-float-badge" style="top:1.25rem;left:1.25rem;">
+            <img src="assets/images/hiw_step3_unboxing_joy.jpg" alt="Child happily unboxing sanitized ToyNest toy box">
+            <div class="step-float-badge badge-top-left">
               <i class="fas fa-certificate" style="color:var(--green);"></i> 99.9% Germ-Free Guarantee
             </div>
-            <div class="step-float-badge" style="bottom:1.25rem;right:1.25rem;">
+            <div class="step-float-badge badge-bottom-right">
               <i class="fas fa-face-smile" style="color:var(--amber);"></i> Loved by 12,000+ Kids
             </div>
           </div>
@@ -359,19 +405,19 @@
       <!-- STEP 4 (Alternating Layout) -->
       <div class="step-card reverse reveal" id="step-4">
         <div class="step-card-num-watermark">04</div>
-        <div>
+        <div class="step-img-col">
           <div class="step-img-box">
-            <img src="assets/images/eco_green_toys_1790218458406.jpg" alt="Eco-friendly toys and zero waste subscription">
-            <div class="step-float-badge" style="top:1.25rem;right:1.25rem;">
+            <img src="assets/images/hiw_step4_doorstep_swap.jpg" alt="Effortless doorstep toy swap and delivery">
+            <div class="step-float-badge badge-top-right">
               <i class="fas fa-leaf" style="color:var(--green);"></i> 100% Eco-Friendly Cycle
             </div>
-            <div class="step-float-badge" style="bottom:1.25rem;left:1.25rem;">
+            <div class="step-float-badge badge-bottom-left">
               <i class="fas fa-check" style="color:var(--primary);"></i> No Cleaning Required
             </div>
           </div>
         </div>
 
-        <div>
+        <div class="step-text-col">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
             <span class="badge badge-blue" style="font-size:0.8125rem;"><i class="fas fa-repeat" style="margin-right:0.35rem;"></i> Step 04</span>
             <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Rotate &amp; Repeat</span>
@@ -413,10 +459,10 @@
       <h2 class="section-heading">Every Box Is a Surprise &amp; a Gift</h2>
       <p class="section-sub">Carefully curated by child development experts, wrapped with love, and delivered with excitement.</p>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="reveal">
-      <div>
-        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);aspect-ratio:4/3;">
-          <img src="assets/images/hiw_whats_in_box.jpg" alt="ToyNest subscription box contents" style="width:100%;height:100%;object-fit:cover;">
+    <div class="grid-2 reveal" style="gap:3.5rem;align-items:stretch;">
+      <div style="display:flex;flex-direction:column;align-self:stretch;">
+        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);width:100%;height:100%;min-height:350px;flex:1;">
+          <img src="assets/images/hiw_whats_in_box.jpg" alt="ToyNest subscription box contents" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
       <div>

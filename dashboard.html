@@ -59,7 +59,7 @@
     /* Filter Tabs & Catalog Cards Alignment */
     .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 2rem; }
     .filter-tabs .filter-tab { font-size: 0.8125rem; padding: 0.45rem 1rem; border-radius: var(--radius-full); transition: var(--transition-fast); }
-    #dashboard-catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: stretch; }
+    #dashboard-catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; align-items: stretch; }
     #dashboard-catalog-grid .toy-card { display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-light); box-shadow: var(--shadow-card); }
     #dashboard-catalog-grid .toy-card-img { aspect-ratio: 16/10; width: 100%; overflow: hidden; background: var(--bg-surface); }
     #dashboard-catalog-grid .toy-card-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -74,7 +74,7 @@
     @media (max-width: 1024px) {
       .dash-sidebar { width: 220px; }
       .metric-grid { grid-template-columns: repeat(2,1fr); }
-      #dashboard-catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 0.875rem; }
+      #dashboard-catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
       #dashboard-catalog-grid .toy-card-body { padding: 0.875rem; }
       #dashboard-catalog-grid .toy-card-footer .btn-sm { padding: 0 0.625rem; font-size: 0.75rem; height: 32px; }
       #dashboard-catalog-grid .toy-availability { font-size: 0.6875rem; }
@@ -99,7 +99,10 @@
       .metric-grid { grid-template-columns: repeat(2,1fr); gap: 0.875rem; margin-bottom: 1.25rem; }
       .metric-card { padding: 1rem; }
       .metric-card .metric-val { font-size: 1.375rem; }
-      #dashboard-catalog-grid { grid-template-columns: 1fr; }
+      #dashboard-catalog-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.875rem !important; }
+      #dashboard-catalog-grid .toy-card-body { padding: 0.875rem; }
+      #dashboard-catalog-grid .toy-card-footer .btn-sm { padding: 0 0.5rem; font-size: 0.75rem; height: 32px; }
+      #dashboard-catalog-grid .toy-availability { font-size: 0.6875rem; }
       .dash-panel { padding: 1.125rem 1rem; border-radius: var(--radius-xl); }
     }
     @media (max-width: 400px) {

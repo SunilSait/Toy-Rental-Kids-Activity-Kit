@@ -8,6 +8,56 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .table-container {
+      width: 100%;
+      overflow-x: hidden;
+    }
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    .pricing-table th, .pricing-table td {
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .pricing-table th {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+    .pricing-table .col-explorer {
+      background: var(--primary-subtle);
+    }
+    .mobile-text { display: none; }
+    .desktop-text { display: inline; }
+
+    @media (max-width: 600px) {
+      .mobile-text { display: inline; }
+      .desktop-text { display: none; }
+      .pricing-table {
+        table-layout: fixed;
+        font-size: 0.725rem;
+      }
+      .pricing-table th, .pricing-table td {
+        padding: 0.5rem 0.2rem !important;
+        line-height: 1.25;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      .pricing-table th:nth-child(1), .pricing-table td:nth-child(1) {
+        width: 37%;
+        text-align: left;
+      }
+      .pricing-table th:nth-child(2), .pricing-table td:nth-child(2),
+      .pricing-table th:nth-child(3), .pricing-table td:nth-child(3),
+      .pricing-table th:nth-child(4), .pricing-table td:nth-child(4) {
+        width: 21%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -113,64 +163,91 @@
         <h2 class="section-heading">Full Plan Comparison</h2>
         <p class="section-sub" style="margin:0 auto;">See every feature side by side to find the perfect plan for your family.</p>
       </div>
-      <div style="overflow-x:auto;">
-        <table style="width:100%;border-collapse:collapse;font-size:0.9375rem;">
+      <div class="table-container">
+        <table class="pricing-table">
           <thead>
             <tr style="border-bottom:2px solid var(--border-default);">
-              <th style="text-align:left;padding:1rem;font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">Feature</th>
-              <th style="text-align:center;padding:1rem;font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">Sprout</th>
-              <th style="text-align:center;padding:1rem;font-family:var(--font-heading);font-weight:600;color:var(--primary);background:var(--primary-subtle);border-radius:var(--radius-md);">Explorer <i class="fas fa-star" style="font-size:0.75rem;"></i></th>
-              <th style="text-align:center;padding:1rem;font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">Adventure</th>
+              <th style="text-align:left;">Feature</th>
+              <th style="text-align:center;">Sprout</th>
+              <th style="text-align:center;" class="col-explorer">Explorer <i class="fas fa-star" style="font-size:0.75rem;"></i></th>
+              <th style="text-align:center;">Adventure</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Monthly Toys</td>
-              <td style="text-align:center;padding:1rem;font-weight:600;">4 Toys</td>
-              <td style="text-align:center;padding:1rem;font-weight:600;background:var(--primary-subtle);">6 Toys</td>
-              <td style="text-align:center;padding:1rem;font-weight:600;">8 Toys</td>
+              <td style="color:var(--text-body);">Monthly Toys</td>
+              <td style="text-align:center;font-weight:600;">4 Toys</td>
+              <td style="text-align:center;font-weight:600;" class="col-explorer">6 Toys</td>
+              <td style="text-align:center;font-weight:600;">8 Toys</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Age Range</td>
-              <td style="text-align:center;padding:1rem;">0–2 Years</td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);">2–6 Years</td>
-              <td style="text-align:center;padding:1rem;">6–12 Years</td>
+              <td style="color:var(--text-body);">Age Range</td>
+              <td style="text-align:center;">0–2 Yrs</td>
+              <td style="text-align:center;" class="col-explorer">2–6 Yrs</td>
+              <td style="text-align:center;">6–12 Yrs</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Free Delivery &amp; Return</td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="color:var(--text-body);">
+                <span class="desktop-text">Free Delivery &amp; Return</span>
+                <span class="mobile-text">Free Delivery</span>
+              </td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;" class="col-explorer"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Hygiene Guarantee</td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="color:var(--text-body);">
+                <span class="desktop-text">Hygiene Guarantee</span>
+                <span class="mobile-text">Hygiene</span>
+              </td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;" class="col-explorer"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Early Swap Requests</td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);">1 / month</td>
-              <td style="text-align:center;padding:1rem;">Unlimited</td>
+              <td style="color:var(--text-body);">
+                <span class="desktop-text">Early Swap Requests</span>
+                <span class="mobile-text">Early Swaps</span>
+              </td>
+              <td style="text-align:center;"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
+              <td style="text-align:center;" class="col-explorer">
+                <span class="desktop-text">1 / month</span>
+                <span class="mobile-text">1 / mo</span>
+              </td>
+              <td style="text-align:center;">
+                <span class="desktop-text">Unlimited</span>
+                <span class="mobile-text">Unlim</span>
+              </td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Activity Guide</td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);"><i class="fas fa-check" style="color:var(--green);"></i></td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="color:var(--text-body);">Activity Guide</td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;" class="col-explorer"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border-light);">
-              <td style="padding:1rem;color:var(--text-body);">Damage Protection</td>
-              <td style="text-align:center;padding:1rem;">Wear &amp; Tear Only</td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);">Accidental Cover</td>
-              <td style="text-align:center;padding:1rem;">Full Cover</td>
+              <td style="color:var(--text-body);">
+                <span class="desktop-text">Damage Protection</span>
+                <span class="mobile-text">Damage Cover</span>
+              </td>
+              <td style="text-align:center;">
+                <span class="desktop-text">Wear &amp; Tear Only</span>
+                <span class="mobile-text">Basic</span>
+              </td>
+              <td style="text-align:center;" class="col-explorer">
+                <span class="desktop-text">Accidental Cover</span>
+                <span class="mobile-text">Accident</span>
+              </td>
+              <td style="text-align:center;">
+                <span class="desktop-text">Full Cover</span>
+                <span class="mobile-text">Full</span>
+              </td>
             </tr>
             <tr>
-              <td style="padding:1rem;color:var(--text-body);">Priority Support</td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
-              <td style="text-align:center;padding:1rem;background:var(--primary-subtle);"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
-              <td style="text-align:center;padding:1rem;"><i class="fas fa-check" style="color:var(--green);"></i></td>
+              <td style="color:var(--text-body);">Priority Support</td>
+              <td style="text-align:center;"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
+              <td style="text-align:center;" class="col-explorer"><i class="fas fa-times" style="color:var(--text-muted);"></i></td>
+              <td style="text-align:center;"><i class="fas fa-check" style="color:var(--green);"></i></td>
             </tr>
           </tbody>
         </table>

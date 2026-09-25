@@ -117,13 +117,39 @@
       animation: heroDotProgress 5s linear infinite;
     }
     @keyframes heroDotProgress { 0% { width: 0%; } 100% { width: 100%; } }
+    .h2-hero-controls .hero-slider-arrow {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .h2-hero-controls .hero-slider-arrow:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      transform: scale(1.12);
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+    .h2-hero-controls .hero-slider-arrow:active {
+      transform: scale(0.95);
+    }
 
     .benefit-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
-      padding: 4rem 0;
+      padding: 3.5rem 0;
       border-bottom: 1px solid var(--border-light);
     }
     .benefit-row:last-child { border-bottom: none; }
@@ -148,8 +174,29 @@
     }
     @media (max-width: 768px) {
       .h2-hero-slide-content { padding: 4rem 1rem 4.5rem; }
-      .benefit-row { grid-template-columns: 1fr; }
+      .benefit-row { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 2.5rem;
+      }
       .benefit-row.reverse { direction: ltr; }
+      .benefit-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .benefit-content .section-label {
+        margin-bottom: 1rem;
+      }
+      .benefit-content .btn {
+        margin: 0 auto;
+      }
+      .benefit-check-list {
+        margin: 0 auto 2rem !important;
+        align-items: flex-start !important;
+        max-width: fit-content !important;
+      }
     }
     @media (max-width: 960px) {
       .hygiene-protocol-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
@@ -162,10 +209,6 @@
 
 <!-- HERO — 100% FULL WIDTH EDGE-TO-EDGE BACKGROUND SLIDER -->
 <section class="home2-hero" id="h2-hero">
-  <!-- SIDE NAVIGATION ARROWS -->
-  <button class="hero-side-arrow prev" id="h2-prev" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
-  <button class="hero-side-arrow next" id="h2-next" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
-
   <div class="h2-hero-slider" id="h2-hero-slider">
 
     <!-- SLIDE 1 -->
@@ -224,13 +267,15 @@
 
   </div>
 
-  <!-- SLIDER CONTROLS (Dots Overlay) -->
+  <!-- SLIDER CONTROLS (Arrows & Dots Overlay) -->
   <div class="h2-hero-controls">
+    <button class="hero-slider-arrow prev" id="h2-prev" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
     <div class="h2-slider-dots">
       <button class="h2-dot active" aria-label="Go to Slide 1" data-slide-target="0"></button>
       <button class="h2-dot" aria-label="Go to Slide 2" data-slide-target="1"></button>
       <button class="h2-dot" aria-label="Go to Slide 3" data-slide-target="2"></button>
     </div>
+    <button class="hero-slider-arrow next" id="h2-next" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
   </div>
 </section>
 
@@ -244,9 +289,9 @@
     </div>
     <div class="grid-3 reveal" style="gap:2rem;">
       <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;">
-        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
-          <img src="assets/images/feature_expert_curated.jpg" alt="Child development specialist curating educational toys" style="width:100%;height:100%;object-fit:cover;">
-          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #6366F1, #4F46E5);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(99,102,241,0.45);">
+        <div class="feature-card-img">
+          <img src="assets/images/feature_expert_curated.jpg" alt="Child development specialist curating educational toys">
+          <div class="feature-card-badge" style="background:linear-gradient(135deg, #6366F1, #4F46E5);box-shadow:0 6px 16px rgba(99,102,241,0.45);">
             <i class="fas fa-brain"></i>
           </div>
         </div>
@@ -254,9 +299,9 @@
         <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Child development specialists curate every toy box based on cognitive milestones, motor development, and creative stages.</p>
       </div>
       <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;animation-delay:0.1s;">
-        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
-          <img src="assets/images/feature_always_fresh.jpg" alt="Child opening a new monthly toy rotation delivery box" style="width:100%;height:100%;object-fit:cover;">
-          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(16,185,129,0.45);">
+        <div class="feature-card-img">
+          <img src="assets/images/feature_always_fresh.jpg" alt="Child opening a new monthly toy rotation delivery box">
+          <div class="feature-card-badge" style="background:linear-gradient(135deg, #10B981, #059669);box-shadow:0 6px 16px rgba(16,185,129,0.45);">
             <i class="fas fa-clock"></i>
           </div>
         </div>
@@ -264,9 +309,9 @@
         <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">New toys every month means children stay engaged and curious. Our rotation algorithm learns what your child loves most.</p>
       </div>
       <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;animation-delay:0.2s;">
-        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
-          <img src="assets/images/feature_safety_certified.jpg" alt="Safety testing and inspection of eco-friendly wooden toys" style="width:100%;height:100%;object-fit:cover;">
-          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #F59E0B, #D97706);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(245,158,11,0.45);">
+        <div class="feature-card-img">
+          <img src="assets/images/feature_safety_certified.jpg" alt="Safety testing and inspection of eco-friendly wooden toys">
+          <div class="feature-card-badge" style="background:linear-gradient(135deg, #F59E0B, #D97706);box-shadow:0 6px 16px rgba(245,158,11,0.45);">
             <i class="fas fa-certificate"></i>
           </div>
         </div>
@@ -281,11 +326,11 @@
 <section class="section">
   <div class="container">
     <div class="benefit-row reveal">
-      <div>
+      <div class="benefit-content">
         <span class="section-label"><i class="fas fa-book-reader"></i> Learning Through Play</span>
         <h2 class="section-heading" style="font-size:clamp(1.5rem,3vw,2.125rem);">Every Toy Teaches Something Remarkable</h2>
         <p style="color:var(--text-muted);line-height:1.75;margin-bottom:1.75rem;font-weight:450;">From shape-sorting for infants to science kits for school-age kids, every ToyNest selection is chosen to develop specific cognitive and physical skills at the right time.</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;width:100%;">
           <div style="padding:1rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
             <div style="font-size:1.5rem;color:var(--primary);margin-bottom:0.375rem;"><i class="fas fa-shapes"></i></div>
             <div style="font-size:0.875rem;font-weight:600;color:var(--text-heading);">Fine Motor Skills</div>
@@ -296,7 +341,7 @@
           </div>
           <div style="padding:1rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
             <div style="font-size:1.5rem;color:var(--primary);margin-bottom:0.375rem;"><i class="fas fa-palette"></i></div>
-            <div style="font-size:0.875rem;font-weight:600;color:var(--text-heading);">Creative Expression</div>
+            <div style="font-size:0.875rem;font-weight:600;color:var(--text-heading);">Creative</div>
           </div>
           <div style="padding:1rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
             <div style="font-size:1.5rem;color:var(--primary);margin-bottom:0.375rem;"><i class="fas fa-users"></i></div>
@@ -305,24 +350,24 @@
         </div>
         <a href="how-it-works.html" class="btn btn-primary" id="h2-learn-cta">Learn More <i class="fas fa-arrow-right"></i></a>
       </div>
-      <div>
-        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);aspect-ratio:4/3;">
-          <img src="assets/images/child_playing_blocks_1790218236581.jpg" alt="Child learning through play with building blocks" style="width:100%;height:100%;object-fit:cover;">
+      <div style="align-self:stretch;display:flex;flex-direction:column;">
+        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);width:100%;height:100%;min-height:350px;flex:1;">
+          <img src="assets/images/child_playing_blocks_1790218236581.jpg" alt="Child learning through play with building blocks" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
     </div>
 
     <div class="benefit-row reverse reveal">
-      <div style="direction:ltr;">
-        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);aspect-ratio:4/3;">
-          <img src="assets/images/mother_child_reading_1790218405592.jpg" alt="Mother and child playing and reading together" style="width:100%;height:100%;object-fit:cover;">
+      <div style="direction:ltr;align-self:stretch;display:flex;flex-direction:column;">
+        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);width:100%;height:100%;min-height:350px;flex:1;">
+          <img src="assets/images/mother_child_reading_1790218405592.jpg" alt="Mother and child playing and reading together" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
-      <div style="direction:ltr;">
+      <div class="benefit-content" style="direction:ltr;">
         <span class="section-label"><i class="fas fa-heart"></i> Family Bonding</span>
         <h2 class="section-heading" style="font-size:clamp(1.5rem,3vw,2.125rem);">Create Memories That Last a Lifetime</h2>
         <p style="color:var(--text-muted);line-height:1.75;margin-bottom:1.75rem;font-weight:450;">The unboxing experience creates excitement and anticipation. Each toy is accompanied by activity guides designed for parent-child play, strengthening bonds through shared discovery.</p>
-        <div style="display:flex;flex-direction:column;gap:0.875rem;margin-bottom:2rem;">
+        <div class="benefit-check-list" style="display:flex;flex-direction:column;gap:0.875rem;margin-bottom:2rem;">
           <div style="display:flex;align-items:center;gap:0.75rem;">
             <i class="fas fa-check-circle" style="color:var(--primary);font-size:1.125rem;flex-shrink:0;"></i>
             <span style="font-size:0.9375rem;color:var(--text-body);font-weight:450;">Monthly activity guides for parent-child play</span>
@@ -373,7 +418,7 @@
         <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
           <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">3</div>
           <div>
-            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Hospital-Grade Bioclean</h4>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Hospital-Grade</h4>
             <p style="font-size:0.85rem;line-height:1.55;margin:0;">Hospital-grade bioclean to safely eliminate 99.9% of bacteria, viruses, and pathogens.</p>
           </div>
         </div>
@@ -389,7 +434,7 @@
         <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
           <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">5</div>
           <div>
-            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Quality &amp; Safety Check</h4>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Quality &amp; Safety</h4>
             <p style="font-size:0.85rem;line-height:1.55;margin:0;">Certified QC safety checks on all edges, joints, and batteries to ensure zero hazard.</p>
           </div>
         </div>
@@ -398,7 +443,7 @@
           <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">6</div>
           <div>
             <h4 style="font-size:1rem;margin-bottom:0.25rem;">Hermetic Tamper Seal</h4>
-            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Hermetic airtight packaging with dated certificate verifying complete sterile passage.</p>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Hermetic airtight pack with dated certificate verifying complete sterile passage.</p>
           </div>
         </div>
       </div>
@@ -407,7 +452,7 @@
       <div class="reveal" style="animation-delay:0.15s;">
         <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-3xl);padding:2rem;box-shadow:var(--shadow-card);position:relative;overflow:hidden;">
           <div style="border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:16/10;margin-bottom:1.5rem;box-shadow:var(--shadow-md);">
-            <img src="assets/images/hygiene_cleaning_toys_1790218387515.jpg" alt="Specialist performing hospital grade UV-C toy cleaning" style="width:100%;height:100%;object-fit:cover;">
+            <img src="assets/images/home2_hygiene_sanitization.jpg" alt="Specialist performing hospital grade UV-C toy cleaning in lab chamber" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.25rem;">
             <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);border-radius:var(--radius-full);"><i class="fas fa-check-circle" style="margin-right:0.3rem;"></i> WHO Approved Sanitizers</span>
@@ -434,7 +479,7 @@
       <div class="t-slide active" style="transition:opacity 0.6s ease-in-out;opacity:1;display:block;width:100%;">
         <blockquote style="font-family:var(--font-heading);font-size:clamp(1.25rem,2.5vw,1.75rem);font-weight:600;color:var(--text-heading);line-height:1.55;margin-bottom:2rem;">"ToyNest has completely changed how we approach play at home. Our twins get so excited on delivery day, and I love that every toy actually teaches them something while being totally safe."</blockquote>
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;">
-          <img src="assets/images/mother_child_reading_1790218405592.jpg" alt="Anjali R." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
+          <img src="assets/images/avatar_parent_anjali.jpg" alt="Anjali R." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
           <div style="text-align:left;">
             <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1.125rem;">Anjali R.</div>
             <div style="font-size:0.875rem;color:var(--text-muted);">Mom of twins &bull; Hyderabad &bull; Explorer Plan</div>
@@ -446,7 +491,7 @@
       <div class="t-slide" style="transition:opacity 0.6s ease-in-out;opacity:0;display:none;width:100%;">
         <blockquote style="font-family:var(--font-heading);font-size:clamp(1.25rem,2.5vw,1.75rem);font-weight:600;color:var(--text-heading);line-height:1.55;margin-bottom:2rem;">"As a working parent, finding high-quality educational toys was always exhausting. ToyNest delivers sanitized STEM kits right to our door. It has saved us thousands of rupees!"</blockquote>
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;">
-          <img src="assets/images/child_playing_blocks_1790218236581.jpg" alt="Vikram S." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
+          <img src="assets/images/avatar_parent_vikram.jpg" alt="Vikram S." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
           <div style="text-align:left;">
             <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1.125rem;">Vikram S.</div>
             <div style="font-size:0.875rem;color:var(--text-muted);">Father of 4-year-old &bull; Bengaluru &bull; Sprout Plan</div>
@@ -458,7 +503,7 @@
       <div class="t-slide" style="transition:opacity 0.6s ease-in-out;opacity:0;display:none;width:100%;">
         <blockquote style="font-family:var(--font-heading);font-size:clamp(1.25rem,2.5vw,1.75rem);font-weight:600;color:var(--text-heading);line-height:1.55;margin-bottom:2rem;">"The zero clutter policy is a lifesaver! We rotate 8 STEM toys every month and when my kids get bored, we simply send them back for a fresh new set. Best subscription ever!"</blockquote>
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;">
-          <img src="assets/images/toy_subscription_box_1790218273378.jpg" alt="Priya M." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
+          <img src="assets/images/avatar_parent_priyam.jpg" alt="Priya M." style="width:56px;height:56px;border-radius:50%;border:3px solid var(--primary-subtle);object-fit:cover;">
           <div style="text-align:left;">
             <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1.125rem;">Priya M.</div>
             <div style="font-size:0.875rem;color:var(--text-muted);">Mother of two &bull; Mumbai &bull; Adventure Plan</div>
@@ -487,7 +532,7 @@
 <!-- APP-LIKE DASHBOARD PREVIEW -->
 <section class="section">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:2.5rem;align-items:stretch;">
       <div class="reveal">
         <span class="section-label"><i class="fas fa-tachometer-alt"></i> Parent Dashboard</span>
         <h2 class="section-heading">Total Control, Zero Effort</h2>
@@ -512,9 +557,9 @@
         </div>
         <a href="signup.html" class="btn btn-primary" id="h2-dash-cta">Access Your Dashboard</a>
       </div>
-      <div class="reveal" style="animation-delay:0.2s;">
-        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);aspect-ratio:4/3;">
-          <img src="assets/images/toy_catalog_display_1790218433334.jpg" alt="ToyNest dashboard and catalog management" style="width:100%;height:100%;object-fit:cover;">
+      <div class="reveal" style="animation-delay:0.2s;align-self:stretch;display:flex;flex-direction:column;">
+        <div style="border-radius:var(--radius-3xl);overflow:hidden;box-shadow:var(--shadow-xl);width:100%;height:100%;min-height:380px;flex:1;border:1px solid var(--border-light);">
+          <img src="assets/images/toy_catalog_display_1790218433334.jpg" alt="ToyNest dashboard and catalog management" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
     </div>
