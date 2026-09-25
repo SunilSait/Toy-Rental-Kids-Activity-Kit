@@ -8,6 +8,154 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .step-nav-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .step-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+    .step-nav-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .step-nav-pill .pill-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary-subtle);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .step-card {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-3xl);
+      padding: 3rem;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 2.75rem;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    .step-card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-4px);
+    }
+    .step-card.reverse {
+      grid-template-columns: 1fr 1.15fr;
+    }
+    .step-card-num-watermark {
+      position: absolute;
+      top: -0.5rem;
+      right: 1.5rem;
+      font-family: var(--font-heading);
+      font-size: 6rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      opacity: 0.04;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .step-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .step-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+      color: var(--text-body);
+      font-weight: 450;
+    }
+    .step-feature-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary-subtle);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      flex-shrink: 0;
+    }
+    .step-img-box {
+      position: relative;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border-light);
+    }
+    .step-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .step-card:hover .step-img-box img {
+      transform: scale(1.03);
+    }
+    .step-float-badge {
+      position: absolute;
+      background: rgba(22, 27, 39, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-default);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: var(--shadow-md);
+    }
+    @media (max-width: 900px) {
+      .step-card {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .step-card.reverse > div:first-child {
+        order: 2;
+      }
+      .step-card.reverse > div:last-child {
+        order: 1;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,97 +194,209 @@
   </div>
 </div>
 
-<!-- TIMELINE STEPS -->
-<section class="section">
-  <div class="container" style="max-width:960px;">
+<!-- TIMELINE STEPS / JOURNEY WALKTHROUGH -->
+<section class="section" id="how-steps">
+  <div class="container" style="max-width:1120px;">
+    
+    <!-- Section Header -->
+    <div class="text-center reveal" style="margin-bottom:3.5rem;">
+      <span class="section-label"><i class="fas fa-route"></i> The ToyNest Journey</span>
+      <h2 class="section-heading">How Playtime Transforms in 4 Simple Steps</h2>
+      <p class="section-sub">From personalizing your child's milestones to zero-waste doorstep swaps — designed for zero friction.</p>
+    </div>
+
+    <!-- Step Progress Tracker Bar -->
+    <div class="step-nav-bar reveal">
+      <a href="#step-1" class="step-nav-pill"><span class="pill-num">1</span> <span>1. Personalize</span></a>
+      <a href="#step-2" class="step-nav-pill"><span class="pill-num">2</span> <span>2. Choose Plan</span></a>
+      <a href="#step-3" class="step-nav-pill"><span class="pill-num">3</span> <span>3. Unbox &amp; Play</span></a>
+      <a href="#step-4" class="step-nav-pill"><span class="pill-num">4</span> <span>4. Swap &amp; Repeat</span></a>
+    </div>
+
     <div class="timeline-steps">
 
-      <!-- Step 1 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-left">
-          <div class="timeline-num">1</div>
-          <div class="timeline-line"></div>
+      <!-- STEP 1 -->
+      <div class="step-card reveal" id="step-1">
+        <div class="step-card-num-watermark">01</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <span class="badge badge-primary" style="font-size:0.8125rem;"><i class="fas fa-user-gear" style="margin-right:0.35rem;"></i> Step 01</span>
+            <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Sign Up &amp; Profile</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.8vw,2.15rem);margin-bottom:1rem;color:var(--text-heading);line-height:1.25;">Create Your Child's Play Profile</h3>
+          <p style="font-size:1.0625rem;color:var(--text-muted);line-height:1.75;margin-bottom:0.75rem;">Tell us about your little one — their age, development milestones, and what kind of play sparks their curiosity. Whether they love building, sensory textures, pretend kitchen play, or science kits, we adapt to them.</p>
+          
+          <div class="step-feature-list">
+            <div class="step-feature-item">
+              <div class="step-feature-icon"><i class="fas fa-bullseye"></i></div>
+              <span>Milestone-matched toy recommendations (0 to 12 Years)</span>
+            </div>
+            <div class="step-feature-item">
+              <div class="step-feature-icon"><i class="fas fa-ban"></i></div>
+              <span>Filter out specific categories or materials anytime</span>
+            </div>
+            <div class="step-feature-item">
+              <div class="step-feature-icon"><i class="fas fa-sliders"></i></div>
+              <span>Fully editable preferences from your parent dashboard</span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+            <a href="signup.html" class="btn btn-primary btn-lg" id="hiw-step1-cta">Build Free Profile <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <span style="font-size:0.875rem;color:var(--text-muted);"><i class="fas fa-bolt" style="color:var(--amber);margin-right:0.3rem;"></i> Takes less than 2 minutes</span>
+          </div>
         </div>
-        <div class="timeline-content">
-          <span class="badge badge-primary" style="margin-bottom:0.875rem;">Sign Up & Personalize</span>
-          <h3>Create Your Family Profile</h3>
-          <p>Tell us about your child — their age, interests, and what kind of play they love. Do they prefer outdoor adventures? Building with blocks? Creative arts? Our smart profiling system uses this to curate the perfect toy selection for your family.</p>
-          <p style="margin-top:0.75rem;">You can set toy preferences, age ranges, and even blacklist specific categories. Your profile is always editable from the parent dashboard.</p>
-          <div class="timeline-img">
+
+        <div>
+          <div class="step-img-box">
             <img src="assets/images/hiw_step1_customize.jpg" alt="Setting up your ToyNest family profile">
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-left">
-          <div class="timeline-num">2</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <span class="badge badge-green" style="margin-bottom:0.875rem;">Plan Selection</span>
-          <h3>Choose Your Subscription Plan</h3>
-          <p>Pick the plan that fits your family's needs. Our <strong>Sprout</strong> plan is ideal for babies (0–2 years), <strong>Explorer</strong> is perfect for toddlers (2–6 years), and <strong>Adventure</strong> is designed for school-age kids (6–12 years).</p>
-          <p style="margin-top:0.75rem;">All plans include free delivery, free returns, and our hygiene guarantee. Cancel or pause anytime with no penalty.</p>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;">
-            <div style="padding:1.25rem;background:var(--bg-surface);border-radius:var(--radius-xl);border:1px solid var(--border-light);text-align:center;">
-              <div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);font-size:1.125rem;">Sprout</div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">0–2 years &bull; 4 toys</div>
+            <div class="step-float-badge" style="top:1.25rem;left:1.25rem;">
+              <i class="fas fa-wand-magic-sparkles" style="color:var(--amber);"></i> Smart Milestone Match
             </div>
-            <div style="padding:1.25rem;background:var(--primary-subtle);border-radius:var(--radius-xl);border:2px solid var(--primary);text-align:center;">
-              <div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);font-size:1.125rem;">Explorer <i class="fas fa-star" style="font-size:0.875rem;"></i></div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">2–6 years &bull; 6 toys</div>
-            </div>
-            <div style="padding:1.25rem;background:var(--bg-surface);border-radius:var(--radius-xl);border:1px solid var(--border-light);text-align:center;">
-              <div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);font-size:1.125rem;">Adventure</div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">6–12 years &bull; 8 toys</div>
+            <div class="step-float-badge" style="bottom:1.25rem;right:1.25rem;">
+              <i class="fas fa-shield-heart" style="color:var(--green);"></i> 100% Parent Controlled
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Step 3 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-left">
-          <div class="timeline-num">3</div>
-          <div class="timeline-line"></div>
+      <!-- STEP 2 (Alternating Layout) -->
+      <div class="step-card reverse reveal" id="step-2">
+        <div class="step-card-num-watermark">02</div>
+        <div>
+          <div class="step-img-box">
+            <img src="assets/images/banner_pricing.jpg" alt="Choosing ToyNest subscription plan">
+            <div class="step-float-badge" style="top:1.25rem;right:1.25rem;">
+              <i class="fas fa-gift" style="color:var(--primary);"></i> 7-Day Free Trial Included
+            </div>
+            <div class="step-float-badge" style="bottom:1.25rem;left:1.25rem;">
+              <i class="fas fa-rotate" style="color:var(--green);"></i> Free Delivery &amp; Swaps
+            </div>
+          </div>
         </div>
-        <div class="timeline-content">
-          <span class="badge badge-amber" style="margin-bottom:0.875rem;">Receive & Play</span>
-          <h3>Unbox the Joy &amp; Play All Month</h3>
-          <p>Your curated toy box arrives within 48 hours, eco-packed and ready for exploration. Each box includes an activity guide with age-appropriate play ideas and developmental tips to help you get the most out of every toy.</p>
-          <p style="margin-top:0.75rem;">Every toy has been professionally cleaned, inspected for safety, and verified to be in excellent condition before reaching your door.</p>
-          <div class="timeline-img">
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <span class="badge badge-green" style="font-size:0.8125rem;"><i class="fas fa-tags" style="margin-right:0.35rem;"></i> Step 02</span>
+            <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Flexible Subscriptions</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.8vw,2.15rem);margin-bottom:1rem;color:var(--text-heading);line-height:1.25;">Choose Your Subscription Plan</h3>
+          <p style="font-size:1.0625rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem;">Select the tier that best matches your family. No security deposit, no long-term contracts — upgrade, downgrade, pause for vacations, or cancel anytime with one click.</p>
+
+          <!-- Plan Mini Cards -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.875rem;margin-bottom:1.75rem;">
+            <div style="padding:1rem 0.875rem;background:var(--bg-surface);border-radius:var(--radius-xl);border:1px solid var(--border-light);text-align:center;">
+              <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1rem;margin-bottom:0.25rem;">Sprout</div>
+              <div style="font-size:0.8125rem;color:var(--primary);font-weight:600;margin-bottom:0.25rem;">₹799 / mo</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">0–2 Yrs &bull; 4 Toys</div>
+            </div>
+
+            <div style="padding:1rem 0.875rem;background:var(--primary-subtle);border-radius:var(--radius-xl);border:2px solid var(--primary);text-align:center;position:relative;">
+              <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:0.625rem;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:700;letter-spacing:0.02em;">POPULAR</div>
+              <div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);font-size:1rem;margin-bottom:0.25rem;margin-top:0.2rem;">Explorer</div>
+              <div style="font-size:0.8125rem;color:var(--text-heading);font-weight:700;margin-bottom:0.25rem;">₹1,299 / mo</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">2–6 Yrs &bull; 6 Toys</div>
+            </div>
+
+            <div style="padding:1rem 0.875rem;background:var(--bg-surface);border-radius:var(--radius-xl);border:1px solid var(--border-light);text-align:center;">
+              <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);font-size:1rem;margin-bottom:0.25rem;">Adventure</div>
+              <div style="font-size:0.8125rem;color:var(--primary);font-weight:600;margin-bottom:0.25rem;">₹1,899 / mo</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">6–12 Yrs &bull; 8 Toys</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+            <a href="pricing.html" class="btn btn-primary btn-lg" id="hiw-step2-cta">Compare All Plan Details <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <span style="font-size:0.875rem;color:var(--text-muted);"><i class="fas fa-shield-alt" style="color:var(--green);margin-right:0.3rem;"></i> Zero risk guarantee</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-card reveal" id="step-3">
+        <div class="step-card-num-watermark">03</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <span class="badge badge-amber" style="font-size:0.8125rem;"><i class="fas fa-box-open" style="margin-right:0.35rem;"></i> Step 03</span>
+            <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Unbox &amp; Play</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.8vw,2.15rem);margin-bottom:1rem;color:var(--text-heading);line-height:1.25;">Unbox 100% Hospital-Sanitized Joy</h3>
+          <p style="font-size:1.0625rem;color:var(--text-muted);line-height:1.75;margin-bottom:0.75rem;">Your curated kit arrives at your door within 48 hours, sealed in eco-friendly packaging with a dated safety certification sticker. Inside, you will find premium toys and a parent play guide.</p>
+          
+          <div class="step-feature-list">
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--green);background:rgba(34,197,94,0.12);"><i class="fas fa-truck-fast"></i></div>
+              <span>Express 48-hour delivery straight to your doorstep</span>
+            </div>
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--green);background:rgba(34,197,94,0.12);"><i class="fas fa-spray-can-sparkles"></i></div>
+              <span>6-step hospital UV-C sanitization with 99.9% germ elimination</span>
+            </div>
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--green);background:rgba(34,197,94,0.12);"><i class="fas fa-book-open"></i></div>
+              <span>Expert activity guidebook packed with bonding play ideas</span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+            <a href="hygiene.html" class="btn btn-secondary btn-lg" id="hiw-step3-cta"><i class="fas fa-pump-medical" style="margin-right:0.35rem;"></i> View Hygiene Standard</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="step-img-box">
             <img src="assets/images/hiw_step3_play.jpg" alt="Child happily playing with their ToyNest toy box">
+            <div class="step-float-badge" style="top:1.25rem;left:1.25rem;">
+              <i class="fas fa-certificate" style="color:var(--green);"></i> 99.9% Germ-Free Guarantee
+            </div>
+            <div class="step-float-badge" style="bottom:1.25rem;right:1.25rem;">
+              <i class="fas fa-face-smile" style="color:var(--amber);"></i> Loved by 12,000+ Kids
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Step 4 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-left">
-          <div class="timeline-num">4</div>
-          <div class="timeline-line"></div>
+      <!-- STEP 4 (Alternating Layout) -->
+      <div class="step-card reverse reveal" id="step-4">
+        <div class="step-card-num-watermark">04</div>
+        <div>
+          <div class="step-img-box">
+            <img src="assets/images/eco_green_toys_1790218458406.jpg" alt="Eco-friendly toys and zero waste subscription">
+            <div class="step-float-badge" style="top:1.25rem;right:1.25rem;">
+              <i class="fas fa-leaf" style="color:var(--green);"></i> 100% Eco-Friendly Cycle
+            </div>
+            <div class="step-float-badge" style="bottom:1.25rem;left:1.25rem;">
+              <i class="fas fa-check" style="color:var(--primary);"></i> No Cleaning Required
+            </div>
+          </div>
         </div>
-        <div class="timeline-content">
-          <span class="badge badge-blue" style="margin-bottom:0.875rem;">Return & Rotate</span>
-          <h3>Return Easily, Receive Freshness</h3>
-          <p>At the end of your subscription cycle, we send a prepaid return bag directly to your home. Simply pack all the toys (no cleaning needed!), and schedule a pickup at your convenience. Within days, a brand-new selection arrives.</p>
-          <p style="margin-top:0.75rem;">Use the parent dashboard to request early swaps if your child has finished exploring a toy before the month ends.</p>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
-            <div style="display:flex;align-items:center;gap:0.625rem;padding:0.875rem 1.25rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
-              <i class="fas fa-truck" style="color:var(--primary);"></i>
-              <span style="font-size:0.875rem;font-weight:450;">Prepaid return bag sent</span>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <span class="badge badge-blue" style="font-size:0.8125rem;"><i class="fas fa-repeat" style="margin-right:0.35rem;"></i> Step 04</span>
+            <span style="font-size:0.875rem;font-weight:600;color:var(--text-muted);">Rotate &amp; Repeat</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.8vw,2.15rem);margin-bottom:1rem;color:var(--text-heading);line-height:1.25;">Effortless Doorstep Swaps, Zero Waste</h3>
+          <p style="font-size:1.0625rem;color:var(--text-muted);line-height:1.75;margin-bottom:0.75rem;">When your child is ready for fresh stimulation, request a swap via the parent dashboard. We deliver your new box and collect the previous toys at the exact same time.</p>
+          
+          <div class="step-feature-list">
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--blue);background:rgba(59,130,246,0.12);"><i class="fas fa-arrows-rotate"></i></div>
+              <span>Simultaneous drop-off and pickup in a single visit</span>
             </div>
-            <div style="display:flex;align-items:center;gap:0.625rem;padding:0.875rem 1.25rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
-              <i class="fas fa-box" style="color:var(--primary);"></i>
-              <span style="font-size:0.875rem;font-weight:450;">No cleaning required</span>
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--blue);background:rgba(59,130,246,0.12);"><i class="fas fa-soap"></i></div>
+              <span>Zero cleaning required — our laboratory takes care of deep sanitization</span>
             </div>
-            <div style="display:flex;align-items:center;gap:0.625rem;padding:0.875rem 1.25rem;background:var(--bg-surface);border-radius:var(--radius-lg);border:1px solid var(--border-light);">
-              <i class="fas fa-calendar-alt" style="color:var(--primary);"></i>
-              <span style="font-size:0.875rem;font-weight:450;">Schedule pickup online</span>
+            <div class="step-feature-item">
+              <div class="step-feature-icon" style="color:var(--blue);background:rgba(59,130,246,0.12);"><i class="fas fa-recycle"></i></div>
+              <span>Clutter-free home and zero plastic toys going to landfills</span>
             </div>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+            <a href="signup.html" class="btn btn-primary btn-lg" id="hiw-step4-cta">Get Started Risk-Free <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <span style="font-size:0.875rem;color:var(--text-muted);"><i class="fas fa-gift" style="color:var(--primary);margin-right:0.3rem;"></i> First 7 days are completely free</span>
           </div>
         </div>
       </div>
@@ -180,13 +440,6 @@
             <div>
               <h4>Safety Inspection Certificate</h4>
               <p>Each toy comes with a verified hygiene and safety sticker from our QC team</p>
-            </div>
-          </div>
-          <div class="hygiene-step-card">
-            <div class="hygiene-step-num"><i class="fas fa-check"></i></div>
-            <div>
-              <h4>Prepaid Return Bag</h4>
-              <p>Eco-friendly return packaging — just pack and schedule a free home pickup</p>
             </div>
           </div>
         </div>

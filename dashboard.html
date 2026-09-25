@@ -25,10 +25,11 @@
     .dash-sidebar-footer { padding: 1rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); }
     .dash-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
     .dash-topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 var(--container-padding); height: 68px; background: var(--bg-body); border-bottom: 1px solid var(--border-light); flex-shrink: 0; gap: 1rem; }
-    .dash-search { display: flex; align-items: center; gap: 0.625rem; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); padding: 0.5rem 1rem; flex: 1; max-width: 360px; }
-    .dash-search input { border: none; background: none; outline: none; font-size: 0.875rem; color: var(--text-heading); font-family: var(--font-body); flex: 1; }
-    .dash-topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
-    .dash-icon-btn { width: 38px; height: 38px; border-radius: var(--radius-md); border: 1px solid var(--border-default); background: var(--bg-card); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.875rem; cursor: pointer; transition: var(--transition-fast); position: relative; }
+    .dash-topbar-left { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
+    .dash-search { display: flex; align-items: center; gap: 0.5rem; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); padding: 0.5rem 1rem; flex: 1; max-width: 320px; min-width: 0; }
+    .dash-search input { border: none; background: none; outline: none; font-size: 0.8125rem; color: var(--text-heading); font-family: var(--font-body); width: 100%; min-width: 0; }
+    .dash-topbar-actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .dash-icon-btn { width: 38px; height: 38px; border-radius: var(--radius-md); border: 1px solid var(--border-default); background: var(--bg-card); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.875rem; cursor: pointer; transition: var(--transition-fast); position: relative; flex-shrink: 0; }
     .dash-icon-btn:hover { border-color: var(--primary); color: var(--primary); }
     .dash-notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; border: 2px solid var(--bg-body); }
     .dash-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-heading); font-weight: 600; font-size: 0.9375rem; cursor: pointer; flex-shrink: 0; }
@@ -55,25 +56,293 @@
     .status-returned { background: rgba(100,116,139,0.12); color: #475569; }
     .invoice-row { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 0; border-bottom: 1px solid var(--border-light); }
     .invoice-row:last-child { border-bottom: none; }
-    @media (max-width: 1024px) { .dash-sidebar { width: 220px; } .metric-grid { grid-template-columns: repeat(2,1fr); } }
+    /* Filter Tabs & Catalog Cards Alignment */
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 2rem; }
+    .filter-tabs .filter-tab { font-size: 0.8125rem; padding: 0.45rem 1rem; border-radius: var(--radius-full); transition: var(--transition-fast); }
+    #dashboard-catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: stretch; }
+    #dashboard-catalog-grid .toy-card { display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-light); box-shadow: var(--shadow-card); }
+    #dashboard-catalog-grid .toy-card-img { aspect-ratio: 16/10; width: 100%; overflow: hidden; background: var(--bg-surface); }
+    #dashboard-catalog-grid .toy-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    #dashboard-catalog-grid .toy-card-body { padding: 1.125rem; display: flex; flex-direction: column; flex: 1; }
+    #dashboard-catalog-grid .toy-card-age { width: fit-content; align-self: flex-start; display: inline-flex; align-items: center; margin-bottom: 0.625rem; }
+    #dashboard-catalog-grid .toy-card-title { min-height: 2.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.9375rem; font-weight: 600; line-height: 1.35; color: var(--text-heading); margin-bottom: 0.25rem; }
+    #dashboard-catalog-grid .toy-card-cat { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.875rem; }
+    #dashboard-catalog-grid .toy-card-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border-light); }
+    #dashboard-catalog-grid .toy-card-footer .btn-sm { height: 34px; padding: 0 0.875rem; font-size: 0.8125rem; white-space: nowrap; flex-shrink: 0; border-radius: var(--radius-full); font-weight: 600; }
+    #dashboard-catalog-grid .toy-availability { font-size: 0.75rem; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+    #sidebar-toggle { display: none; }
+    @media (max-width: 1024px) {
+      .dash-sidebar { width: 220px; }
+      .metric-grid { grid-template-columns: repeat(2,1fr); }
+      #dashboard-catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 0.875rem; }
+      #dashboard-catalog-grid .toy-card-body { padding: 0.875rem; }
+      #dashboard-catalog-grid .toy-card-footer .btn-sm { padding: 0 0.625rem; font-size: 0.75rem; height: 32px; }
+      #dashboard-catalog-grid .toy-availability { font-size: 0.6875rem; }
+    }
     @media (max-width: 768px) {
-      .dash-sidebar { position: fixed; left: -260px; z-index: 200; transition: var(--transition-smooth); }
-      .dash-sidebar.open { left: 0; }
+      .dash-topbar { padding: 0 0.875rem; height: 60px; gap: 0.5rem; }
+      .dash-topbar-left { gap: 0.5rem; }
+      .dash-topbar-actions { gap: 0.375rem; }
+      .dash-icon-btn { width: 34px; height: 34px; font-size: 0.8125rem; }
+      .dash-avatar { width: 34px; height: 34px; font-size: 0.8125rem; }
+      .dir-toggle-btn { display: none !important; }
+      .dash-search { padding: 0.35rem 0.625rem; max-width: none; }
+      .dash-search input { font-size: 0.75rem; }
+      #sidebar-toggle { display: flex; flex-shrink: 0; }
+      .mobile-close-btn { display: flex !important; }
+      .dash-sidebar { position: fixed; top: 0; bottom: 0; left: -260px; z-index: 200; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: none; }
+      .dash-sidebar.open { left: 0; box-shadow: 4px 0 24px rgba(0,0,0,0.5); }
       body { overflow: auto; }
       .dash-layout { height: auto; overflow: auto; }
       .dash-main { height: auto; }
-      .dash-content { overflow: visible; }
-      .metric-grid { grid-template-columns: repeat(2,1fr); }
+      .dash-content { overflow: visible; padding: 1.25rem 0.875rem; }
+      .metric-grid { grid-template-columns: repeat(2,1fr); gap: 0.875rem; margin-bottom: 1.25rem; }
+      .metric-card { padding: 1rem; }
+      .metric-card .metric-val { font-size: 1.375rem; }
+      #dashboard-catalog-grid { grid-template-columns: 1fr; }
+      .dash-panel { padding: 1.125rem 1rem; border-radius: var(--radius-xl); }
+    }
+    @media (max-width: 400px) {
+      .dash-topbar { padding: 0 0.625rem; gap: 0.375rem; }
+      .dash-topbar-left { gap: 0.375rem; }
+      .dash-topbar-actions { gap: 0.25rem; }
+      .dash-icon-btn, .dash-avatar { width: 32px; height: 32px; font-size: 0.75rem; }
+      .dash-search { padding: 0.3rem 0.5rem; gap: 0.375rem; }
+    }
+
+    /* Enhanced Form Select Styles */
+    select.form-input {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23F43F5E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 16px;
+      padding-right: 2.75rem;
+      cursor: pointer;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    [data-theme="dark"] select.form-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FB7185' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    }
+    select.form-input option {
+      background: var(--bg-card);
+      color: var(--text-heading);
+      padding: 0.75rem 1rem;
+    }
+
+    /* Custom Toy Selector Dropdown (Contained & Responsive) */
+    .custom-select-container {
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .custom-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      background: var(--bg-body);
+      color: var(--text-heading);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      box-sizing: border-box;
+      user-select: none;
+    }
+    .custom-select-trigger:focus, .custom-select-container.open .custom-select-trigger {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-subtle);
+    }
+    .custom-select-selected {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      flex: 1;
+    }
+    .custom-select-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--bg-surface);
+    }
+    .custom-select-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+      text-align: left;
+    }
+    .custom-select-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .custom-select-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .custom-select-arrow {
+      color: var(--primary);
+      font-size: 0.8125rem;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .custom-select-container.open .custom-select-arrow {
+      transform: rotate(180deg);
+    }
+    .custom-select-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      z-index: 100;
+      max-height: 260px;
+      overflow-y: auto;
+      display: none;
+      padding: 0.375rem;
+      box-sizing: border-box;
+    }
+    .custom-select-container.open .custom-select-dropdown {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      animation: selectFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes selectFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .custom-select-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      color: var(--text-heading);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .custom-select-option:hover {
+      background: var(--bg-surface);
+    }
+    .custom-select-option.selected {
+      background: var(--primary-subtle);
+    }
+    .custom-select-option.selected .custom-select-name {
+      color: var(--primary);
+    }
+    .custom-select-check {
+      color: var(--primary);
+      font-size: 0.875rem;
+      display: none;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .custom-select-option.selected .custom-select-check {
+      display: inline-block;
+    }
+
+    /* Billing History Responsive Cards */
+    .invoice-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border-light); gap: 1rem; }
+    .invoice-row:last-child { border-bottom: none; }
+    .invoice-info { min-width: 0; flex: 1; }
+    .invoice-title { font-weight: 600; color: var(--text-heading); font-size: 0.9375rem; margin-bottom: 0.2rem; }
+    .invoice-sub { font-size: 0.8125rem; color: var(--text-muted); }
+    .invoice-actions { display: flex; align-items: center; gap: 0.875rem; flex-shrink: 0; }
+    .invoice-actions-left { display: flex; align-items: center; gap: 0.75rem; }
+    .invoice-amount { font-family: var(--font-heading); font-weight: 700; color: var(--text-heading); font-size: 1rem; }
+
+    @media (max-width: 640px) {
+      .invoice-row { flex-direction: column; align-items: stretch; gap: 0.625rem; padding: 0.875rem 0; }
+      .invoice-info { width: 100%; display: flex; flex-direction: column; gap: 0.2rem; }
+      .invoice-actions { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-light); }
+      .invoice-actions-left { gap: 0.5rem; }
+      .invoice-amount { font-size: 1.0625rem; }
+      .invoice-actions .btn { height: 32px; padding: 0 0.75rem; font-size: 0.8125rem; }
+    }
+
+    /* Currently Rented Toys Responsive Cards */
+    .rented-toy-card { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.25rem 1.5rem; }
+    .rented-toy-main { display: flex; align-items: center; gap: 1.25rem; flex: 1; min-width: 0; }
+    .rented-toy-img { width: 76px; height: 76px; border-radius: var(--radius-lg); overflow: hidden; flex-shrink: 0; background: var(--bg-surface); }
+    .rented-toy-img img { width: 100%; height: 100%; object-fit: cover; }
+    .rented-toy-info { flex: 1; min-width: 0; }
+    .rented-toy-name { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--text-heading); margin-bottom: 0.25rem; }
+    .rented-toy-meta { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .rented-toy-date { font-size: 0.8125rem; color: var(--text-body); }
+    .rented-toy-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; flex-shrink: 0; }
+    .rented-toy-header-badge { display: none; }
+
+    @media (max-width: 640px) {
+      .rented-toy-card { flex-direction: column; align-items: stretch; gap: 0.875rem; padding: 1rem; }
+      .rented-toy-main { align-items: flex-start; gap: 0.875rem; width: 100%; }
+      .rented-toy-img { width: 64px; height: 64px; min-width: 64px; border-radius: var(--radius-md); }
+      .rented-toy-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.25rem; }
+      .rented-toy-name { font-size: 0.9375rem; line-height: 1.35; margin-bottom: 0; }
+      .rented-toy-header-badge { display: inline-flex; flex-shrink: 0; }
+      .rented-toy-actions-badge { display: none; }
+      .rented-toy-meta { font-size: 0.75rem; line-height: 1.4; }
+      .rented-toy-date { font-size: 0.75rem; margin-top: 0.35rem; }
+      .rented-toy-actions { flex-direction: row; width: 100%; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border-light); align-items: center; }
+      .rented-toy-actions .btn { flex: 1 1 0; min-width: 0; justify-content: center; height: 36px; font-size: 0.8125rem; white-space: nowrap; }
+    }
+
+    /* Responsive Dashboard Grids */
+    .dash-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .dash-sub-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .dash-grid-2col {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .dash-sub-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- MOBILE SIDEBAR OVERLAY -->
+<div id="sidebar-overlay" onclick="toggleSidebar()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:190;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);"></div>
+
 <div class="dash-layout" id="dash-layout">
 
   <!-- SIDEBAR -->
   <aside class="dash-sidebar" id="dash-sidebar">
-    <div class="dash-sidebar-brand">
+    <div class="dash-sidebar-brand" style="display:flex;align-items:center;justify-content:space-between;">
       <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
         <img src="logo.svg" alt="ToyNest" width="36" height="36">
         <div class="nav-logo-text">
@@ -81,6 +350,9 @@
           <span class="brand-bottom">Parent Portal</span>
         </div>
       </a>
+      <button class="mobile-close-btn" onclick="toggleSidebar()" style="display:none;background:transparent;border:none;color:#94A3B8;font-size:1.125rem;cursor:pointer;padding:0.25rem 0.5rem;" aria-label="Close sidebar">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
 
     <nav class="dash-nav" aria-label="Dashboard navigation">
@@ -111,20 +383,10 @@
       <a href="#" class="dash-nav-link" onclick="showSection('billing',this)" id="nav-billing">
         <i class="fas fa-file-invoice"></i> Billing History
       </a>
-      <a href="#" class="dash-nav-link" onclick="showSection('profile',this)" id="nav-profile">
-        <i class="fas fa-user"></i> My Profile
-      </a>
-      <a href="#" class="dash-nav-link" onclick="showSection('notifications',this)" id="nav-notifs">
-        <i class="fas fa-bell"></i> Notifications
-        <span class="dash-nav-badge">3</span>
-      </a>
     </nav>
 
     <div class="dash-sidebar-footer">
-      <a href="index.html" class="dash-nav-link" style="color:#94A3B8;">
-        <i class="fas fa-arrow-left"></i> Back to Site
-      </a>
-      <a href="login.html" class="dash-nav-link" style="color:#EF4444;" id="logout-btn">
+      <a href="javascript:void(0)" class="dash-nav-link" style="color:#EF4444;" id="logout-btn" onclick="openLogoutModal()">
         <i class="fas fa-sign-out-alt"></i> Logout
       </a>
     </div>
@@ -134,13 +396,13 @@
   <div class="dash-main">
     <!-- TOP BAR -->
     <div class="dash-topbar">
-      <div style="display:flex;align-items:center;gap:1rem;">
+      <div class="dash-topbar-left">
         <button class="dash-icon-btn" onclick="toggleSidebar()" id="sidebar-toggle" aria-label="Toggle sidebar">
           <i class="fas fa-bars"></i>
         </button>
         <div class="dash-search">
-          <i class="fas fa-search" style="color:var(--text-muted);font-size:0.8125rem;"></i>
-          <input type="text" placeholder="Search toys, orders...">
+          <i class="fas fa-search" style="color:var(--text-muted);font-size:0.8125rem;flex-shrink:0;"></i>
+          <input type="text" placeholder="Search toys...">
         </div>
       </div>
       <div class="dash-topbar-actions">
@@ -150,11 +412,11 @@
         <button onclick="toggleTheme()" class="dash-icon-btn" title="Toggle Theme" aria-label="Toggle dark mode">
           <i class="fas fa-moon theme-icon"></i>
         </button>
-        <div class="dash-icon-btn" title="Notifications">
+        <div class="dash-icon-btn" title="Notifications" onclick="showSection('notifications', null);" style="cursor:pointer;" id="topbar-notif-btn">
           <i class="fas fa-bell"></i>
           <div class="dash-notif-dot"></div>
         </div>
-        <div class="dash-avatar" title="Profile — Priya Sharma">PS</div>
+        <div class="dash-avatar" title="Profile — Priya Sharma" onclick="showSection('profile', null);" style="cursor:pointer;" id="topbar-avatar-btn">PS</div>
       </div>
     </div>
 
@@ -200,7 +462,7 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+        <div class="dash-grid-2col">
 
           <!-- Current Box -->
           <div class="dash-panel">
@@ -234,6 +496,60 @@
             </div>
             <div style="margin-top:1rem;">
               <a href="#" class="btn btn-primary btn-sm" onclick="showSection('swap', document.getElementById('nav-swap'))" style="width:100%;justify-content:center;">Request Early Swap</a>
+            </div>
+
+            <!-- Activity Kit & Milestones (Fills space evenly with right column) -->
+            <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border-light);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
+                <h4 style="font-size:0.9375rem;font-weight:600;display:flex;align-items:center;gap:0.5rem;margin:0;color:var(--text-heading);">
+                  <i class="fas fa-shapes" style="color:var(--primary);"></i>
+                  Activity Kit &amp; Milestones
+                </h4>
+                <span class="badge badge-primary" style="font-size:0.6875rem;">Age 3 &bull; Aarav</span>
+              </div>
+
+              <!-- Cycle Progress -->
+              <div style="background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:0.75rem 0.875rem;margin-bottom:0.75rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.375rem;font-size:0.8125rem;">
+                  <span style="color:var(--text-muted);font-weight:500;">Monthly Box Cycle</span>
+                  <span style="color:var(--text-heading);font-weight:600;">Day 18 of 30 &bull; 60%</span>
+                </div>
+                <div style="width:100%;height:6px;background:var(--border-light);border-radius:var(--radius-full);overflow:hidden;">
+                  <div style="width:60%;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-gradient-2));border-radius:var(--radius-full);"></div>
+                </div>
+              </div>
+
+              <!-- Skill Highlights -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem;margin-bottom:0.875rem;">
+                <div style="background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:0.625rem 0.75rem;display:flex;align-items:center;gap:0.625rem;">
+                  <div style="width:30px;height:30px;border-radius:var(--radius-sm);background:rgba(34,197,94,0.1);color:#16A34A;display:flex;align-items:center;justify-content:center;font-size:0.8125rem;flex-shrink:0;">
+                    <i class="fas fa-hand-sparkles"></i>
+                  </div>
+                  <div style="min-width:0;">
+                    <div style="font-size:0.75rem;font-weight:600;color:var(--text-heading);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fine Motor</div>
+                    <div style="font-size:0.6875rem;color:var(--green);font-weight:500;">85% Mastered</div>
+                  </div>
+                </div>
+                <div style="background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:0.625rem 0.75rem;display:flex;align-items:center;gap:0.625rem;">
+                  <div style="width:30px;height:30px;border-radius:var(--radius-sm);background:rgba(59,130,246,0.1);color:#2563EB;display:flex;align-items:center;justify-content:center;font-size:0.8125rem;flex-shrink:0;">
+                    <i class="fas fa-lightbulb"></i>
+                  </div>
+                  <div style="min-width:0;">
+                    <div style="font-size:0.75rem;font-weight:600;color:var(--text-heading);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Logic &amp; STEM</div>
+                    <div style="font-size:0.6875rem;color:var(--blue);font-weight:500;">70% Progress</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display:flex;gap:0.625rem;">
+                <a href="#" class="btn btn-secondary btn-sm" onclick="alert('Opening October Activity Kit Play Guide...');return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;">
+                  <i class="fas fa-book-open" style="color:var(--primary);margin-right:0.375rem;"></i> Play Guide
+                </a>
+                <a href="#" class="btn btn-outline-primary btn-sm" onclick="showSection('profile',null);return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;">
+                  <i class="fas fa-sliders-h" style="margin-right:0.375rem;"></i> Edit Goals
+                </a>
+              </div>
             </div>
           </div>
 
@@ -305,7 +621,7 @@
             <h3><i class="fas fa-crown" style="color:var(--primary);margin-right:0.5rem;"></i>Your Subscription</h3>
             <a href="#" class="btn btn-secondary btn-sm" onclick="showSection('subscription',document.getElementById('nav-subscription'))">Manage Plan</a>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+          <div class="dash-sub-stats">
             <div>
               <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em;">Plan</div>
               <div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);">Explorer</div>
@@ -330,20 +646,186 @@
       <div id="section-catalog" style="display:none;">
         <h2 style="margin-bottom:0.5rem;">Browse Toy Catalog</h2>
         <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.9375rem;">Filter by age group and category to find the perfect toys for your child.</p>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;">
+        <div class="filter-tabs">
           <button class="filter-tab active" data-filter="all">All Ages</button>
           <button class="filter-tab" data-filter="0-2">0–2 Years</button>
           <button class="filter-tab" data-filter="2-6">2–6 Years</button>
           <button class="filter-tab" data-filter="6-12">6–12 Years</button>
-          <button class="filter-tab" style="margin-left:auto;" data-filter="educational">Educational</button>
+          <div style="width:1px;height:22px;background:var(--border-default);margin:0 0.25rem;"></div>
+          <button class="filter-tab" data-filter="educational">Educational</button>
           <button class="filter-tab" data-filter="pretend">Pretend Play</button>
           <button class="filter-tab" data-filter="outdoor">Outdoor</button>
           <button class="filter-tab" data-filter="building">Building</button>
         </div>
-        <div class="grid-3" style="gap:1.25rem;">
-          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Building Blocks"></div><div class="toy-card-body"><span class="toy-card-age">Ages 1–5</span><div class="toy-card-title">Rainbow Building Blocks</div><div class="toy-card-cat">Building Sets</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
-          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Educational"></div><div class="toy-card-body"><span class="toy-card-age">Ages 2–4</span><div class="toy-card-title">Smart Shape Sorter Pro</div><div class="toy-card-cat">Educational</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
-          <div class="toy-card"><div class="toy-card-img"><img src="assets/images/outdoor_play_kids_1790218314047.jpg" alt="Outdoor"></div><div class="toy-card-body"><span class="toy-card-age">Ages 2–7</span><div class="toy-card-title">Adventure Outdoor Kit</div><div class="toy-card-cat">Outdoor</div><div class="toy-card-footer"><span class="toy-availability">Available</span><button class="btn btn-primary btn-sm">Add to Next Box</button></div></div></div>
+
+        <div id="dashboard-catalog-grid">
+          <!-- 1. Building / 2-6 -->
+          <div class="toy-card" data-category="building" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Building Blocks"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 1–5</span>
+              <div class="toy-card-title">Rainbow Building Blocks</div>
+              <div class="toy-card-cat"><i class="fas fa-cubes"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Rainbow Building Blocks')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Educational / 2-6 -->
+          <div class="toy-card" data-category="educational" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Educational"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 2–4</span>
+              <div class="toy-card-title">Smart Shape Sorter Pro</div>
+              <div class="toy-card-cat"><i class="fas fa-graduation-cap"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Smart Shape Sorter Pro')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Outdoor / 2-6 -->
+          <div class="toy-card" data-category="outdoor" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/outdoor_play_kids_1790218314047.jpg" alt="Outdoor"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 2–7</span>
+              <div class="toy-card-title">Adventure Outdoor Kit</div>
+              <div class="toy-card-cat"><i class="fas fa-sun"></i> Outdoor</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Adventure Outdoor Kit')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Pretend Play / 2-6 -->
+          <div class="toy-card" data-category="pretend" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Kitchen"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–6</span>
+              <div class="toy-card-title">Chef's Play Kitchen</div>
+              <div class="toy-card-cat"><i class="fas fa-utensils"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Chef\'s Play Kitchen')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Educational / 0-2 -->
+          <div class="toy-card" data-category="educational" data-age="0-2">
+            <div class="toy-card-img"><img src="assets/images/sensory_discovery_set.jpg" alt="Sensory Set"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 0–2</span>
+              <div class="toy-card-title">Sensory Discovery Rings</div>
+              <div class="toy-card-cat"><i class="fas fa-shapes"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Sensory Discovery Rings')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Building / 0-2 -->
+          <div class="toy-card" data-category="building" data-age="0-2">
+            <div class="toy-card-img"><img src="assets/images/jumbo_soft_blocks.jpg" alt="Soft Blocks"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 0–2</span>
+              <div class="toy-card-title">Jumbo Soft Foam Blocks</div>
+              <div class="toy-card-cat"><i class="fas fa-cube"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Jumbo Soft Foam Blocks')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Pretend Play / 0-2 -->
+          <div class="toy-card" data-category="pretend" data-age="0-2">
+            <div class="toy-card-img"><img src="assets/images/eco_green_toys_1790218458406.jpg" alt="Animal Farm"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 1–3</span>
+              <div class="toy-card-title">Eco Wooden Animal Farm</div>
+              <div class="toy-card-cat"><i class="fas fa-paw"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Eco Wooden Animal Farm')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Educational / 6-12 -->
+          <div class="toy-card" data-category="educational" data-age="6-12">
+            <div class="toy-card-img"><img src="assets/images/junior_science_lab.jpg" alt="Science Lab"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 6–12</span>
+              <div class="toy-card-title">Junior Science Explorer Lab</div>
+              <div class="toy-card-cat"><i class="fas fa-flask"></i> Educational</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Junior Science Explorer Lab')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Building / 6-12 -->
+          <div class="toy-card" data-category="building" data-age="6-12">
+            <div class="toy-card-img"><img src="assets/images/code_play_robot.jpg" alt="Coding Robot"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 6–10</span>
+              <div class="toy-card-title">Code &amp; Play STEM Robot</div>
+              <div class="toy-card-cat"><i class="fas fa-robot"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Code & Play STEM Robot')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Outdoor / 6-12 -->
+          <div class="toy-card" data-category="outdoor" data-age="6-12">
+            <div class="toy-card-img"><img src="assets/images/sports_bundle_toy.jpg" alt="Sports Bundle"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 6–12</span>
+              <div class="toy-card-title">Sports &amp; Agility Kit</div>
+              <div class="toy-card-cat"><i class="fas fa-volleyball-ball"></i> Outdoor</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Sports & Agility Kit')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. Building / 2-6 -->
+          <div class="toy-card" data-category="building" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/magnetic_tiles_toy.jpg" alt="Magnetic Tiles"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–8</span>
+              <div class="toy-card-title">Magnetic 3D Master Tiles</div>
+              <div class="toy-card-cat"><i class="fas fa-shapes"></i> Building Sets</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Magnetic 3D Master Tiles')">Add to Box</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12. Pretend Play / 2-6 -->
+          <div class="toy-card" data-category="pretend" data-age="2-6">
+            <div class="toy-card-img"><img src="assets/images/doctors_role_play_kit.jpg" alt="Doctor Kit"></div>
+            <div class="toy-card-body">
+              <span class="toy-card-age">Ages 3–7</span>
+              <div class="toy-card-title">Junior Doctor Clinic Set</div>
+              <div class="toy-card-cat"><i class="fas fa-stethoscope"></i> Pretend Play</div>
+              <div class="toy-card-footer">
+                <span class="toy-availability">Available</span>
+                <button class="btn btn-primary btn-sm" onclick="addToNextBox(this, 'Junior Doctor Clinic Set')">Add to Box</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -352,42 +834,68 @@
         <h2 style="margin-bottom:0.5rem;">Currently Rented Toys</h2>
         <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.9375rem;">Manage your active rentals and check return dates.</p>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
-            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Blocks" style="width:100%;height:100%;object-fit:cover;"></div>
-            <div style="flex:1;">
-              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Rainbow Building Blocks</div>
-              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 1–5 &bull; Building Sets &bull; Rented Oct 1</div>
-              <div style="margin-top:0.625rem;">Return by: <strong>Oct 31, 2025</strong></div>
+          <!-- Toy 1 -->
+          <div class="dash-panel rented-toy-card">
+            <div class="rented-toy-main">
+              <div class="rented-toy-img">
+                <img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Rainbow Building Blocks">
+              </div>
+              <div class="rented-toy-info">
+                <div class="rented-toy-header">
+                  <div class="rented-toy-name">Rainbow Building Blocks</div>
+                  <span class="status-badge status-active rented-toy-header-badge">Active</span>
+                </div>
+                <div class="rented-toy-meta">Ages 1–5 &bull; Building Sets &bull; Rented Oct 1</div>
+                <div class="rented-toy-date">Return by: <strong>Oct 31, 2025</strong></div>
+              </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
-              <span class="status-badge status-active">Active</span>
-              <button class="btn btn-secondary btn-sm">Request Swap</button>
-              <button class="btn btn-outline-primary btn-sm">Buy ₹450</button>
-            </div>
-          </div>
-          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
-            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Kitchen" style="width:100%;height:100%;object-fit:cover;"></div>
-            <div style="flex:1;">
-              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Chef's Play Kitchen</div>
-              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 3–6 &bull; Pretend Play &bull; Rented Oct 1</div>
-              <div style="margin-top:0.625rem;">Return by: <strong>Oct 31, 2025</strong></div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
-              <span class="status-badge status-active">Active</span>
-              <button class="btn btn-secondary btn-sm">Request Swap</button>
-              <button class="btn btn-outline-primary btn-sm">Buy ₹899</button>
+            <div class="rented-toy-actions">
+              <span class="status-badge status-active rented-toy-actions-badge">Active</span>
+              <button class="btn btn-secondary btn-sm" onclick="openSwapForToy('Rainbow Building Blocks')">Request Swap</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="alert('Purchased Rainbow Building Blocks for ₹450!')">Buy ₹450</button>
             </div>
           </div>
-          <div class="dash-panel" style="display:flex;gap:1.25rem;align-items:center;">
-            <div style="width:80px;height:80px;border-radius:var(--radius-lg);overflow:hidden;flex-shrink:0;"><img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Sorter" style="width:100%;height:100%;object-fit:cover;"></div>
-            <div style="flex:1;">
-              <div style="font-family:var(--font-heading);font-weight:600;font-size:1rem;color:var(--text-heading);margin-bottom:0.25rem;">Smart Shape Sorter Pro</div>
-              <div style="font-size:0.875rem;color:var(--text-muted);">Ages 2–4 &bull; Educational &bull; Rented Oct 1</div>
-              <div style="margin-top:0.625rem;">Return by: <strong style="color:#D97706;">Oct 28, 2025 (Due Soon!)</strong></div>
+
+          <!-- Toy 2 -->
+          <div class="dash-panel rented-toy-card">
+            <div class="rented-toy-main">
+              <div class="rented-toy-img">
+                <img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Chef's Play Kitchen">
+              </div>
+              <div class="rented-toy-info">
+                <div class="rented-toy-header">
+                  <div class="rented-toy-name">Chef's Play Kitchen</div>
+                  <span class="status-badge status-active rented-toy-header-badge">Active</span>
+                </div>
+                <div class="rented-toy-meta">Ages 3–6 &bull; Pretend Play &bull; Rented Oct 1</div>
+                <div class="rented-toy-date">Return by: <strong>Oct 31, 2025</strong></div>
+              </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
-              <span class="status-badge status-due">Due Soon</span>
-              <button class="btn btn-primary btn-sm">Schedule Pickup</button>
+            <div class="rented-toy-actions">
+              <span class="status-badge status-active rented-toy-actions-badge">Active</span>
+              <button class="btn btn-secondary btn-sm" onclick="openSwapForToy('Chef\'s Play Kitchen')">Request Swap</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="alert('Purchased Chef\'s Play Kitchen for ₹899!')">Buy ₹899</button>
+            </div>
+          </div>
+
+          <!-- Toy 3 -->
+          <div class="dash-panel rented-toy-card">
+            <div class="rented-toy-main">
+              <div class="rented-toy-img">
+                <img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Smart Shape Sorter Pro">
+              </div>
+              <div class="rented-toy-info">
+                <div class="rented-toy-header">
+                  <div class="rented-toy-name">Smart Shape Sorter Pro</div>
+                  <span class="status-badge status-due rented-toy-header-badge">Due Soon</span>
+                </div>
+                <div class="rented-toy-meta">Ages 2–4 &bull; Educational &bull; Rented Oct 1</div>
+                <div class="rented-toy-date">Return by: <strong style="color:#D97706;">Oct 28, 2025 (Due Soon!)</strong></div>
+              </div>
+            </div>
+            <div class="rented-toy-actions">
+              <span class="status-badge status-due rented-toy-actions-badge">Due Soon</span>
+              <button class="btn btn-primary btn-sm" onclick="alert('Pickup scheduled for Oct 28 at 2–4 PM!')">Schedule Pickup</button>
             </div>
           </div>
         </div>
@@ -395,41 +903,87 @@
 
       <!-- SWAP REQUEST SECTION -->
       <div id="section-swap" style="display:none;">
-        <h2 style="margin-bottom:0.5rem;">Request Early Swap</h2>
-        <p style="color:var(--text-muted);margin-bottom:2rem;">You have <strong style="color:var(--primary);">1 early swap</strong> available this month on your Explorer plan.</p>
-        <div class="dash-panel" style="max-width:600px;">
-          <div class="form-group">
-            <label class="form-label">Select Toy to Return Early</label>
-            <select class="form-input" id="swap-toy">
-              <option>Rainbow Building Blocks</option>
-              <option>Chef's Play Kitchen</option>
-              <option>Smart Shape Sorter Pro</option>
-            </select>
+        <div style="max-width:640px;margin:0 auto;">
+          <div style="text-align:center;margin-bottom:2rem;">
+            <h2 style="margin-bottom:0.5rem;">Request Early Swap</h2>
+            <p style="color:var(--text-muted);">You have <strong style="color:var(--primary);">1 early swap</strong> available this month on your Explorer plan.</p>
           </div>
-          <div class="form-group">
-            <label class="form-label">Reason for Swap</label>
-            <select class="form-input" id="swap-reason">
-              <option>Child has finished exploring this toy</option>
-              <option>Toy doesn't match child's interest</option>
-              <option>Requesting different category</option>
-              <option>Other reason</option>
-            </select>
+          <div class="dash-panel">
+            <div class="form-group">
+              <label class="form-label">Select Toy to Return Early</label>
+              
+              <!-- Custom Contained Toy Selector -->
+              <div class="custom-select-container" id="swap-toy-container">
+                <select class="form-input" id="swap-toy" style="display:none;">
+                  <option value="Rainbow Building Blocks" selected>Rainbow Building Blocks</option>
+                  <option value="Chef's Play Kitchen">Chef's Play Kitchen</option>
+                  <option value="Smart Shape Sorter Pro">Smart Shape Sorter Pro</option>
+                </select>
+
+                <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0" role="button" aria-haspopup="listbox">
+                  <div class="custom-select-selected" id="swap-toy-selected">
+                    <img src="assets/images/building_blocks_set_1790218370372.jpg" alt="" class="custom-select-thumb" id="swap-toy-thumb">
+                    <div class="custom-select-text">
+                      <span class="custom-select-name" id="swap-toy-name">Rainbow Building Blocks</span>
+                      <span class="custom-select-meta" id="swap-toy-meta">Ages 1–5 &bull; Return by Oct 31, 2025</span>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-down custom-select-arrow"></i>
+                </div>
+
+                <div class="custom-select-dropdown" id="swap-toy-dropdown" role="listbox">
+                  <div class="custom-select-option selected" onclick="selectSwapToy('Rainbow Building Blocks', 'assets/images/building_blocks_set_1790218370372.jpg', 'Ages 1–5 &bull; Return by Oct 31, 2025', this)" role="option">
+                    <img src="assets/images/building_blocks_set_1790218370372.jpg" alt="Rainbow Building Blocks" class="custom-select-thumb">
+                    <div class="custom-select-text">
+                      <span class="custom-select-name">Rainbow Building Blocks</span>
+                      <span class="custom-select-meta">Ages 1–5 &bull; Return by Oct 31, 2025</span>
+                    </div>
+                    <i class="fas fa-check custom-select-check"></i>
+                  </div>
+                  <div class="custom-select-option" onclick="selectSwapToy('Chef\'s Play Kitchen', 'assets/images/pretend_play_kitchen_1790218338886.jpg', 'Ages 3–6 &bull; Return by Oct 31, 2025', this)" role="option">
+                    <img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Chef's Play Kitchen" class="custom-select-thumb">
+                    <div class="custom-select-text">
+                      <span class="custom-select-name">Chef's Play Kitchen</span>
+                      <span class="custom-select-meta">Ages 3–6 &bull; Return by Oct 31, 2025</span>
+                    </div>
+                    <i class="fas fa-check custom-select-check"></i>
+                  </div>
+                  <div class="custom-select-option" onclick="selectSwapToy('Smart Shape Sorter Pro', 'assets/images/educational_toys_shelf_1790218297526.jpg', 'Ages 2–4 &bull; Due Soon: Oct 28', this)" role="option">
+                    <img src="assets/images/educational_toys_shelf_1790218297526.jpg" alt="Smart Shape Sorter Pro" class="custom-select-thumb">
+                    <div class="custom-select-text">
+                      <span class="custom-select-name">Smart Shape Sorter Pro</span>
+                      <span class="custom-select-meta" style="color:#D97706;">Ages 2–4 &bull; Due Soon: Oct 28</span>
+                    </div>
+                    <i class="fas fa-check custom-select-check"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reason for Swap</label>
+              <select class="form-input" id="swap-reason">
+                <option>Child has finished exploring this toy</option>
+                <option>Toy doesn't match child's interest</option>
+                <option>Requesting different category</option>
+                <option>Other reason</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Preferred Category for Replacement</label>
+              <select class="form-input" id="swap-category">
+                <option>Any (Let ToyNest Decide)</option>
+                <option>Educational</option>
+                <option>Pretend Play</option>
+                <option>Outdoor</option>
+                <option>Building Sets</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Additional Notes</label>
+              <textarea class="form-input" rows="3" placeholder="Any specific preferences..."></textarea>
+            </div>
+            <button class="btn btn-primary w-full btn-lg" onclick="alert('Swap request submitted! We will process your request within 24 hours.')">Submit Swap Request</button>
           </div>
-          <div class="form-group">
-            <label class="form-label">Preferred Category for Replacement</label>
-            <select class="form-input" id="swap-category">
-              <option>Any (Let ToyNest Decide)</option>
-              <option>Educational</option>
-              <option>Pretend Play</option>
-              <option>Outdoor</option>
-              <option>Building Sets</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Additional Notes</label>
-            <textarea class="form-input" rows="3" placeholder="Any specific preferences..."></textarea>
-          </div>
-          <button class="btn btn-primary w-full btn-lg" onclick="alert('Swap request submitted! We will process your request within 24 hours.')">Submit Swap Request</button>
         </div>
       </div>
 
@@ -440,39 +994,45 @@
         <div class="dash-panel">
           <div class="dash-panel-header">
             <h3>Transaction History</h3>
-            <button class="btn btn-secondary btn-sm">Export All</button>
+            <button class="btn btn-secondary btn-sm" onclick="alert('Exporting invoices as CSV...')">Export All</button>
           </div>
           <div class="invoice-row">
-            <div>
-              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0028</div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">October 2025 &bull; Explorer Plan</div>
+            <div class="invoice-info">
+              <div class="invoice-title">Invoice #TN-0028</div>
+              <div class="invoice-sub">October 2025 &bull; Explorer Plan</div>
             </div>
-            <div style="display:flex;align-items:center;gap:1rem;">
-              <span style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">₹1,299</span>
-              <span class="status-badge status-active">Paid</span>
-              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
-            </div>
-          </div>
-          <div class="invoice-row">
-            <div>
-              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0027</div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">September 2025 &bull; Explorer Plan</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:1rem;">
-              <span style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">₹1,299</span>
-              <span class="status-badge status-active">Paid</span>
-              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
+            <div class="invoice-actions">
+              <div class="invoice-actions-left">
+                <span class="invoice-amount">₹1,299</span>
+                <span class="status-badge status-active">Paid</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="alert('Downloading Invoice #TN-0028 (PDF)...')"><i class="fas fa-download"></i> PDF</button>
             </div>
           </div>
           <div class="invoice-row">
-            <div>
-              <div style="font-weight:600;color:var(--text-heading);">Invoice #TN-0026</div>
-              <div style="font-size:0.8125rem;color:var(--text-muted);">August 2025 &bull; Sprout Plan</div>
+            <div class="invoice-info">
+              <div class="invoice-title">Invoice #TN-0027</div>
+              <div class="invoice-sub">September 2025 &bull; Explorer Plan</div>
             </div>
-            <div style="display:flex;align-items:center;gap:1rem;">
-              <span style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);">₹799</span>
-              <span class="status-badge status-active">Paid</span>
-              <button class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> PDF</button>
+            <div class="invoice-actions">
+              <div class="invoice-actions-left">
+                <span class="invoice-amount">₹1,299</span>
+                <span class="status-badge status-active">Paid</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="alert('Downloading Invoice #TN-0027 (PDF)...')"><i class="fas fa-download"></i> PDF</button>
+            </div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-info">
+              <div class="invoice-title">Invoice #TN-0026</div>
+              <div class="invoice-sub">August 2025 &bull; Sprout Plan</div>
+            </div>
+            <div class="invoice-actions">
+              <div class="invoice-actions-left">
+                <span class="invoice-amount">₹799</span>
+                <span class="status-badge status-active">Paid</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="alert('Downloading Invoice #TN-0026 (PDF)...')"><i class="fas fa-download"></i> PDF</button>
             </div>
           </div>
         </div>
@@ -482,7 +1042,7 @@
       <div id="section-profile" style="display:none;">
         <h2 style="margin-bottom:0.5rem;">My Profile</h2>
         <p style="color:var(--text-muted);margin-bottom:2rem;">Manage your account and child's preferences.</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div class="dash-grid-2col">
           <div class="dash-panel">
             <h3 style="margin-bottom:1.5rem;">Parent Information</h3>
             <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" value="Priya"></div>
@@ -534,21 +1094,25 @@
 
       <!-- SUBSCRIPTION SECTION -->
       <div id="section-subscription" style="display:none;">
-        <h2 style="margin-bottom:0.5rem;">Manage Subscription</h2>
-        <p style="color:var(--text-muted);margin-bottom:2rem;">View your current plan, upgrade, pause, or cancel.</p>
-        <div class="dash-panel" style="max-width:600px;margin-bottom:1.5rem;">
-          <h3 style="margin-bottom:1.5rem;">Current Plan: Explorer</h3>
-          <div style="background:var(--primary-subtle);border-radius:var(--radius-xl);padding:1.5rem;margin-bottom:1.5rem;">
-            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Status</div><div style="margin-top:0.25rem;"><span class="status-badge status-active">Active</span></div></div>
-              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Next Box</div><div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);margin-top:0.25rem;">Nov 1, 2025</div></div>
-              <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Monthly Cost</div><div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);margin-top:0.25rem;">₹1,299</div></div>
-            </div>
+        <div style="max-width:640px;margin:0 auto;">
+          <div style="text-align:center;margin-bottom:2rem;">
+            <h2 style="margin-bottom:0.5rem;">Manage Subscription</h2>
+            <p style="color:var(--text-muted);">View your current plan, upgrade, pause, or cancel.</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <button class="btn btn-primary" onclick="alert('Upgrading to Adventure Plan...')">Upgrade to Adventure (₹1,899)</button>
-            <button class="btn btn-secondary" onclick="alert('Subscription paused for 1 month.')">Pause for 1 Month</button>
-            <button class="btn" style="color:var(--red);border:1px solid var(--red);border-radius:var(--radius-full);" onclick="alert('Cancellation request submitted. We\'ll process this shortly.')">Cancel Subscription</button>
+          <div class="dash-panel" style="margin-bottom:1.5rem;">
+            <h3 style="margin-bottom:1.5rem;">Current Plan: Explorer</h3>
+            <div style="background:var(--primary-subtle);border-radius:var(--radius-xl);padding:1.5rem;margin-bottom:1.5rem;">
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+                <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Status</div><div style="margin-top:0.25rem;"><span class="status-badge status-active">Active</span></div></div>
+                <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Next Box</div><div style="font-family:var(--font-heading);font-weight:600;color:var(--text-heading);margin-top:0.25rem;">Nov 1, 2025</div></div>
+                <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Monthly Cost</div><div style="font-family:var(--font-heading);font-weight:600;color:var(--primary);margin-top:0.25rem;">₹1,299</div></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              <button class="btn btn-primary" onclick="alert('Upgrading to Adventure Plan...')">Upgrade to Adventure (₹1,899)</button>
+              <button class="btn btn-secondary" onclick="alert('Subscription paused for 1 month.')">Pause for 1 Month</button>
+              <button class="btn" style="color:var(--red);border:1px solid var(--red);border-radius:var(--radius-full);" onclick="alert('Cancellation request submitted. We\'ll process this shortly.')">Cancel Subscription</button>
+            </div>
           </div>
         </div>
       </div>
@@ -580,6 +1144,21 @@
   </div>
 </div>
 
+<!-- LOGOUT CONFIRMATION MODAL -->
+<div id="logout-modal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.65);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:99999;align-items:center;justify-content:center;padding:1.5rem;" onclick="handleModalBackdropClick(event)">
+  <div style="background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-2xl);padding:2.25rem 2rem;max-width:420px;width:100%;box-shadow:var(--shadow-xl);text-align:center;animation:slideInUp 0.25s ease;" onclick="event.stopPropagation()">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,0.12);color:#EF4444;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.5rem;">
+      <i class="fas fa-sign-out-alt"></i>
+    </div>
+    <h3 style="font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-heading);font-family:var(--font-heading);">Log Out Confirmation</h3>
+    <p style="color:var(--text-muted);font-size:0.9375rem;margin-bottom:1.75rem;line-height:1.5;">Are you sure you want to log out of your ToyNest parent portal?</p>
+    <div style="display:flex;gap:0.75rem;">
+      <button type="button" class="btn btn-secondary" onclick="closeLogoutModal()" id="cancel-logout-btn" style="flex:1;justify-content:center;font-weight:600;">Cancel</button>
+      <a href="login.html" class="btn" id="confirm-logout-btn" style="flex:1;justify-content:center;background:#EF4444;color:#fff;border-color:#EF4444;font-weight:600;box-shadow:0 4px 14px rgba(239,68,68,0.35);">Yes, Log Out</a>
+    </div>
+  </div>
+</div>
+
 <script src="components.js"></script>
 <script>
 function showSection(id, navEl) {
@@ -591,11 +1170,24 @@ function showSection(id, navEl) {
     // Update nav active
     document.querySelectorAll('.dash-nav-link').forEach(l => l.classList.remove('active'));
     if (navEl) navEl.classList.add('active');
+    // Close sidebar on mobile
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById('dash-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.style.display = 'none';
+        }
+    }
     return false;
 }
 
 function toggleSidebar() {
-    document.getElementById('dash-sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('dash-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.toggle('open');
+    if (overlay) overlay.style.display = isOpen ? 'block' : 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -615,6 +1207,109 @@ function toggleTheme() {
         i.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
     });
 }
+
+function addToNextBox(btn, name) {
+    btn.innerHTML = '<i class="fas fa-check" style="margin-right:0.25rem;"></i> Added';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-secondary');
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+    btn.disabled = true;
+
+    // Toast notification
+    const existing = document.getElementById('dash-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'dash-toast';
+    toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#0F172A;color:#fff;padding:0.75rem 1.25rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);display:flex;align-items:center;gap:0.75rem;z-index:9999;font-weight:500;font-size:0.875rem;border:1px solid rgba(255,255,255,0.15);animation:slideInUp 0.3s ease;';
+    toast.innerHTML = `<i class="fas fa-check-circle" style="color:#22C55E;font-size:1.125rem;"></i> Added <strong>${name}</strong> to your next box!`;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => toast.remove(), 400);
+    }, 2500);
+}
+
+/* ─── LOGOUT CONFIRMATION MODAL ─── */
+function openLogoutModal() {
+    const modal = document.getElementById('logout-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeLogoutModal() {
+    const modal = document.getElementById('logout-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+function handleModalBackdropClick(e) {
+    if (e.target.id === 'logout-modal') {
+        closeLogoutModal();
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLogoutModal();
+        document.querySelectorAll('.custom-select-container.open').forEach(c => c.classList.remove('open'));
+    }
+});
+
+/* ─── CUSTOM TOY SELECTOR ─── */
+function toggleCustomSelect(trigger) {
+    const container = trigger.closest('.custom-select-container');
+    if (!container) return;
+    const isOpen = container.classList.contains('open');
+    document.querySelectorAll('.custom-select-container.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) {
+        container.classList.add('open');
+    }
+}
+
+function selectSwapToy(name, img, meta, optionEl) {
+    const container = optionEl.closest('.custom-select-container');
+    const nameEl = document.getElementById('swap-toy-name');
+    const thumbEl = document.getElementById('swap-toy-thumb');
+    const metaEl = document.getElementById('swap-toy-meta');
+    const select = document.getElementById('swap-toy');
+    
+    if (nameEl) nameEl.textContent = name;
+    if (thumbEl) thumbEl.src = img;
+    if (metaEl) metaEl.textContent = meta;
+    if (select) {
+        select.value = name;
+        select.dispatchEvent(new Event('change'));
+    }
+    if (container) {
+        container.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.remove('selected'));
+        optionEl.classList.add('selected');
+        container.classList.remove('open');
+    }
+}
+
+function openSwapForToy(toyName) {
+    showSection('swap', document.getElementById('nav-swap'));
+    const options = document.querySelectorAll('#swap-toy-dropdown .custom-select-option');
+    options.forEach(opt => {
+        const nameEl = opt.querySelector('.custom-select-name');
+        if (nameEl && nameEl.textContent.trim().toLowerCase() === toyName.trim().toLowerCase()) {
+            opt.click();
+        }
+    });
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-select-container')) {
+        document.querySelectorAll('.custom-select-container.open').forEach(c => c.classList.remove('open'));
+    }
+});
 </script>
 </body>
 </html>

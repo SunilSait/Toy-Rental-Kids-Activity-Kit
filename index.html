@@ -153,6 +153,13 @@
     /* Dark mode adjustments */
     .dark .hero-aurora { opacity:1.2; }
     .dark .hero-orb-1 { background:radial-gradient(circle at 40% 40%, rgba(255,107,107,0.22), rgba(255,142,83,0.10) 60%, transparent); }
+
+    /* Curated Activity Kits section responsive styles */
+    .kit-panel { display:none; grid-template-columns:1fr 1.15fr; gap:3rem; align-items:center; background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-3xl); padding:2.5rem; box-shadow:var(--shadow-card); transition:opacity 0.35s ease; }
+    .kit-panel.active { display:grid; }
+    @media (max-width: 860px) {
+      .kit-panel { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -371,6 +378,30 @@
   </div>
 </section>
 
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num" data-count="12000" data-suffix="+">12,000+</div>
+        <div class="stat-label">Happy Families</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="500" data-suffix="+">500+</div>
+        <div class="stat-label">Premium Toys</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="98" data-suffix="%">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="4" data-suffix="x">4x</div>
+        <div class="stat-label">More Play Variety</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TRUST STRIP -->
 <div style="background:var(--bg-surface);padding:1.75rem 0;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);">
   <div class="container">
@@ -403,47 +434,35 @@
       <p class="section-sub">Smarter than buying. Better for the planet. Curated for your child's development.</p>
     </div>
     <div class="grid-3" style="gap:2rem;">
-      <div class="card reveal" style="text-align:center;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-piggy-bank"></i>
+      <div class="card reveal" style="padding:1.5rem 1.5rem 2rem;text-align:center;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/index_why_save_money.jpg" alt="Mother and toddler saving money with wooden educational toys" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #F59E0B, #D97706);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(245,158,11,0.45);">
+            <i class="fas fa-piggy-bank"></i>
+          </div>
         </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Save Up to 60%</h3>
-        <p style="font-size:0.9375rem;">Stop buying toys that get forgotten in a week. Rent premium toys for a fraction of the retail price.</p>
+        <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Stop buying toys that get forgotten in a week. Rent premium toys for a fraction of the retail price.</p>
       </div>
-      <div class="card reveal" style="text-align:center;animation-delay:0.1s;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-sync-alt"></i>
+      <div class="card reveal" style="padding:1.5rem 1.5rem 2rem;text-align:center;animation-delay:0.1s;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/index_why_fresh_monthly.jpg" alt="Children unpacking a new monthly toy delivery box" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(16,185,129,0.45);">
+            <i class="fas fa-rotate"></i>
+          </div>
         </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Fresh Every Month</h3>
-        <p style="font-size:0.9375rem;">New toys arrive each month, perfectly matched to your child's age and interests. Goodbye boredom!</p>
+        <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">New toys arrive each month, perfectly matched to your child's age and interests. Goodbye boredom!</p>
       </div>
-      <div class="card reveal" style="text-align:center;animation-delay:0.2s;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-leaf"></i>
-        </div>
-        <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Planet-Friendly</h3>
-        <p style="font-size:0.9375rem;">Every rental reduces plastic waste. Our circular model means toys get loved by many families, not landfills.</p>
-      </div>
-      <div class="card reveal" style="text-align:center;animation-delay:0.3s;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-        <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Developmentally Curated</h3>
-        <p style="font-size:0.9375rem;">Our child development experts hand-pick toys that stimulate creativity, motor skills, and learning.</p>
-      </div>
-      <div class="card reveal" style="text-align:center;animation-delay:0.4s;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-shield-virus"></i>
-        </div>
-        <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Hospital-Grade Cleaning</h3>
-        <p style="font-size:0.9375rem;">Every toy is deep-cleaned, sanitized, and inspected before reaching your doorstep. Always safe.</p>
-      </div>
-      <div class="card reveal" style="text-align:center;animation-delay:0.5s;">
-        <div class="card-icon-wrap" style="margin:0 auto 1.25rem;">
-          <i class="fas fa-mobile-alt"></i>
+      <div class="card reveal" style="padding:1.5rem 1.5rem 2rem;text-align:center;animation-delay:0.2s;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/index_why_easy_management.jpg" alt="Parent managing subscription on mobile phone" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #6366F1, #4F46E5);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(99,102,241,0.45);">
+            <i class="fas fa-mobile-screen-button"></i>
+          </div>
         </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.625rem;">Easy Management</h3>
-        <p style="font-size:0.9375rem;">Manage subscriptions, request swaps, track returns, and download invoices — all from your dashboard.</p>
+        <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Manage subscriptions, request swaps, track returns, and download invoices — all from your dashboard.</p>
       </div>
     </div>
   </div>
@@ -535,29 +554,160 @@
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-strip">
+<!-- CURATED ACTIVITY KITS BY AGE GROUP -->
+<section class="section" id="activity-kits" style="border-top:1px solid var(--border-light);background:radial-gradient(ellipse at 50% 0%, var(--primary-subtle) 0%, transparent 60%);">
   <div class="container">
-    <div class="stats-grid">
-      <div>
-        <div class="stat-num" data-count="12000" data-suffix="+">12,000+</div>
-        <div class="stat-label">Happy Families</div>
+    <div class="text-center reveal" style="margin-bottom:2.75rem;">
+      <span class="section-label"><i class="fas fa-boxes-stacked"></i> Ready-to-Play Kits</span>
+      <h2 class="section-heading">Curated Activity Kits by Age Group</h2>
+      <p class="section-sub">Milestone-aligned play boxes packed with sanitized premium toys, development guides, and doorstep swap support.</p>
+    </div>
+
+    <!-- Age Group Tabs -->
+    <div class="filter-tabs reveal" id="kit-age-tabs" style="gap:0.75rem;margin-bottom:2.5rem;">
+      <button type="button" class="filter-tab active" data-kit-target="kit-toddler"><i class="fas fa-baby" style="margin-right:0.4rem;"></i> Toddlers (1–3 Years)</button>
+      <button type="button" class="filter-tab" data-kit-target="kit-preschool"><i class="fas fa-shapes" style="margin-right:0.4rem;"></i> Preschoolers (3–5 Years)</button>
+      <button type="button" class="filter-tab" data-kit-target="kit-stem"><i class="fas fa-robot" style="margin-right:0.4rem;"></i> Young Explorers (5–8 Years)</button>
+    </div>
+
+    <!-- Kit Panels -->
+    <div id="kit-panels-wrapper">
+      
+      <!-- Panel 1: Toddler (1-3 Years) -->
+      <div class="kit-panel active reveal" id="kit-toddler">
+        <div style="position:relative;border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg);border:1px solid var(--border-light);">
+          <img src="assets/images/sensory_discovery_set.jpg" alt="Toddler sensory discovery activity kit" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;top:1rem;left:1rem;background:rgba(22,27,39,0.85);backdrop-filter:blur(8px);border:1px solid var(--border-default);color:#fff;padding:0.35rem 0.85rem;border-radius:var(--radius-full);font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:0.4rem;">
+            <i class="fas fa-star" style="color:var(--amber);"></i> Most Popular Toddler Kit
+          </div>
+          <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(22,27,39,0.88);backdrop-filter:blur(8px);border:1px solid var(--border-light);padding:0.75rem 1rem;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;color:#fff;">
+            <span style="font-size:0.8125rem;font-weight:500;"><i class="fas fa-shield-halved" style="color:var(--green);margin-right:0.35rem;"></i> 100% Non-Toxic &amp; Rounded</span>
+            <span style="font-size:0.8125rem;font-weight:600;color:var(--primary-light);">5 Toys Included</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge-primary" style="font-size:0.75rem;">Ages 1–3</span>
+            <span style="color:var(--text-muted);font-size:0.875rem;font-weight:500;"><i class="fas fa-rotate" style="color:var(--amber);margin-right:0.3rem;"></i> Monthly Swap Included</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.5vw,2rem);margin-bottom:0.75rem;color:var(--text-heading);line-height:1.25;">Little Explorers Sensory &amp; Motor Kit</h3>
+          <p style="color:var(--text-muted);font-size:0.9375rem;line-height:1.7;margin-bottom:1.5rem;">Engineered by pediatric development experts to build sensory awareness, grip strength, and early spatial reasoning through tactile, multi-textured wooden play.</p>
+          
+          <div style="margin-bottom:1.75rem;">
+            <div style="font-size:0.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-body);margin-bottom:0.75rem;">What's In The Box:</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:0.625rem;">
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Sensory Texture Balls Set</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Wooden Montessori Sorter</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Soft Jumbo Stacking Rings</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Milestone Activity Guide</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:2rem;flex-wrap:wrap;">
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-hand-holding-heart" style="color:var(--primary);margin-right:0.3rem;"></i> Fine Motor</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-eye" style="color:var(--amber);margin-right:0.3rem;"></i> Hand-Eye Coordination</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-wand-magic-sparkles" style="color:var(--purple);margin-right:0.3rem;"></i> Tactile Discovery</span>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="signup.html" class="btn btn-primary btn-lg" id="kit-toddler-cta">Rent This Kit <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <a href="catalog.html?cat=educational" class="btn btn-secondary btn-lg" id="kit-toddler-more">View Age 1–3 Toys</a>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="stat-num" data-count="500" data-suffix="+">500+</div>
-        <div class="stat-label">Premium Toys</div>
+
+      <!-- Panel 2: Preschool (3-5 Years) -->
+      <div class="kit-panel reveal" id="kit-preschool">
+        <div style="position:relative;border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg);border:1px solid var(--border-light);">
+          <img src="assets/images/pretend_play_kitchen_1790218338886.jpg" alt="Preschool imaginative roleplay activity kit" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;top:1rem;left:1rem;background:rgba(22,27,39,0.85);backdrop-filter:blur(8px);border:1px solid var(--border-default);color:#fff;padding:0.35rem 0.85rem;border-radius:var(--radius-full);font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:0.4rem;">
+            <i class="fas fa-palette" style="color:var(--primary);"></i> Top Creative Pick
+          </div>
+          <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(22,27,39,0.88);backdrop-filter:blur(8px);border:1px solid var(--border-light);padding:0.75rem 1rem;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;color:#fff;">
+            <span style="font-size:0.8125rem;font-weight:500;"><i class="fas fa-leaf" style="color:var(--green);margin-right:0.35rem;"></i> Eco Wood &amp; Safe Dyes</span>
+            <span style="font-size:0.8125rem;font-weight:600;color:var(--primary-light);">6 Toys Included</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge-primary" style="font-size:0.75rem;">Ages 3–5</span>
+            <span style="color:var(--text-muted);font-size:0.875rem;font-weight:500;"><i class="fas fa-rotate" style="color:var(--amber);margin-right:0.3rem;"></i> Monthly Swap Included</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.5vw,2rem);margin-bottom:0.75rem;color:var(--text-heading);line-height:1.25;">Little Creators &amp; Storytellers Kit</h3>
+          <p style="color:var(--text-muted);font-size:0.9375rem;line-height:1.7;margin-bottom:1.5rem;">Fosters social-emotional intelligence, language development, and spatial cognition with open-ended pretend play sets and colorful interlocking builder components.</p>
+          
+          <div style="margin-bottom:1.75rem;">
+            <div style="font-size:0.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-body);margin-bottom:0.75rem;">What's In The Box:</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:0.625rem;">
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Chef's Kitchen &amp; Food Set</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Rainbow Castle Arch Blocks</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Doctor's Roleplay Kit</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Story Prompt Flashcards</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:2rem;flex-wrap:wrap;">
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-comments" style="color:var(--primary);margin-right:0.3rem;"></i> Language Skills</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-users" style="color:var(--green);margin-right:0.3rem;"></i> Social Empathy</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-cubes" style="color:var(--amber);margin-right:0.3rem;"></i> Spatial Logic</span>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="signup.html" class="btn btn-primary btn-lg" id="kit-preschool-cta">Rent This Kit <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <a href="catalog.html?cat=pretend" class="btn btn-secondary btn-lg" id="kit-preschool-more">View Age 3–5 Toys</a>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="stat-num" data-count="98" data-suffix="%">98%</div>
-        <div class="stat-label">Satisfaction Rate</div>
+
+      <!-- Panel 3: STEM (5-8 Years) -->
+      <div class="kit-panel reveal" id="kit-stem">
+        <div style="position:relative;border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg);border:1px solid var(--border-light);">
+          <img src="assets/images/code_play_robot.jpg" alt="STEM coding robot and science activity kit" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;top:1rem;left:1rem;background:rgba(22,27,39,0.85);backdrop-filter:blur(8px);border:1px solid var(--border-default);color:#fff;padding:0.35rem 0.85rem;border-radius:var(--radius-full);font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:0.4rem;">
+            <i class="fas fa-atom" style="color:var(--purple);"></i> STEM &amp; Coding Winner
+          </div>
+          <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(22,27,39,0.88);backdrop-filter:blur(8px);border:1px solid var(--border-light);padding:0.75rem 1rem;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;color:#fff;">
+            <span style="font-size:0.8125rem;font-weight:500;"><i class="fas fa-microchip" style="color:var(--purple);margin-right:0.35rem;"></i> Screen-Free Coding</span>
+            <span style="font-size:0.8125rem;font-weight:600;color:var(--primary-light);">4 Kits Included</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge-primary" style="font-size:0.75rem;">Ages 5–8</span>
+            <span style="color:var(--text-muted);font-size:0.875rem;font-weight:500;"><i class="fas fa-rotate" style="color:var(--amber);margin-right:0.3rem;"></i> Monthly Swap Included</span>
+          </div>
+          <h3 style="font-size:clamp(1.5rem,2.5vw,2rem);margin-bottom:0.75rem;color:var(--text-heading);line-height:1.25;">Future Inventors &amp; STEM Masters Kit</h3>
+          <p style="color:var(--text-muted);font-size:0.9375rem;line-height:1.7;margin-bottom:1.5rem;">Hands-on engineering, robotic coding challenges, and magnetism experiments that inspire curious young minds and build foundational science confidence.</p>
+          
+          <div style="margin-bottom:1.75rem;">
+            <div style="font-size:0.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-body);margin-bottom:0.75rem;">What's In The Box:</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:0.625rem;">
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Screen-Free Coding Robot</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> 100-Pc Magnetic 3D Tiles</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Junior Chemistry Lab Kit</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-body);"><i class="fas fa-check-circle" style="color:var(--green);font-size:0.875rem;"></i> Weekly STEM Challenges</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:2rem;flex-wrap:wrap;">
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-code" style="color:var(--purple);margin-right:0.3rem;"></i> Algorithmic Thinking</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-magnet" style="color:var(--primary);margin-right:0.3rem;"></i> Physics &amp; Optics</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);color:var(--text-muted);"><i class="fas fa-lightbulb" style="color:var(--amber);margin-right:0.3rem;"></i> Critical Thinking</span>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="signup.html" class="btn btn-primary btn-lg" id="kit-stem-cta">Rent This Kit <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+            <a href="catalog.html?cat=building" class="btn btn-secondary btn-lg" id="kit-stem-more">View Age 5–8 Toys</a>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="stat-num" data-count="4" data-suffix="x">4x</div>
-        <div class="stat-label">More Play Variety</div>
-      </div>
+
     </div>
   </div>
-</div>
+</section>
 
 <!-- TESTIMONIALS -->
 <section class="section" id="testimonials">
@@ -743,7 +893,6 @@
           <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:2.25rem;">
             <span style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);font-size:0.875rem;font-weight:500;color:var(--text-body);"><i class="fas fa-truck-fast" style="color:var(--primary);"></i> Free 48-Hour Delivery</span>
             <span style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);font-size:0.875rem;font-weight:500;color:var(--text-body);"><i class="fas fa-shield-halved" style="color:var(--green);"></i> 100% Hospital Sanitized</span>
-            <span style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-full);font-size:0.875rem;font-weight:500;color:var(--text-body);"><i class="fas fa-rotate" style="color:var(--amber);"></i> Monthly Toy Swap</span>
           </div>
 
           <div style="display:flex;gap:1rem;flex-wrap:wrap;">
@@ -866,6 +1015,30 @@
   window.addEventListener('resize', init);
   init();
   draw();
+})();
+
+// === CURATED ACTIVITY KITS TAB SWITCHER ===
+(function() {
+  const kitTabs = document.querySelectorAll('#kit-age-tabs .filter-tab');
+  const kitPanels = document.querySelectorAll('.kit-panel');
+  if (!kitTabs.length || !kitPanels.length) return;
+
+  kitTabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('data-kit-target');
+      kitTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      kitPanels.forEach(panel => {
+        if (panel.id === targetId) {
+          panel.classList.add('active');
+        } else {
+          panel.classList.remove('active');
+        }
+      });
+    });
+  });
 })();
 </script>
 </body>

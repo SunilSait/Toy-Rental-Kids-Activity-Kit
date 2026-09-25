@@ -151,6 +151,9 @@
       .benefit-row { grid-template-columns: 1fr; }
       .benefit-row.reverse { direction: ltr; }
     }
+    @media (max-width: 960px) {
+      .hygiene-protocol-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    }
   </style>
 </head>
 <body>
@@ -240,18 +243,33 @@
       <p class="section-sub">Every detail of ToyNest is designed with children's development and parents' peace of mind in focus.</p>
     </div>
     <div class="grid-3 reveal" style="gap:2rem;">
-      <div class="mag-card">
-        <i class="fas fa-brain big-icon"></i>
+      <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/feature_expert_curated.jpg" alt="Child development specialist curating educational toys" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #6366F1, #4F46E5);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(99,102,241,0.45);">
+            <i class="fas fa-brain"></i>
+          </div>
+        </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.75rem;">Expert Curated</h3>
-        <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Child development specialists curate every toy box based on cognitive milestones, motor development, and creative growth stages.</p>
+        <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Child development specialists curate every toy box based on cognitive milestones, motor development, and creative stages.</p>
       </div>
-      <div class="mag-card" style="animation-delay:0.1s;">
-        <i class="fas fa-clock big-icon"></i>
+      <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;animation-delay:0.1s;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/feature_always_fresh.jpg" alt="Child opening a new monthly toy rotation delivery box" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(16,185,129,0.45);">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.75rem;">Always Fresh</h3>
         <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">New toys every month means children stay engaged and curious. Our rotation algorithm learns what your child loves most.</p>
       </div>
-      <div class="mag-card" style="animation-delay:0.2s;">
-        <i class="fas fa-certificate big-icon"></i>
+      <div class="mag-card" style="padding:1.5rem 1.5rem 2rem;animation-delay:0.2s;">
+        <div style="border-radius:var(--radius-xl);overflow:hidden;height:180px;margin-bottom:1.25rem;position:relative;box-shadow:var(--shadow-md);">
+          <img src="assets/images/feature_safety_certified.jpg" alt="Safety testing and inspection of eco-friendly wooden toys" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;bottom:0.75rem;left:0.75rem;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, #F59E0B, #D97706);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2.5px solid #FFFFFF;box-shadow:0 6px 16px rgba(245,158,11,0.45);">
+            <i class="fas fa-certificate"></i>
+          </div>
+        </div>
         <h3 style="font-size:1.125rem;margin-bottom:0.75rem;">Safety Certified</h3>
         <p style="font-size:0.9375rem;color:var(--text-muted);line-height:1.7;">Every toy meets BIS and EN71 safety standards. Our 6-step sanitization process uses non-toxic, child-safe products.</p>
       </div>
@@ -319,6 +337,86 @@
           </div>
         </div>
         <a href="pricing.html" class="btn btn-primary" id="h2-family-cta">Start Your Journey</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOSPITAL-GRADE SANITIZATION PROTOCOL -->
+<section class="section" id="hygiene-protocol" style="background:var(--bg-surface);border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3.5rem;">
+      <span class="section-label"><i class="fas fa-shield-virus"></i> 100% Germ-Free Guarantee</span>
+      <h2 class="section-heading">Hospital-Grade 6-Step Sanitization</h2>
+      <p class="section-sub">Because your child's health is our #1 priority. Every returned toy goes through medical-grade decontamination before meeting the next family.</p>
+    </div>
+
+    <div class="hygiene-protocol-grid" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:3.5rem;align-items:center;">
+      <!-- Steps 1 to 6 Grid -->
+      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1.25rem;">
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">1</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Visual Audit &amp; Logging</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Multi-angle camera audit to verify wear, material integrity, and complete part safety.</p>
+          </div>
+        </div>
+
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">2</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Warm Eco-Wash</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Warm pre-wash with non-toxic, organic plant surfactants to clear surface particles.</p>
+          </div>
+        </div>
+
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">3</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Hospital-Grade Bioclean</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Hospital-grade bioclean to safely eliminate 99.9% of bacteria, viruses, and pathogens.</p>
+          </div>
+        </div>
+
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">4</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">UV-C Light Chamber</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Sterilizing UV-C chamber to neutralize deep crevice microbes without toxic chemicals.</p>
+          </div>
+        </div>
+
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">5</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Quality &amp; Safety Check</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Certified QC safety checks on all edges, joints, and batteries to ensure zero hazard.</p>
+          </div>
+        </div>
+
+        <div class="hygiene-step-card" style="padding:1.25rem;border-radius:var(--radius-xl);height:100%;">
+          <div class="hygiene-step-num" style="width:38px;height:38px;font-size:0.9rem;">6</div>
+          <div>
+            <h4 style="font-size:1rem;margin-bottom:0.25rem;">Hermetic Tamper Seal</h4>
+            <p style="font-size:0.85rem;line-height:1.55;margin:0;">Hermetic airtight packaging with dated certificate verifying complete sterile passage.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Card Showcase with Image & Trust Badges -->
+      <div class="reveal" style="animation-delay:0.15s;">
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-3xl);padding:2rem;box-shadow:var(--shadow-card);position:relative;overflow:hidden;">
+          <div style="border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:16/10;margin-bottom:1.5rem;box-shadow:var(--shadow-md);">
+            <img src="assets/images/hygiene_cleaning_toys_1790218387515.jpg" alt="Specialist performing hospital grade UV-C toy cleaning" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.25rem;">
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);border-radius:var(--radius-full);"><i class="fas fa-check-circle" style="margin-right:0.3rem;"></i> WHO Approved Sanitizers</span>
+            <span style="font-size:0.75rem;font-weight:600;padding:0.35rem 0.75rem;background:rgba(255,107,107,0.12);color:var(--primary);border:1px solid rgba(255,107,107,0.25);border-radius:var(--radius-full);"><i class="fas fa-certificate" style="margin-right:0.3rem;"></i> BIS &amp; EN71 Certified</span>
+          </div>
+          <h3 style="font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-heading);">Safer Than Store-Bought</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.5rem;">Retail shelves are touched by hundreds of shoppers daily. ToyNest boxes arrive fresh from hermetic UV-C sterilization directly into your child's hands.</p>
+          <a href="hygiene.html" class="btn btn-outline-primary" style="width:100%;justify-content:center;" id="h2-view-hygiene">Explore Hygiene Standards <i class="fas fa-arrow-right" style="margin-left:0.35rem;"></i></a>
+        </div>
       </div>
     </div>
   </div>
@@ -419,6 +517,46 @@
           <img src="assets/images/toy_catalog_display_1790218433334.jpg" alt="ToyNest dashboard and catalog management" style="width:100%;height:100%;object-fit:cover;">
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section class="section" id="faq" style="background:var(--bg-surface);border-top:1px solid var(--border-light);">
+  <div class="container" style="max-width:860px;">
+    <div class="text-center reveal" style="margin-bottom:3rem;">
+      <span class="section-label"><i class="fas fa-circle-question"></i> Parent Help Center</span>
+      <h2 class="section-heading">Frequently Asked Questions</h2>
+      <p class="section-sub">Have questions before joining? Here are straightforward answers to everything parents ask.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How does the monthly toy rotation work?<span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Each month, you receive a curated activity box filled with sanitized, milestone-appropriate toys. When you are ready for the next rotation, we deliver the fresh box and collect the previous one from your doorstep in a single visit — 100% free!</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How clean and sanitized are the toys?<span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Every single toy passes through our certified 6-step medical decontamination process: warm organic pre-wash, hospital-grade non-toxic disinfectant, and a UV-C sterilization chamber. Each kit arrives sealed with a dated tamper-evident safety certificate.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">What happens if a toy gets damaged or a piece is lost?<span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Kids will be kids! Normal playtime wear and accidental damage or minor missing pieces are 100% covered by our ToyNest Care guarantee with zero penalties. We want kids to explore freely without parent stress.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Can I choose specific toys or request early swaps?<span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! Through your Parent Dashboard, you can hand-pick toys from our 500+ item catalog, blacklist categories, or request an early swap if your child has mastered their current toys ahead of schedule.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Is there any lock-in contract or cancellation fee?<span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Zero lock-in contracts. You can pause your subscription during family holidays or cancel anytime with one simple click in your account settings. Start risk-free with our 7-day trial.</div></div>
+      </div>
+    </div>
+
+    <!-- Help Box -->
+    <div class="text-center reveal" style="margin-top:2.5rem;padding:1.5rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-2xl);">
+      <p style="font-size:0.9375rem;color:var(--text-muted);margin-bottom:0.75rem;">Have a question that isn't answered here?</p>
+      <a href="contact.html" class="btn btn-outline-primary btn-sm" id="h2-faq-contact"><i class="fas fa-comments" style="margin-right:0.35rem;"></i> Talk to Our Parent Support Team</a>
     </div>
   </div>
 </section>

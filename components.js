@@ -248,9 +248,15 @@ function initFAQ() {
 /* ─── FILTER TABS ─── */
 function initFilterTabs() {
     document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const group = this.closest('.filter-tabs');
-            group.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        // If tab only has data-kit-target, let the kit switcher handle it
+        if (!tab.dataset.filter) return;
+
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const group = this.closest('.filter-tabs') || this.parentElement;
+            if (group) {
+                group.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            }
             this.classList.add('active');
             const filter = this.dataset.filter;
             filterToyCards(filter);
@@ -259,12 +265,20 @@ function initFilterTabs() {
 }
 
 function filterToyCards(filter) {
-    document.querySelectorAll('.toy-card').forEach(card => {
+    if (!filter) return;
+    const cards = document.querySelectorAll('.toy-card');
+    let visible = 0;
+    cards.forEach(card => {
         const cat = card.dataset.category || '';
         const age = card.dataset.age || '';
         const match = filter === 'all' || cat === filter || age === filter;
         card.style.display = match ? '' : 'none';
+        if (match) visible++;
     });
+    const emptyMsg = document.getElementById('catalog-empty-state');
+    if (emptyMsg) {
+        emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+    }
 }
 
 /* ─── PASSWORD TOGGLE ─── */
