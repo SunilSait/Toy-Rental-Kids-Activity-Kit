@@ -106,6 +106,8 @@
       border-top: 1px solid var(--border-light);
       background: var(--bg-body);
       flex-shrink: 0;
+      direction: ltr;
+      unicode-bidi: isolate;
     }
 
     @media (max-width: 540px) {
@@ -196,10 +198,16 @@
 
 <!-- FOOTER -->
 <footer class="fullscreen-footer">
-  &copy; 2025 ToyNest. All rights reserved. &bull; Safe &bull; Inspected &bull; Eco-Friendly
+  &copy; <span id="footer-year">2026</span> ToyNest. All rights reserved. &bull; Safe &bull; Inspected &bull; Eco-Friendly
 </footer>
 
 <script src="components.js"></script>
-<script>document.addEventListener('DOMContentLoaded', function() { initAuthPage(); });</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  initAuthPage();
+  const yr = document.getElementById('footer-year');
+  if (yr) yr.textContent = new Date().getFullYear();
+});
+</script>
 </body>
 </html>

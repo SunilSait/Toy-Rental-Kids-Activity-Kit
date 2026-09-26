@@ -27,6 +27,18 @@
       font-weight: 600;
       color: var(--text-heading);
     }
+    .pricing-table th:first-child,
+    .pricing-table td:first-child {
+      text-align: start;
+    }
+    [dir="rtl"] .pricing-table th:first-child,
+    [dir="rtl"] .pricing-table td:first-child {
+      text-align: right !important;
+    }
+    [dir="rtl"] .pricing-table td:not(:first-child) {
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
     .pricing-table .col-explorer {
       background: var(--primary-subtle);
     }
@@ -48,7 +60,11 @@
       }
       .pricing-table th:nth-child(1), .pricing-table td:nth-child(1) {
         width: 37%;
-        text-align: left;
+        text-align: start;
+      }
+      [dir="rtl"] .pricing-table th:nth-child(1),
+      [dir="rtl"] .pricing-table td:nth-child(1) {
+        text-align: right !important;
       }
       .pricing-table th:nth-child(2), .pricing-table td:nth-child(2),
       .pricing-table th:nth-child(3), .pricing-table td:nth-child(3),
@@ -167,7 +183,7 @@
         <table class="pricing-table">
           <thead>
             <tr style="border-bottom:2px solid var(--border-default);">
-              <th style="text-align:left;">Feature</th>
+              <th>Feature</th>
               <th style="text-align:center;">Sprout</th>
               <th style="text-align:center;" class="col-explorer">Explorer <i class="fas fa-star" style="font-size:0.75rem;"></i></th>
               <th style="text-align:center;">Adventure</th>

@@ -11,20 +11,21 @@
   <style>
     body { overflow: hidden; background: var(--bg-surface); }
     .dash-layout { display: flex; height: 100vh; overflow: hidden; }
-    .dash-sidebar { width: 260px; flex-shrink: 0; background: var(--secondary); display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-    .dash-sidebar-brand { padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 0.625rem; }
-    .dash-sidebar-brand .brand-top { color: #F1F5F9; font-family: var(--font-heading); font-weight: 600; font-size: 1.0625rem; }
-    .dash-sidebar-brand .brand-bottom { color: #475569; font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .dash-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
-    .dash-nav-section { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; padding: 0.75rem 0.625rem 0.375rem; }
-    .dash-nav-link { display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem 0.875rem; border-radius: var(--radius-md); font-size: 0.9rem; color: #94A3B8; font-family: var(--font-heading); font-weight: 500; cursor: pointer; transition: var(--transition-fast); text-decoration: none; }
+    .dash-sidebar { width: 260px; flex-shrink: 0; background: var(--secondary); display: flex; flex-direction: column; height: 100vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    .dash-sidebar::-webkit-scrollbar { display: none; width: 0; height: 0; }
+    .dash-sidebar-brand { padding: 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 0.625rem; }
+    .dash-sidebar-brand .brand-top { color: #FFFFFF; font-family: var(--font-heading); font-weight: 600; font-size: 1.125rem; }
+    .dash-sidebar-brand .brand-bottom { color: #94A3B8; font-size: 0.625rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+    .dash-nav { flex: 1; padding: 0.75rem 0.75rem; display: flex; flex-direction: column; gap: 0.2rem; }
+    .dash-nav-section { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; padding: 0.625rem 0.625rem 0.25rem; }
+    .dash-nav-link { display: flex; align-items: center; gap: 0.875rem; padding: 0.6875rem 0.875rem; border-radius: var(--radius-md); font-size: 0.9rem; color: #94A3B8; font-family: var(--font-heading); font-weight: 500; cursor: pointer; transition: var(--transition-fast); text-decoration: none; }
     .dash-nav-link:hover { background: rgba(255,255,255,0.06); color: #F1F5F9; }
     .dash-nav-link.active { background: var(--primary); color: #fff; }
     .dash-nav-link i { width: 18px; text-align: center; font-size: 0.9375rem; }
     .dash-nav-badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.6875rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: var(--radius-full); }
     .dash-sidebar-footer { padding: 1rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); }
     .dash-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .dash-topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 var(--container-padding); height: 68px; background: var(--bg-body); border-bottom: 1px solid var(--border-light); flex-shrink: 0; gap: 1rem; }
+    .dash-topbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--container-padding); height: 68px; background: var(--bg-body); border-bottom: 1px solid var(--border-light); flex-shrink: 0; gap: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
     .dash-topbar-left { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
     .dash-search { display: flex; align-items: center; gap: 0.5rem; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); padding: 0.5rem 1rem; flex: 1; max-width: 320px; min-width: 0; }
     .dash-search input { border: none; background: none; outline: none; font-size: 0.8125rem; color: var(--text-heading); font-family: var(--font-body); width: 100%; min-width: 0; }
@@ -42,7 +43,7 @@
     .metric-card .metric-label { font-size: 0.8125rem; color: var(--text-muted); font-weight: 450; }
     .dash-panel { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-2xl); padding: 1.5rem; box-shadow: var(--shadow-card); margin-bottom: 1.5rem; }
     .dash-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
-    .dash-panel-header h3 { font-size: 1rem; margin: 0; }
+    .dash-panel-header h3 { font-size: 1rem; margin: 0; display: inline-flex; align-items: center; gap: 0.5rem; }
     .toy-list-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 0; border-bottom: 1px solid var(--border-light); }
     .toy-list-item:last-child { border-bottom: none; padding-bottom: 0; }
     .toy-list-img { width: 56px; height: 56px; border-radius: var(--radius-md); overflow: hidden; flex-shrink: 0; }
@@ -80,7 +81,7 @@
       #dashboard-catalog-grid .toy-availability { font-size: 0.6875rem; }
     }
     @media (max-width: 768px) {
-      .dash-topbar { padding: 0 0.875rem; height: 60px; gap: 0.5rem; }
+      .dash-topbar { position: sticky; top: 0; z-index: 100; padding: 0 0.875rem; height: 60px; gap: 0.5rem; background: var(--bg-body); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
       .dash-topbar-left { gap: 0.5rem; }
       .dash-topbar-actions { gap: 0.375rem; }
       .dash-icon-btn { width: 34px; height: 34px; font-size: 0.8125rem; }
@@ -92,9 +93,9 @@
       .mobile-close-btn { display: flex !important; }
       .dash-sidebar { position: fixed; top: 0; bottom: 0; left: -260px; z-index: 200; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: none; }
       .dash-sidebar.open { left: 0; box-shadow: 4px 0 24px rgba(0,0,0,0.5); }
-      body { overflow: auto; }
-      .dash-layout { height: auto; overflow: auto; }
-      .dash-main { height: auto; }
+      body { overflow-x: hidden; overflow-y: auto; }
+      .dash-layout { height: auto; overflow: visible; }
+      .dash-main { height: auto; overflow: visible; }
       .dash-content { overflow: visible; padding: 1.25rem 0.875rem; }
       .metric-grid { grid-template-columns: repeat(2,1fr); gap: 0.875rem; margin-bottom: 1.25rem; }
       .metric-card { padding: 1rem; }
@@ -354,11 +355,11 @@
   <!-- SIDEBAR -->
   <aside class="dash-sidebar" id="dash-sidebar">
     <div class="dash-sidebar-brand" style="display:flex;align-items:center;justify-content:space-between;">
-      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
-        <img src="logo.svg" alt="ToyNest" width="36" height="36">
+      <a href="index.html" class="nav-logo" aria-label="ToyNest Home">
+        <img src="logo.svg" alt="ToyNest Logo" width="40" height="40">
         <div class="nav-logo-text">
           <span class="brand-top">ToyNest</span>
-          <span class="brand-bottom">Parent Portal</span>
+          <span class="brand-bottom">Toy Rental &amp; Kids Kits</span>
         </div>
       </a>
       <button class="mobile-close-btn" onclick="toggleSidebar()" style="display:none;background:transparent;border:none;color:#94A3B8;font-size:1.125rem;cursor:pointer;padding:0.25rem 0.5rem;" aria-label="Close sidebar">
@@ -478,7 +479,7 @@
           <!-- Current Box -->
           <div class="dash-panel">
             <div class="dash-panel-header">
-              <h3><i class="fas fa-box-open" style="color:var(--primary);margin-right:0.5rem;"></i>Current Toy Box</h3>
+              <h3><i class="fas fa-box-open" style="color:var(--primary);margin-inline-end:0.5rem;"></i>Current Toy Box</h3>
               <span class="status-badge status-active">Active</span>
             </div>
             <div class="toy-list-item">
@@ -554,11 +555,11 @@
 
               <!-- Action Buttons -->
               <div style="display:flex;gap:0.625rem;">
-                <a href="#" class="btn btn-secondary btn-sm" onclick="alert('Opening October Activity Kit Play Guide...');return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;">
-                  <i class="fas fa-book-open" style="color:var(--primary);margin-right:0.375rem;"></i> Play Guide
+                <a href="#" class="btn btn-secondary btn-sm" onclick="alert('Opening October Activity Kit Play Guide...');return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;display:inline-flex;align-items:center;gap:0.375rem;">
+                  <i class="fas fa-book-open" style="color:var(--primary);margin-inline-end:0.375rem;"></i> Play Guide
                 </a>
-                <a href="#" class="btn btn-outline-primary btn-sm" onclick="showSection('profile',null);return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;">
-                  <i class="fas fa-sliders-h" style="margin-right:0.375rem;"></i> Edit Goals
+                <a href="#" class="btn btn-outline-primary btn-sm" onclick="showSection('profile',null);return false;" style="flex:1;justify-content:center;font-size:0.75rem;padding:0.4rem 0.5rem;display:inline-flex;align-items:center;gap:0.375rem;">
+                  <i class="fas fa-sliders-h" style="margin-inline-end:0.375rem;"></i> Edit Goals
                 </a>
               </div>
             </div>
@@ -568,7 +569,7 @@
           <div>
             <div class="dash-panel" style="margin-bottom:1.5rem;">
               <div class="dash-panel-header">
-                <h3><i class="fas fa-calendar-check" style="color:var(--primary);margin-right:0.5rem;"></i>Upcoming</h3>
+                <h3><i class="fas fa-calendar-check" style="color:var(--primary);margin-inline-end:0.5rem;"></i>Upcoming</h3>
               </div>
               <div class="toy-list-item">
                 <div style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--primary-subtle);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-truck" style="color:var(--primary);"></i></div>
@@ -598,7 +599,7 @@
 
             <div class="dash-panel">
               <div class="dash-panel-header">
-                <h3><i class="fas fa-bell" style="color:var(--primary);margin-right:0.5rem;"></i>Notifications</h3>
+                <h3><i class="fas fa-bell" style="color:var(--primary);margin-inline-end:0.5rem;"></i>Notifications</h3>
                 <span class="badge badge-primary">3 New</span>
               </div>
               <div class="toy-list-item">
@@ -629,7 +630,7 @@
         <!-- Subscription Status -->
         <div class="dash-panel">
           <div class="dash-panel-header">
-            <h3><i class="fas fa-crown" style="color:var(--primary);margin-right:0.5rem;"></i>Your Subscription</h3>
+            <h3><i class="fas fa-crown" style="color:var(--primary);margin-inline-end:0.5rem;"></i>Your Subscription</h3>
             <a href="#" class="btn btn-secondary btn-sm" onclick="showSection('subscription',document.getElementById('nav-subscription'))">Manage Plan</a>
           </div>
           <div class="dash-sub-stats">
@@ -1220,7 +1221,7 @@ function toggleTheme() {
 }
 
 function addToNextBox(btn, name) {
-    btn.innerHTML = '<i class="fas fa-check" style="margin-right:0.25rem;"></i> Added';
+    btn.innerHTML = '<i class="fas fa-check" style="margin-inline-end:0.25rem;"></i> Added';
     btn.classList.remove('btn-primary');
     btn.classList.add('btn-secondary');
     btn.style.color = 'var(--green)';
