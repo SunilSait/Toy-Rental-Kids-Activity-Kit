@@ -86,7 +86,6 @@
       .dash-topbar-actions { gap: 0.375rem; }
       .dash-icon-btn { width: 34px; height: 34px; font-size: 0.8125rem; }
       .dash-avatar { width: 34px; height: 34px; font-size: 0.8125rem; }
-      .dir-toggle-btn { display: none !important; }
       .dash-search { padding: 0.35rem 0.625rem; max-width: none; }
       .dash-search input { font-size: 0.75rem; }
       #sidebar-toggle { display: flex; flex-shrink: 0; }
@@ -341,6 +340,50 @@
       .dash-sub-stats {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
+      }
+    }
+
+    /* RTL Direction Support for Dashboard (Desktop, Tablet & Mobile) */
+    [dir="rtl"] .dash-sidebar-brand { text-align: right; }
+    [dir="rtl"] .nav-logo-text { text-align: right; }
+    [dir="rtl"] .dash-nav-section { text-align: right; }
+    [dir="rtl"] .dash-nav-link { text-align: right; justify-content: flex-start; }
+    [dir="rtl"] .dash-nav-link i { margin-left: 0.75rem; margin-right: 0; }
+    [dir="rtl"] .dash-nav-badge { margin-left: 0; margin-right: auto; }
+    [dir="rtl"] .dash-topbar-left { justify-content: flex-start; }
+    [dir="rtl"] .dash-search { text-align: right; }
+    [dir="rtl"] .dash-search input { text-align: right; direction: rtl; }
+    [dir="rtl"] .dash-welcome { text-align: right; }
+    [dir="rtl"] .metric-card { text-align: right; }
+    [dir="rtl"] .dash-panel { text-align: right; }
+    [dir="rtl"] .dash-panel-header { text-align: right; }
+    [dir="rtl"] .dash-panel-header h3 i { margin-left: 0.5rem; margin-right: 0; }
+    [dir="rtl"] .toy-list-item { text-align: right; }
+    [dir="rtl"] .toy-list-info { text-align: right; }
+    [dir="rtl"] .rented-toy-card { text-align: right; }
+    [dir="rtl"] .rented-toy-main { text-align: right; }
+    [dir="rtl"] .rented-toy-info { text-align: right; }
+    [dir="rtl"] .rented-toy-actions { align-items: flex-start; }
+    [dir="rtl"] .invoice-row { text-align: right; }
+    [dir="rtl"] .invoice-info { text-align: right; }
+    [dir="rtl"] .filter-tabs { justify-content: flex-start; direction: rtl; }
+    [dir="rtl"] #dashboard-catalog-grid .toy-card-body { text-align: right; }
+    [dir="rtl"] #dashboard-catalog-grid .toy-card-age { align-self: flex-start; }
+
+    @media (max-width: 768px) {
+      /* RTL Mobile/Tablet Sidebar Drawer */
+      [dir="rtl"] .dash-sidebar {
+        left: auto !important;
+        right: -260px !important;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      [dir="rtl"] .dash-sidebar.open {
+        left: auto !important;
+        right: 0 !important;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.5) !important;
+      }
+      [dir="rtl"] .rented-toy-actions {
+        align-items: center;
       }
     }
   </style>
@@ -1323,5 +1366,6 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
+<script src="components.js"></script>
 </body>
 </html>
